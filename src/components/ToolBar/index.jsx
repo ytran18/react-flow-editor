@@ -97,11 +97,12 @@ const ToolBar = () => {
                     />
                     <div className="text-sm text-center w-full">Property Inspector</div>
                 </div>
-                <div className="w-full grid grid-cols-3 text-sm">
+                <div className="w-full grid grid-cols-3 text-sm mb-2">
                     {tabTitle.map((item, index) => {
                         return (
                             <div
                                 onClick={() => handleChangeTab(index)}
+                                key={`toolbar-tab-${index}`}
                                 className={`flex items-center ${state.tab === index ? 'text-[#3498db]' : 'text-black'} transition-all duration-200 justify-center cursor-default font-medium hover:text-[#3498db]`}
                             >
                                 {item}
@@ -109,7 +110,7 @@ const ToolBar = () => {
                         )
                     })}
                 </div>
-                <div className="w-full">
+                <div className="w-full" style={{height: 'calc(100% - 80px)'}}>
                     {renderTab}
                 </div>
                 {/* <div className="border-r border-[rgb(212,212,212)] p-2 flex items-center justify-center">
