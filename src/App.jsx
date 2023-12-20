@@ -13,6 +13,8 @@ import ReactFlow, {
     getConnectedEdges
 } from 'reactflow';
 
+import ToolBar from './components/ToolBar';
+
 import 'reactflow/dist/style.css';
 
 const initialNodes = [
@@ -105,6 +107,7 @@ const AddNodeOnEdgeDrop = () => {
                 <MiniMap />
                 <Controls />
                 <Background />
+                <ToolBar />
             </ReactFlow>
         </div>
     );
