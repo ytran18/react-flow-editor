@@ -7,7 +7,10 @@ import ReactFlow, {
     ReactFlowProvider,
     MiniMap,
     Background,
-    Controls
+    Controls,
+    getIncomers,
+    getOutgoers,
+    getConnectedEdges
 } from 'reactflow';
 
 import 'reactflow/dist/style.css';
@@ -68,6 +71,22 @@ const AddNodeOnEdgeDrop = () => {
         }
     },[screenToFlowPosition]);
 
+    const onNodesDelete = useCallback((deleted) => {
+        setEdges(deleted.reduce((acc, node) => {
+            const incomers = getIncomers(node, nodes, edges);
+            const outgoers = getOutgoers(node, nodes, edges);
+            const connectedEdges = getConnectedEdges([node], edges);
+
+            const remainingEdges = acc.filter((edge) => !connectedEdges.includes(edge));
+
+            const createdEdges = incomers.flatMap(({ id: source }) =>
+                outgoers.map(({ id: target }) => ({ id: `${source}->${target}`, source, target }))
+            );
+
+            return [...remainingEdges, ...createdEdges];
+        }, edges));
+    },[nodes, edges]);
+
     return (
         <div className="w-screen h-screen" ref={reactFlowWrapper}>
             <ReactFlow
@@ -78,6 +97,7 @@ const AddNodeOnEdgeDrop = () => {
                 onConnect={onConnect}
                 onConnectStart={onConnectStart}
                 onConnectEnd={onConnectEnd}
+                onNodesDelete={onNodesDelete}
                 fitView
                 fitViewOptions={{ padding: 2 }}
                 nodeOrigin={[0.5, 0]}
