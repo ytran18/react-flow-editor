@@ -17,6 +17,8 @@ import ToolBar from './components/ToolBar';
 
 import 'reactflow/dist/style.css';
 
+import './App.css';
+
 const initialNodes = [
     {
         id: '0',

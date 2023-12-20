@@ -61,18 +61,18 @@ const ToolBar = () => {
     };
 
     return (
-        <Panel position="top-right" className="flex items-center border border-[rgb(212,212,212)]">
+        <Panel position="top-right" className="flex bg-white items-center border border-[rgb(212,212,212)]">
             <div className=" border-r border-[rgb(212,212,212)] p-2 flex items-center justify-center">
                 <img 
                     src={IconImage} 
-                    className='cursor-pointer'
+                    className='cursor-pointer select-none'
                     onClick={() => onClick('png')}
                 />
             </div>
             <div className="p-2 flex items-center justify-center">
                 <img 
                     src={IconSvg} 
-                    className='cursor-pointer w-[24px]'
+                    className='cursor-pointer w-[24px] select-none'
                     onClick={() => onClick('svg')}
                 />
             </div>
