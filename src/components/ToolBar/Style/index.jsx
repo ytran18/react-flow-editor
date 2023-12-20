@@ -40,7 +40,6 @@ const Style = () => {
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (colorPickerRef.current && !colorPickerRef.current.contains(event.target)) {
-                // Click bên ngoài SketchPicker, ẩn nó đi
                 setState(prev => ({
                     ...prev,
                     isDisplayColorPickerColor: false,
@@ -51,10 +50,8 @@ const Style = () => {
             }
         };
 
-        // Thêm event listener khi component được mount
         document.addEventListener("mousedown", handleClickOutside);
 
-        // Cleanup: loại bỏ event listener khi component bị unmount
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
@@ -85,10 +82,6 @@ const Style = () => {
             setState(prev => ({...prev, [stateName]: color.hex}));
         }
     };
-
-    const handleChange = (color) => {
-        console.log(color);
-    }
 
     return (
         <div className="p-2 w-full overflow-y-auto h-full scrollbar-hide">
@@ -128,7 +121,6 @@ const Style = () => {
                                         >
                                             <SketchPicker 
                                                 color={state[item.curr]}
-                                                // handleChange={handleChange}
                                                 onChangeComplete={(color) => handleChangeComplete(color, item.curr)}
                                             />
                                         </div>
