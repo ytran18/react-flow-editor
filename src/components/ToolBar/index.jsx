@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Panel, useReactFlow, getRectOfNodes, getTransformForBounds } from 'reactflow';
 import { toPng, toSvg } from 'html-to-image';
 
-import IconImage from '../../assets/image.svg';
-import IconSvg from '../../assets/svg.svg';
+import Style from './Style/index';
+import Data from './Data/index';
+import Event from './Event/index';
+
+import IconMore from '../../assets/more.svg';
+import IconDoubleRight from '../../assets/doubleRight.svg';
 
 const downloadImage = (dataUrl) => {
     const a = document.createElement('a');
@@ -30,14 +34,18 @@ const ToolBar = () => {
 
     const { getNodes } = useReactFlow();
 
+    const [state, setState] = useState({
+        isShowToolBar: false,
+        tab: 0,
+    });
+
+    const tabTitle = ['Style', 'Data', 'Event'];
+
     function filter (node) {
         return (node.tagName !== 'i');
     }
 
     const onClick = (type) => {
-        // we calculate a transform for the nodes so that all nodes are visible
-        // we then overwrite the transform of the `.react-flow__viewport` element
-        // with the style option of the html-to-image library
         if (type === 'png') {
             const nodesBounds = getRectOfNodes(getNodes());
             const transform = getTransformForBounds(nodesBounds, imageWidth, imageHeight, 0.5, 2);
@@ -60,23 +68,73 @@ const ToolBar = () => {
         };
     };
 
+    const handleShowToolBar = () => {
+        setState(prev => ({...prev, isShowToolBar: !prev.isShowToolBar}));
+    };
+
+    const handleChangeTab = (tab) => {
+        setState(prev => ({...prev, tab: tab}));
+    };
+
+    const renderTab = {
+        0: <Style />,
+        1: <Data />,
+        2: <Event />
+    }[state.tab] || 0;
+
     return (
-        <Panel position="top-right" className="flex bg-white items-center border border-[rgb(212,212,212)]">
-            <div className=" border-r border-[rgb(212,212,212)] p-2 flex items-center justify-center">
+        <Panel
+            position="right"
+            className={`flex items-center ${state.isShowToolBar ? 'border border-[rgb(212,212,212)] bg-white' : ''}`}
+            style={{height: state.isShowToolBar ? 'calc(100vh - 30px)' : ''}}
+        >
+            <div className={`${state.isShowToolBar ? 'block' : 'hidden'} w-72 h-full overflow-hidden transition-all duration-300`}>
+                <div className="relative p-2 h-9 mb-4 flex w-full items-center">
+                    <img
+                        src={IconDoubleRight}
+                        className="cursor-pointer transform scale-75"
+                        onClick={handleShowToolBar}
+                    />
+                    <div className="text-sm text-center w-full">Property Inspector</div>
+                </div>
+                <div className="w-full grid grid-cols-3 text-sm">
+                    {tabTitle.map((item, index) => {
+                        return (
+                            <div
+                                onClick={() => handleChangeTab(index)}
+                                className={`flex items-center ${state.tab === index ? 'text-[#3498db]' : 'text-black'} transition-all duration-200 justify-center cursor-default font-medium hover:text-[#3498db]`}
+                            >
+                                {item}
+                            </div>
+                        )
+                    })}
+                </div>
+                <div className="w-full">
+                    {renderTab}
+                </div>
+                {/* <div className="border-r border-[rgb(212,212,212)] p-2 flex items-center justify-center">
+                    <img 
+                        src={IconImage} 
+                        className='cursor-pointer select-none'
+                        onClick={() => onClick('png')}
+                    />
+                </div>
+                <div className="p-2 flex items-center justify-center">
+                    <img 
+                        src={IconSvg} 
+                        className='cursor-pointer w-[24px] select-none'
+                        onClick={() => onClick('svg')}
+                    />
+                </div> */}
+            </div>
+            <div className={`${state.isShowToolBar ? 'hidden' : 'block'}`}>
                 <img 
-                    src={IconImage} 
-                    className='cursor-pointer select-none'
-                    onClick={() => onClick('png')}
+                    src={IconMore}
+                    className="cursor-pointer"
+                    onClick={handleShowToolBar}
                 />
             </div>
-            <div className="p-2 flex items-center justify-center">
-                <img 
-                    src={IconSvg} 
-                    className='cursor-pointer w-[24px] select-none'
-                    onClick={() => onClick('svg')}
-                />
-            </div>
-    </Panel>
+        </Panel>
     );
 };
 

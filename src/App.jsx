@@ -5,7 +5,6 @@ import ReactFlow, {
     addEdge,
     useReactFlow,
     ReactFlowProvider,
-    MiniMap,
     Background,
     Controls,
     getIncomers,
@@ -106,7 +105,6 @@ const AddNodeOnEdgeDrop = () => {
                 fitViewOptions={{ padding: 2 }}
                 nodeOrigin={[0.5, 0]}
             >
-                <MiniMap />
                 <Controls />
                 <Background />
                 <ToolBar />
