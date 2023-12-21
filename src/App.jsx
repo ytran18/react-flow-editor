@@ -44,6 +44,12 @@ const AddNodeOnEdgeDrop = () => {
         currNodeBg: '#eee',
         currNodeBorderColor: '#000',
         currNodeShadowColor: '',
+        currNodeFontSize: 14,
+        currNodeFont: '',
+        currNodeFontStyle: '',
+        currNodeBorderStyle: '',
+        currNodeTitleColor: '#000',
+        isShowToolBar: false,
     });
 
     const { screenToFlowPosition } = useReactFlow();
@@ -96,6 +102,38 @@ const AddNodeOnEdgeDrop = () => {
         );
     }, [state.currNodeBorderColor, setNodes]);
 
+    // Change node font size
+    useEffect(() => {
+        setNodes((nds) =>
+            nds.map((node) => {
+                if (node.id === state.currNodeId) {
+                    node.style = {
+                        ...node.style,
+                        fontSize: `${state.currNodeFontSize}px`, 
+                    };
+                }
+        
+                return node;
+            })
+        );
+    }, [state.currNodeFontSize, setNodes]);
+
+    // Change node text color
+    useEffect(() => {
+        setNodes((nds) =>
+            nds.map((node) => {
+                if (node.id === state.currNodeId) {
+                    node.style = {
+                        ...node.style,
+                        color: state.currNodeTitleColor, 
+                    };
+                }
+        
+                return node;
+            })
+        );
+    }, [state.currNodeTitleColor, setNodes]);
+
     const onConnect = useCallback((params) => {
         connectingNodeId.current = null;
         setEdges((eds) => addEdge(params, eds))
@@ -147,7 +185,7 @@ const AddNodeOnEdgeDrop = () => {
     },[nodes, edges]);
 
     const onNodeClick = (event, node) => {
-        setState(prev => ({...prev, currNodeId: node?.id, currNodeTitle: node?.data?.label}));
+        setState(prev => ({...prev, currNodeId: node?.id, currNodeTitle: node?.data?.label, isShowToolBar: true}));
     };
 
     // handle change curr node title
@@ -160,11 +198,27 @@ const AddNodeOnEdgeDrop = () => {
     // handle change curr node color (bg, border, ...)
     const handleChangeColor = (color, type) => {
         const typeChange = {
+            'currColor': 'currNodeTitleColor',
             'currBackground': 'currNodeBg',
             'currBorderColor': 'currNodeBorderColor',
             'currShadowColor': 'currNodeShadowColor',
         }[type];
         setState(prev => ({...prev, [typeChange]: color}));
+    };
+
+    // handle change curr node font size
+    const handleChangeInputPicker = (value, type) => {
+        const typeChange = {
+            'font': 'currNodeFont',
+            'font-size': 'currNodeFontSize',
+            'font-style': 'currNodeFontStyle',
+            'border-style': 'currNodeBorderStyle'
+        }[type];
+        setState(prev => ({...prev, [typeChange]: value}));
+    };
+
+    const handleShowToolBar = () => {
+        setState(prev => ({...prev, isShowToolBar: !prev.isShowToolBar}));
     };
 
     return (
@@ -186,11 +240,17 @@ const AddNodeOnEdgeDrop = () => {
                 <Controls />
                 <Background />
                 <ToolBar 
+                    isShowToolBar={state.isShowToolBar}
                     currNodeTitle={state.currNodeTitle}
                     currNodeBg={state.currNodeBg}
                     currNodeBorderColor={state.currNodeBorderColor}
+                    currNodeFontSize={state.currNodeFontSize}
+                    currNodeTitleColor={state.currNodeTitleColor}
+                    currNodeId={state.currNodeId}
                     handleChangeText={handleChangeText}
                     handleChangeColor={handleChangeColor}
+                    handleShowToolBar={handleShowToolBar}
+                    handleChangeInputPicker={handleChangeInputPicker}
                 />
             </ReactFlow>
         </div>

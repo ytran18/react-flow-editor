@@ -5,7 +5,7 @@ import { DownOutlined } from '@ant-design/icons';
 
 const Picker = (props) => {
 
-    const { item, type } = props;
+    const { item, type, currNodeFontSize, handleChangeInputPicker } = props;
 
     const items = {
         'font': [
@@ -53,6 +53,22 @@ const Picker = (props) => {
         ]
     }[type];
 
+    const handleChangeInput = (e, type) => {
+        handleChangeInputPicker(e?.target?.value, type)
+    };
+
+    const onClick = (e) => {
+        const value = items.find(ele => ele.key === e.key).label;
+        handleChangeInputPicker(value, type);
+    };
+
+    const inputValue = {
+        'font': 'Font 1',
+        'font-size': currNodeFontSize || 14,
+        'font-style': 'Normal',
+        'border-style': 'solid'
+    }[type];
+
     return (
         <div className="w-full p-2 flex items-center font">
             <div className="w-[30%] text-xs mr-2 text-right">{item.label}</div>
@@ -60,12 +76,13 @@ const Picker = (props) => {
                 <div className="flex">
                     <input
                         type={item?.inputType}
-                        defaultValue={item?.defaultValue}
+                        value={inputValue}
+                        onChange={(e) => handleChangeInput(e, type)}
                         className="w-full h-full outline-none text-xs py-1 px-2"
                     />
                     <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
                             <Dropdown
-                                menu={{items}}
+                                menu={{items, onClick}}
                                 trigger={['click']}
                                 placement="bottomRight"
                             >

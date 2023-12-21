@@ -32,12 +32,13 @@ const imageHeight = 768;
 
 const ToolBar = (props) => {
 
-    const { currNodeTitle, handleChangeText, currNodeBg, handleChangeColor, currNodeBorderColor } = props;
+    const { currNodeTitle, handleChangeText, currNodeBg, handleChangeColor, currNodeBorderColor,
+            handleShowToolBar, isShowToolBar, currNodeFontSize, handleChangeInputPicker, currNodeTitleColor,
+            currNodeId } = props;
 
     const { getNodes } = useReactFlow();
 
     const [state, setState] = useState({
-        isShowToolBar: false,
         tab: 0,
     });
 
@@ -70,10 +71,6 @@ const ToolBar = (props) => {
         };
     };
 
-    const handleShowToolBar = () => {
-        setState(prev => ({...prev, isShowToolBar: !prev.isShowToolBar}));
-    };
-
     const handleChangeTab = (tab) => {
         setState(prev => ({...prev, tab: tab}));
     };
@@ -83,8 +80,12 @@ const ToolBar = (props) => {
                 currNodeTitle={currNodeTitle}
                 currNodeBg={currNodeBg}
                 currNodeBorderColor={currNodeBorderColor}
+                currNodeFontSize={currNodeFontSize}
+                currNodeTitleColor={currNodeTitleColor}
+                currNodeId={currNodeId}
                 handleChangeText={handleChangeText}
                 handleChangeColor={handleChangeColor}
+                handleChangeInputPicker={handleChangeInputPicker}
             />,
         1: <Data />,
         2: <Event />
@@ -93,10 +94,10 @@ const ToolBar = (props) => {
     return (
         <Panel
             position="right"
-            className={`flex items-center ${state.isShowToolBar ? 'border border-[rgb(212,212,212)] bg-white' : ''}`}
-            style={{height: state.isShowToolBar ? 'calc(100vh - 30px)' : ''}}
+            className={`flex items-center ${isShowToolBar ? 'border border-[rgb(212,212,212)] bg-white' : ''}`}
+            style={{height: isShowToolBar ? 'calc(100vh - 30px)' : ''}}
         >
-            <div className={`${state.isShowToolBar ? 'block' : 'hidden'} w-72 h-full overflow-hidden transition-all duration-300`}>
+            <div className={`${isShowToolBar ? 'block' : 'hidden'} w-72 h-full overflow-hidden transition-all duration-300`}>
                 <div className="relative p-2 h-9 mb-4 flex w-full items-center">
                     <img
                         src={IconDoubleRight}
@@ -136,7 +137,7 @@ const ToolBar = (props) => {
                     />
                 </div> */}
             </div>
-            <div className={`${state.isShowToolBar ? 'hidden' : 'block'}`}>
+            <div className={`${isShowToolBar ? 'hidden' : 'block'}`}>
                 <img 
                     src={IconMore}
                     className="cursor-pointer"

@@ -6,10 +6,11 @@ import Picker from "./Picker";
 
 const Style = (props) => {
 
-    const { currNodeTitle, handleChangeText, currNodeBg, handleChangeColor, currNodeBorderColor } = props;
+    const { currNodeTitle, handleChangeText, currNodeBg, handleChangeColor, currNodeBorderColor,
+            currNodeFontSize, handleChangeInputPicker, currNodeTitleColor, currNodeId } = props;
 
     const [state, setState] = useState({
-        currColor: '#000000',
+        currColor: '',
         currBackground: '',
         currBorderColor: '#000000',
         currShadowColor: '#000000',
@@ -20,7 +21,12 @@ const Style = (props) => {
     });
 
     useEffect(() => {
-        setState(prev => ({...prev, currBackground: currNodeBg, currBorderColor: currNodeBorderColor}));
+        setState(prev => ({
+            ...prev,
+            currBackground: currNodeBg,
+            currBorderColor: currNodeBorderColor,
+            currColor: currNodeTitleColor,
+        }));
     },[currNodeBg, currNodeBorderColor]);
 
     const colorPickerRef = useRef(null);
@@ -106,7 +112,8 @@ const Style = (props) => {
                                 <div className="w-[30%] text-xs mr-2 text-right">{item.label}</div>
                                 <div className="w-[70%] border border-[rgb(219,219,219)]">
                                     <input
-                                        value={currNodeTitle}
+                                        disabled={item?.textType === 'id'}
+                                        value={item?.textType === 'title' ? currNodeTitle : currNodeId}
                                         onChange={(e) => handleChangeText(e, item?.textType)}
                                         className="w-full h-full outline-none text-xs py-1 px-2"
                                     />
@@ -145,7 +152,12 @@ const Style = (props) => {
 
                         {item.type === 'picker' && (
                             <div className="w-full">
-                                <Picker item={item} type={item.pickerType}/>
+                                <Picker
+                                    item={item}
+                                    type={item.pickerType}
+                                    currNodeFontSize={currNodeFontSize}
+                                    handleChangeInputPicker={handleChangeInputPicker}
+                                />
                             </div>                        
                         )}
 
