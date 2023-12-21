@@ -24,6 +24,7 @@ const initialNodes = [
         type: 'input',
         data: { label: 'Root' },
         position: { x: 0, y: 50 },
+        style : {},
     },
 ];
 
@@ -229,7 +230,19 @@ const AddNodeOnEdgeDrop = () => {
     },[nodes, edges]);
 
     const onNodeClick = (event, node) => {
-        setState(prev => ({...prev, currNodeId: node?.id, currNodeTitle: node?.data?.label, isShowToolBar: true}));
+        const fontSize = node?.style?.fontSize?.replace(/\D/g, '');
+        setState(prev => ({
+            ...prev,
+            currNodeId: node?.id,
+            currNodeTitle: node?.data?.label || 'Node',
+            isShowToolBar: true,
+            currNodeBg: node?.style?.backgroundColor || '#eee',
+            currNodeBorderStyle: node?.style?.borderStyle || 'solid',
+            currNodeTitleColor: node?.style?.color || '#000',
+            currNodeFontSize: fontSize || 14,
+            currNodeFontWeight: node?.style?.fontWeight || 'Normal',
+            currNodeBorderColor: node?.style?.borderColor || '#000',
+        }));
     };
 
     // handle change curr node title

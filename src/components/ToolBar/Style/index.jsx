@@ -126,7 +126,7 @@ const Style = (props) => {
                                     <div
                                         onClick={() => handleDisplayColorPicker(item.state)}
                                         style={{background: state[item.curr]}}
-                                        className={`w-4 h-4 cursor-pointer absolute right-1 top-1/2 transform -translate-y-1/2`}
+                                        className={`w-4 h-4 border border-solid border-[#333] cursor-pointer absolute right-1 top-1/2 transform -translate-y-1/2`}
                                     ></div>
                                     {state[item.state] && (
                                         <div

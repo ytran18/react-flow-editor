@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-import { Panel, useReactFlow, getRectOfNodes, getTransformForBounds } from 'reactflow';
-import { toPng, toSvg } from 'html-to-image';
+import { Panel, useReactFlow } from 'reactflow';
 
 import Style from './Style/index';
 import Edges from './Edges/index';
@@ -81,20 +80,6 @@ const ToolBar = (props) => {
                 <div className="w-full" style={{height: 'calc(100% - 80px)'}}>
                     {renderTab}
                 </div>
-                {/* <div className="border-r border-[rgb(212,212,212)] p-2 flex items-center justify-center">
-                    <img 
-                        src={IconImage} 
-                        className='cursor-pointer select-none'
-                        onClick={() => onClick('png')}
-                    />
-                </div>
-                <div className="p-2 flex items-center justify-center">
-                    <img 
-                        src={IconSvg} 
-                        className='cursor-pointer w-[24px] select-none'
-                        onClick={() => onClick('svg')}
-                    />
-                </div> */}
             </div>
             <div className={`${isShowToolBar ? 'hidden' : 'block'}`}>
                 <img 
