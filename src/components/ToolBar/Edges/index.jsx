@@ -1,11 +1,11 @@
 import React from "react";
 
-const Data = () => {
+const Edges = () => {
     return (
         <div className="">
-            Data
+            Edges
         </div>
     );
 };
 
-export default Data;
+export default Edges;

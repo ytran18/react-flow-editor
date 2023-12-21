@@ -4,31 +4,11 @@ import { Panel, useReactFlow, getRectOfNodes, getTransformForBounds } from 'reac
 import { toPng, toSvg } from 'html-to-image';
 
 import Style from './Style/index';
-import Data from './Data/index';
-import Event from './Event/index';
+import Edges from './Edges/index';
+import Download from './Download/index';
 
 import IconMore from '../../assets/more.svg';
 import IconDoubleRight from '../../assets/doubleRight.svg';
-
-const downloadImage = (dataUrl) => {
-    const a = document.createElement('a');
-  
-    a.setAttribute('download', 'reactflow.png');
-    a.setAttribute('href', dataUrl);
-    a.click();
-};
-
-const downloadSvg = (dataUrl) => {
-    const link = document.createElement('a');
-    link.href = dataUrl;
-    link.download = 'reactflow.svg';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-};
-
-const imageWidth = 1024;
-const imageHeight = 768;
 
 const ToolBar = (props) => {
 
@@ -42,33 +22,10 @@ const ToolBar = (props) => {
         tab: 0,
     });
 
-    const tabTitle = ['Style', 'Data', 'Event'];
+    const tabTitle = ['Node', 'Edges', 'Download'];
 
     function filter (node) {
         return (node.tagName !== 'i');
-    };
-
-    const onClick = (type) => {
-        if (type === 'png') {
-            const nodesBounds = getRectOfNodes(getNodes());
-            const transform = getTransformForBounds(nodesBounds, imageWidth, imageHeight, 0.5, 2);
-        
-            toPng(document.querySelector('.react-flow__viewport'), {
-                backgroundColor: '#1a365d',
-                width: imageWidth,
-                height: imageHeight,
-                style: {
-                    width: imageWidth,
-                    height: imageHeight,
-                    transform: `translate(${transform[0]}px, ${transform[1]}px) scale(${transform[2]})`,
-                },
-            }).then(downloadImage);
-        };
-
-        if (type === 'svg') {
-            toSvg(document.querySelector('.react-flow__viewport'), {filter: filter})
-                .then(downloadSvg);
-        };
     };
 
     const handleChangeTab = (tab) => {
@@ -89,8 +46,8 @@ const ToolBar = (props) => {
                 handleChangeColor={handleChangeColor}
                 handleChangeInputPicker={handleChangeInputPicker}
             />,
-        1: <Data />,
-        2: <Event />
+        1: <Edges />,
+        2: <Download />
     }[state.tab] || 0;
 
     return (
