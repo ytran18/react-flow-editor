@@ -80,7 +80,7 @@ const Picker = (props) => {
                         onChange={(e) => handleChangeInput(e, type)}
                         className="w-full h-full outline-none text-xs py-1 px-2"
                     />
-                    <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
+                    {/* <div className="absolute right-2 top-1/2 transform -translate-y-1/2"> */}
                             <Dropdown
                                 menu={{items, onClick}}
                                 trigger={['click']}
@@ -88,7 +88,7 @@ const Picker = (props) => {
                             >
                                 <DownOutlined />
                             </Dropdown>
-                    </div>
+                    {/* </div> */}
                 </div>
             </div>
         </div>
