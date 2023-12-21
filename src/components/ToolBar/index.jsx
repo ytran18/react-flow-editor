@@ -34,7 +34,7 @@ const ToolBar = (props) => {
 
     const { currNodeTitle, handleChangeText, currNodeBg, handleChangeColor, currNodeBorderColor,
             handleShowToolBar, isShowToolBar, currNodeFontSize, handleChangeInputPicker, currNodeTitleColor,
-            currNodeId, currNodeFontWeight } = props;
+            currNodeId, currNodeFontWeight, currNodeBorderStyle } = props;
 
     const { getNodes } = useReactFlow();
 
@@ -84,6 +84,7 @@ const ToolBar = (props) => {
                 currNodeTitleColor={currNodeTitleColor}
                 currNodeId={currNodeId}
                 currNodeFontWeight={currNodeFontWeight}
+                currNodeBorderStyle={currNodeBorderStyle}
                 handleChangeText={handleChangeText}
                 handleChangeColor={handleChangeColor}
                 handleChangeInputPicker={handleChangeInputPicker}

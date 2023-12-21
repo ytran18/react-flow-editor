@@ -47,7 +47,7 @@ const AddNodeOnEdgeDrop = () => {
         currNodeFontSize: 14,
         currNodeFont: '',
         currNodeFontWeight: 'Normal',
-        currNodeBorderStyle: '',
+        currNodeBorderStyle: 'solid',
         currNodeTitleColor: '#000',
         isShowToolBar: false,
     });
@@ -133,6 +133,22 @@ const AddNodeOnEdgeDrop = () => {
             })
         );
     }, [state.currNodeTitleColor, setNodes]);
+
+    // Change node border style
+    useEffect(() => {
+        setNodes((nds) =>
+            nds.map((node) => {
+                if (node.id === state.currNodeId) {
+                    node.style = {
+                        ...node.style,
+                        borderStyle: state.currNodeBorderStyle, 
+                    };
+                }
+        
+                return node;
+            })
+        );
+    }, [state.currNodeBorderStyle, setNodes]);
 
     // Change node font style
     useEffect(() => {
@@ -276,6 +292,7 @@ const AddNodeOnEdgeDrop = () => {
                     currNodeTitleColor={state.currNodeTitleColor}
                     currNodeId={state.currNodeId}
                     currNodeFontWeight={state.currNodeFontWeight}
+                    currNodeBorderStyle={state.currNodeBorderStyle}
                     handleChangeText={handleChangeText}
                     handleChangeColor={handleChangeColor}
                     handleShowToolBar={handleShowToolBar}

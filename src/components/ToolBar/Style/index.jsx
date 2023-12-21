@@ -7,7 +7,8 @@ import Picker from "./Picker";
 const Style = (props) => {
 
     const { currNodeTitle, handleChangeText, currNodeBg, handleChangeColor, currNodeBorderColor,
-            currNodeFontSize, handleChangeInputPicker, currNodeTitleColor, currNodeId, currNodeFontWeight } = props;
+            currNodeFontSize, handleChangeInputPicker, currNodeTitleColor, currNodeId, currNodeFontWeight,
+            currNodeBorderStyle } = props;
 
     const [state, setState] = useState({
         currColor: '',
@@ -39,16 +40,8 @@ const Style = (props) => {
         { label: 'Font Size', type: 'picker', pickerType: 'font-size', inputType: 'number', defaultValue: 14 },
         { label: 'Font Weight', type: 'picker', pickerType: 'font-weight', inputType: 'text', defaultValue: 'font weight' },
         { label: 'Background', type: 'color', state: 'isDisplayColorPickerBackground', curr: 'currBackground' },
-        { label: 'Opacity', type: 'text-number' },
-        { label: 'Width', type: 'text-number' },
-        { label: 'Height', type: 'text-number' },
-        { label: 'Padding', type: 'text-number' },
         { label: 'Border Color', type: 'color', state: 'isDisplayColorPickerBorderColor', curr: 'currBorderColor' },
-        { label: 'Border Size', type: 'text-number' },
         { label: 'Border Style', type: 'picker', pickerType: 'border-style', inputType: 'text', defaultValue: 'solid' },
-        { label: 'Shadow Color', type: 'color', state: 'isDisplayColorPickerShadowColor', curr: 'currShadowColor' },
-        { label: 'Shadow Offset', type: 'text-number' },
-        { label: 'Shadow Spread', type: 'text-number' },
     ];
 
     useEffect(() => {
@@ -157,6 +150,7 @@ const Style = (props) => {
                                     type={item.pickerType}
                                     currNodeFontSize={currNodeFontSize}
                                     currNodeFontWeight={currNodeFontWeight}
+                                    currNodeBorderStyle={currNodeBorderStyle}
                                     handleChangeInputPicker={handleChangeInputPicker}
                                 />
                             </div>                        
@@ -166,7 +160,8 @@ const Style = (props) => {
                             <div className="w-full p-2 flex items-center">
                                 <div className="w-[30%] text-xs mr-2 text-right">{item.label}</div>
                                 <div className="w-[70%] border border-[rgb(219,219,219)]">
-                                    <input 
+                                    <input
+                                        type="number"
                                         className="w-full h-full outline-none text-xs py-1 px-2"
                                     />
                                 </div>

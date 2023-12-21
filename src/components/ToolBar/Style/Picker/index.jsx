@@ -5,7 +5,7 @@ import { DownOutlined } from '@ant-design/icons';
 
 const Picker = (props) => {
 
-    const { item, type, currNodeFontSize, handleChangeInputPicker, currNodeFontWeight } = props;
+    const { item, type, currNodeFontSize, handleChangeInputPicker, currNodeFontWeight, currNodeBorderStyle } = props;
 
     const items = {
         'font': [
@@ -66,7 +66,7 @@ const Picker = (props) => {
         'font': 'Font 1',
         'font-size': currNodeFontSize || 14,
         'font-weight': currNodeFontWeight || 'Normal',
-        'border-style': 'solid',
+        'border-style': currNodeBorderStyle || 'solid',
     }[type];
 
     return (
