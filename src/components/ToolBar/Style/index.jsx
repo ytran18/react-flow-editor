@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 
 import { SketchPicker } from 'react-color';
 
+import Picker from "./Picker";
+
 const Style = () => {
 
     const [state, setState] = useState({
@@ -21,9 +23,9 @@ const Style = () => {
         { label: 'ID', type: 'text' },
         { label: 'Title', type: 'text' },
         { label: 'Color', type: 'color', state: 'isDisplayColorPickerColor', curr: 'currColor' },
-        { label: 'Font', type: 'picker' },
-        { label: 'Font Size', type: 'picker' },
-        { label: 'Font Style', type: 'picker' },
+        { label: 'Font', type: 'picker', pickerType: 'font', inputType: 'text', defaultValue: 'Normal' },
+        { label: 'Font Size', type: 'picker', pickerType: 'font-size', inputType: 'number', defaultValue: 14 },
+        { label: 'Font Style', type: 'picker', pickerType: 'font-style', inputType: 'text', defaultValue: 'font style' },
         { label: 'Background', type: 'color', state: 'isDisplayColorPickerBackground', curr: 'currBackground' },
         { label: 'Opacity', type: 'text-number' },
         { label: 'Width', type: 'text-number' },
@@ -31,7 +33,7 @@ const Style = () => {
         { label: 'Padding', type: 'text-number' },
         { label: 'Border Color', type: 'color', state: 'isDisplayColorPickerBorderColor', curr: 'currBorderColor' },
         { label: 'Border Size', type: 'text-number' },
-        { label: 'Border Style', type: 'picker' },
+        { label: 'Border Style', type: 'picker', pickerType: 'border-style', inputType: 'text', defaultValue: 'solid' },
         { label: 'Shadow Color', type: 'color', state: 'isDisplayColorPickerShadowColor', curr: 'currShadowColor' },
         { label: 'Shadow Offset', type: 'text-number' },
         { label: 'Shadow Spread', type: 'text-number' },
@@ -99,7 +101,6 @@ const Style = () => {
                             </div>
                         )}
 
-
                         {item.type === 'color' && (
                             <div className="w-full p-2 flex items-center">
                                 <div className="w-[30%] text-xs mr-2 text-right">{item.label}</div>
@@ -127,6 +128,12 @@ const Style = () => {
                                     )}
                                 </div>
                             </div>
+                        )}
+
+                        {item.type === 'picker' && (
+                            <div className="w-full">
+                                <Picker item={item} type={item.pickerType}/>
+                            </div>                        
                         )}
                     </div>
                 )
