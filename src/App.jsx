@@ -25,7 +25,12 @@ const initialNodes = [
         data: { label: 'Root' },
         position: { x: 0, y: 50 },
         style : {
-            backgroundColor: '#eee'
+            backgroundColor: '#eee',
+            borderColor: '#000',
+            fontSize: '14px',
+            borderStyle: 'solid',
+            color: '#000',
+            fontWeight: 400,
         },
     },
 ];
@@ -207,7 +212,12 @@ const AddNodeOnEdgeDrop = () => {
                 data: { label: `Node ${id}` },
                 origin: [0.5, 0.0],
                 style: {
-                    backgroundColor: '#eee'
+                    backgroundColor: '#eee',
+                    borderColor: '#000',
+                    fontSize: '14px',
+                    borderStyle: 'solid',
+                    color: '#000',
+                    fontWeight: 400,
                 }
             };
 
