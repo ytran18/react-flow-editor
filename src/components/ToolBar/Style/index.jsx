@@ -4,24 +4,30 @@ import { SketchPicker } from 'react-color';
 
 import Picker from "./Picker";
 
-const Style = () => {
+const Style = (props) => {
+
+    const { currNodeTitle, handleChangeText, currNodeBg, handleChangeColor, currNodeBorderColor } = props;
 
     const [state, setState] = useState({
-        currColor: '#000',
-        currBackground: '#000',
-        currBorderColor: '#000',
-        currShadowColor: '#000',
+        currColor: '#000000',
+        currBackground: '',
+        currBorderColor: '#000000',
+        currShadowColor: '#000000',
         isDisplayColorPickerColor: false,
         isDisplayColorPickerBackground: false,
         isDisplayColorPickerBorderColor: false,
         isDisplayColorPickerShadowColor: false,
     });
 
+    useEffect(() => {
+        setState(prev => ({...prev, currBackground: currNodeBg, currBorderColor: currNodeBorderColor}));
+    },[currNodeBg, currNodeBorderColor]);
+
     const colorPickerRef = useRef(null);
 
     const title = [
-        { label: 'ID', type: 'text' },
-        { label: 'Title', type: 'text' },
+        { label: 'ID', type: 'text', textType: 'id' },
+        { label: 'Title', type: 'text', textType: 'title' },
         { label: 'Color', type: 'color', state: 'isDisplayColorPickerColor', curr: 'currColor' },
         { label: 'Font', type: 'picker', pickerType: 'font', inputType: 'text', defaultValue: 'Normal' },
         { label: 'Font Size', type: 'picker', pickerType: 'font-size', inputType: 'number', defaultValue: 14 },
@@ -82,7 +88,12 @@ const Style = () => {
             setState(prev => ({...prev, [stateName]: color}));
         } else {
             setState(prev => ({...prev, [stateName]: color.hex}));
-        }
+        };
+
+        const colorChange = isOnChange ? color : color.hex;
+
+        handleChangeColor(colorChange, stateName);
+        handleChangeColor(colorChange, stateName);
     };
 
     return (
@@ -94,7 +105,9 @@ const Style = () => {
                             <div className="w-full p-2 flex items-center">
                                 <div className="w-[30%] text-xs mr-2 text-right">{item.label}</div>
                                 <div className="w-[70%] border border-[rgb(219,219,219)]">
-                                    <input 
+                                    <input
+                                        value={currNodeTitle}
+                                        onChange={(e) => handleChangeText(e, item?.textType)}
                                         className="w-full h-full outline-none text-xs py-1 px-2"
                                     />
                                 </div>
@@ -134,6 +147,17 @@ const Style = () => {
                             <div className="w-full">
                                 <Picker item={item} type={item.pickerType}/>
                             </div>                        
+                        )}
+
+                        {item.type === 'text-number' && (
+                            <div className="w-full p-2 flex items-center">
+                                <div className="w-[30%] text-xs mr-2 text-right">{item.label}</div>
+                                <div className="w-[70%] border border-[rgb(219,219,219)]">
+                                    <input 
+                                        className="w-full h-full outline-none text-xs py-1 px-2"
+                                    />
+                                </div>
+                            </div>
                         )}
                     </div>
                 )

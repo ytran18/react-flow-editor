@@ -30,7 +30,9 @@ const downloadSvg = (dataUrl) => {
 const imageWidth = 1024;
 const imageHeight = 768;
 
-const ToolBar = () => {
+const ToolBar = (props) => {
+
+    const { currNodeTitle, handleChangeText, currNodeBg, handleChangeColor, currNodeBorderColor } = props;
 
     const { getNodes } = useReactFlow();
 
@@ -77,7 +79,13 @@ const ToolBar = () => {
     };
 
     const renderTab = {
-        0: <Style />,
+        0: <Style 
+                currNodeTitle={currNodeTitle}
+                currNodeBg={currNodeBg}
+                currNodeBorderColor={currNodeBorderColor}
+                handleChangeText={handleChangeText}
+                handleChangeColor={handleChangeColor}
+            />,
         1: <Data />,
         2: <Event />
     }[state.tab] || 0;

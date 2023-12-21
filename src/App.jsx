@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ReactFlow, {
     useNodesState,
     useEdgesState,
@@ -38,7 +38,63 @@ const AddNodeOnEdgeDrop = () => {
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
+    const [state, setState] = useState({
+        currNodeTitle: '',
+        currNodeId: '',
+        currNodeBg: '#eee',
+        currNodeBorderColor: '#000',
+        currNodeShadowColor: '',
+    });
+
     const { screenToFlowPosition } = useReactFlow();
+
+    //  Change node title
+    useEffect(() => {
+        setNodes((nds) =>
+            nds.map((node) => {
+                if (node.id === state.currNodeId) {
+                    node.data = {
+                        ...node.data,
+                        label: state.currNodeTitle,
+                    };
+                }
+        
+                return node;
+            })
+        );
+    }, [state.currNodeTitle, setNodes]);
+
+    // Change node background
+    useEffect(() => {
+        setNodes((nds) =>
+            nds.map((node) => {
+                if (node.id === state.currNodeId) {
+                    node.style = {
+                        ...node.style,
+                        backgroundColor: state.currNodeBg, 
+                    };
+                }
+        
+                return node;
+            })
+        );
+    }, [state.currNodeBg, setNodes]);
+
+    // Change node border color
+    useEffect(() => {
+        setNodes((nds) =>
+            nds.map((node) => {
+                if (node.id === state.currNodeId) {
+                    node.style = {
+                        ...node.style,
+                        borderColor: state.currNodeBorderColor, 
+                    };
+                }
+        
+                return node;
+            })
+        );
+    }, [state.currNodeBorderColor, setNodes]);
 
     const onConnect = useCallback((params) => {
         connectingNodeId.current = null;
@@ -75,7 +131,7 @@ const AddNodeOnEdgeDrop = () => {
     },[screenToFlowPosition]);
 
     const onNodesDelete = useCallback((deleted) => {
-        setEdges(deleted.reduce((acc, node) => {
+        setEdges(deleted?.reduce((acc, node) => {
             const incomers = getIncomers(node, nodes, edges);
             const outgoers = getOutgoers(node, nodes, edges);
             const connectedEdges = getConnectedEdges([node], edges);
@@ -90,6 +146,27 @@ const AddNodeOnEdgeDrop = () => {
         }, edges));
     },[nodes, edges]);
 
+    const onNodeClick = (event, node) => {
+        setState(prev => ({...prev, currNodeId: node?.id, currNodeTitle: node?.data?.label}));
+    };
+
+    // handle change curr node title
+    const handleChangeText = (e, textType) => {
+        if (textType === 'title') {
+            setState(prev => ({...prev, currNodeTitle: e?.target?.value}));
+        };
+    };
+
+    // handle change curr node color (bg, border, ...)
+    const handleChangeColor = (color, type) => {
+        const typeChange = {
+            'currBackground': 'currNodeBg',
+            'currBorderColor': 'currNodeBorderColor',
+            'currShadowColor': 'currNodeShadowColor',
+        }[type];
+        setState(prev => ({...prev, [typeChange]: color}));
+    };
+
     return (
         <div className="w-screen h-screen" ref={reactFlowWrapper}>
             <ReactFlow
@@ -101,13 +178,20 @@ const AddNodeOnEdgeDrop = () => {
                 onConnectStart={onConnectStart}
                 onConnectEnd={onConnectEnd}
                 onNodesDelete={onNodesDelete}
+                onNodeClick={onNodeClick}
                 fitView
                 fitViewOptions={{ padding: 2 }}
                 nodeOrigin={[0.5, 0]}
             >
                 <Controls />
                 <Background />
-                <ToolBar />
+                <ToolBar 
+                    currNodeTitle={state.currNodeTitle}
+                    currNodeBg={state.currNodeBg}
+                    currNodeBorderColor={state.currNodeBorderColor}
+                    handleChangeText={handleChangeText}
+                    handleChangeColor={handleChangeColor}
+                />
             </ReactFlow>
         </div>
     );
