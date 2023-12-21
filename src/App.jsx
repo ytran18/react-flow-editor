@@ -24,7 +24,9 @@ const initialNodes = [
         type: 'input',
         data: { label: 'Root' },
         position: { x: 0, y: 50 },
-        style : {},
+        style : {
+            backgroundColor: '#eee'
+        },
     },
 ];
 
@@ -204,6 +206,9 @@ const AddNodeOnEdgeDrop = () => {
                 }),
                 data: { label: `Node ${id}` },
                 origin: [0.5, 0.0],
+                style: {
+                    backgroundColor: '#eee'
+                }
             };
 
             setNodes((nds) => nds.concat(newNode));
