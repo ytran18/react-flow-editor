@@ -7,7 +7,7 @@ import Picker from "./Picker";
 const Style = (props) => {
 
     const { currNodeTitle, handleChangeText, currNodeBg, handleChangeColor, currNodeBorderColor,
-            currNodeFontSize, handleChangeInputPicker, currNodeTitleColor, currNodeId } = props;
+            currNodeFontSize, handleChangeInputPicker, currNodeTitleColor, currNodeId, currNodeFontWeight } = props;
 
     const [state, setState] = useState({
         currColor: '',
@@ -37,7 +37,7 @@ const Style = (props) => {
         { label: 'Color', type: 'color', state: 'isDisplayColorPickerColor', curr: 'currColor' },
         { label: 'Font', type: 'picker', pickerType: 'font', inputType: 'text', defaultValue: 'Normal' },
         { label: 'Font Size', type: 'picker', pickerType: 'font-size', inputType: 'number', defaultValue: 14 },
-        { label: 'Font Style', type: 'picker', pickerType: 'font-style', inputType: 'text', defaultValue: 'font style' },
+        { label: 'Font Weight', type: 'picker', pickerType: 'font-weight', inputType: 'text', defaultValue: 'font weight' },
         { label: 'Background', type: 'color', state: 'isDisplayColorPickerBackground', curr: 'currBackground' },
         { label: 'Opacity', type: 'text-number' },
         { label: 'Width', type: 'text-number' },
@@ -156,6 +156,7 @@ const Style = (props) => {
                                     item={item}
                                     type={item.pickerType}
                                     currNodeFontSize={currNodeFontSize}
+                                    currNodeFontWeight={currNodeFontWeight}
                                     handleChangeInputPicker={handleChangeInputPicker}
                                 />
                             </div>                        

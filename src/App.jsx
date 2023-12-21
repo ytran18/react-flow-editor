@@ -22,7 +22,7 @@ const initialNodes = [
     {
         id: '0',
         type: 'input',
-        data: { label: 'Node' },
+        data: { label: 'Root' },
         position: { x: 0, y: 50 },
     },
 ];
@@ -46,7 +46,7 @@ const AddNodeOnEdgeDrop = () => {
         currNodeShadowColor: '',
         currNodeFontSize: 14,
         currNodeFont: '',
-        currNodeFontStyle: '',
+        currNodeFontWeight: 'Normal',
         currNodeBorderStyle: '',
         currNodeTitleColor: '#000',
         isShowToolBar: false,
@@ -134,6 +134,34 @@ const AddNodeOnEdgeDrop = () => {
         );
     }, [state.currNodeTitleColor, setNodes]);
 
+    // Change node font style
+    useEffect(() => {
+        const value = {
+            'Thin': 100,
+            'Extra Light':200,
+            'Light': 300,
+            'Normal': 400,
+            'Medium': 500,
+            'Semi Bold': 600,
+            'Bold': 700,
+            'Extra Bold': 800,
+            'Black': 900,
+        }[state.currNodeFontWeight];
+
+        setNodes((nds) =>
+            nds.map((node) => {
+                if (node.id === state.currNodeId) {
+                    node.style = {
+                        ...node.style,
+                        fontWeight: value, 
+                    };
+                }
+        
+                return node;
+            })
+        );
+    }, [state.currNodeFontWeight, setNodes]);
+
     const onConnect = useCallback((params) => {
         connectingNodeId.current = null;
         setEdges((eds) => addEdge(params, eds))
@@ -211,7 +239,7 @@ const AddNodeOnEdgeDrop = () => {
         const typeChange = {
             'font': 'currNodeFont',
             'font-size': 'currNodeFontSize',
-            'font-style': 'currNodeFontStyle',
+            'font-weight': 'currNodeFontWeight',
             'border-style': 'currNodeBorderStyle'
         }[type];
         setState(prev => ({...prev, [typeChange]: value}));
@@ -247,6 +275,7 @@ const AddNodeOnEdgeDrop = () => {
                     currNodeFontSize={state.currNodeFontSize}
                     currNodeTitleColor={state.currNodeTitleColor}
                     currNodeId={state.currNodeId}
+                    currNodeFontWeight={state.currNodeFontWeight}
                     handleChangeText={handleChangeText}
                     handleChangeColor={handleChangeColor}
                     handleShowToolBar={handleShowToolBar}

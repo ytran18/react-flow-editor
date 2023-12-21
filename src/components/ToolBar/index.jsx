@@ -34,7 +34,7 @@ const ToolBar = (props) => {
 
     const { currNodeTitle, handleChangeText, currNodeBg, handleChangeColor, currNodeBorderColor,
             handleShowToolBar, isShowToolBar, currNodeFontSize, handleChangeInputPicker, currNodeTitleColor,
-            currNodeId } = props;
+            currNodeId, currNodeFontWeight } = props;
 
     const { getNodes } = useReactFlow();
 
@@ -46,7 +46,7 @@ const ToolBar = (props) => {
 
     function filter (node) {
         return (node.tagName !== 'i');
-    }
+    };
 
     const onClick = (type) => {
         if (type === 'png') {
@@ -83,6 +83,7 @@ const ToolBar = (props) => {
                 currNodeFontSize={currNodeFontSize}
                 currNodeTitleColor={currNodeTitleColor}
                 currNodeId={currNodeId}
+                currNodeFontWeight={currNodeFontWeight}
                 handleChangeText={handleChangeText}
                 handleChangeColor={handleChangeColor}
                 handleChangeInputPicker={handleChangeInputPicker}

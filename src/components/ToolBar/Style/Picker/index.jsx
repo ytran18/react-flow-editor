@@ -5,7 +5,7 @@ import { DownOutlined } from '@ant-design/icons';
 
 const Picker = (props) => {
 
-    const { item, type, currNodeFontSize, handleChangeInputPicker } = props;
+    const { item, type, currNodeFontSize, handleChangeInputPicker, currNodeFontWeight } = props;
 
     const items = {
         'font': [
@@ -28,16 +28,16 @@ const Picker = (props) => {
             { label: '32', key: '6' },
             { label: '36', key: '7' },
         ],
-        'font-style': [
-            { label: 'Thin', key: '0' },
-            { label: 'Extra Light', key: '1' },
-            { label: 'Light', key: '2' },
-            { label: 'Normal', key: '3' },
-            { label: 'Medium', key: '4' },
-            { label: 'Semi Bold', key: '5' },
-            { label: 'Bold', key: '6' },
-            { label: 'Extra Bold', key: '7' },
-            { label: 'Black', key: '8' },
+        'font-weight': [
+            { label: 'Thin', key: '0', value: 100 },
+            { label: 'Extra Light', key: '1', value: 200 },
+            { label: 'Light', key: '2', value: 300 },
+            { label: 'Normal', key: '3', value: 400 },
+            { label: 'Medium', key: '4', value: 500 },
+            { label: 'Semi Bold', key: '5', value: 600 },
+            { label: 'Bold', key: '6', value: 700 },
+            { label: 'Extra Bold', key: '7', value: 800 },
+            { label: 'Black', key: '8', value: 900 },
         ],
         'border-style': [
             { label: 'dotted', key: '0' },
@@ -58,19 +58,19 @@ const Picker = (props) => {
     };
 
     const onClick = (e) => {
-        const value = items.find(ele => ele.key === e.key).label;
+        const value = items.find(ele => ele.key === e.key)?.label;
         handleChangeInputPicker(value, type);
     };
 
     const inputValue = {
         'font': 'Font 1',
         'font-size': currNodeFontSize || 14,
-        'font-style': 'Normal',
-        'border-style': 'solid'
+        'font-weight': currNodeFontWeight || 'Normal',
+        'border-style': 'solid',
     }[type];
 
     return (
-        <div className="w-full p-2 flex items-center font">
+        <div className="w-full p-2 flex items-center">
             <div className="w-[30%] text-xs mr-2 text-right">{item.label}</div>
             <div className="w-[70%] relative border border-[rgb(219,219,219)]">
                 <div className="flex">
