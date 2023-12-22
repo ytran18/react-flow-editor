@@ -9,7 +9,8 @@ import ReactFlow, {
     Controls,
     getIncomers,
     getOutgoers,
-    getConnectedEdges
+    getConnectedEdges,
+    updateEdge,
 } from 'reactflow';
 
 import ToolBar from './components/ToolBar';
@@ -58,6 +59,8 @@ const AddNodeOnEdgeDrop = () => {
         currNodeBorderStyle: 'solid',
         currNodeTitleColor: '#000',
         isShowToolBar: false,
+        targetEdgeId: '',
+        preventOnConnectEnd: false,
     });
 
     const { screenToFlowPosition } = useReactFlow();
@@ -201,7 +204,6 @@ const AddNodeOnEdgeDrop = () => {
         const targetIsPane = event.target.classList.contains('react-flow__pane');
 
         if (targetIsPane) {
-            // we need to remove the wrapper bounds, in order to get the correct position
             const id = getId();
             const newNode = {
                 id,
@@ -242,6 +244,8 @@ const AddNodeOnEdgeDrop = () => {
 
             return [...remainingEdges, ...createdEdges];
         }, edges));
+
+        setState(prev => ({...prev, isShowToolBar: false}));
     },[nodes, edges]);
 
     const onNodeClick = (event, node) => {
@@ -306,6 +310,14 @@ const AddNodeOnEdgeDrop = () => {
         setState(prev => ({...prev, isShowToolBar: !prev.isShowToolBar}));
     };
 
+    const onEdgeClick = (event, node) => {
+
+    };
+
+    const onEdgeUpdate = useCallback((oldEdge, newConnection) => {
+        setEdges((els) => updateEdge(oldEdge, newConnection, els));
+    },[]);
+    
     return (
         <div className="w-screen h-screen" ref={reactFlowWrapper}>
             <ReactFlow
@@ -318,7 +330,10 @@ const AddNodeOnEdgeDrop = () => {
                 onConnectEnd={onConnectEnd}
                 onNodesDelete={onNodesDelete}
                 onNodeClick={onNodeClick}
+                onEdgeClick={onEdgeClick}
+                onEdgeUpdate={onEdgeUpdate}
                 fitView
+                snapToGrid
                 fitViewOptions={{ padding: 2 }}
                 nodeOrigin={[0.5, 0]}
             >
