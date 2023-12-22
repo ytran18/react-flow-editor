@@ -246,6 +246,19 @@ const AddNodeOnEdgeDrop = () => {
 
     const onNodeClick = (event, node) => {
         const fontSize = node?.style?.fontSize?.replace(/\D/g, '');
+
+        const fontWeight = {
+            100: 'Thin',
+            200: 'Extra Light',
+            300: 'Light',
+            400: 'Normal',
+            500: 'Medium',
+            600: 'Semi Bold',
+            700: 'Bold',
+            800: 'Extra Bold',
+            900: 'Black',
+        }[node?.style?.fontWeight];
+
         setState(prev => ({
             ...prev,
             currNodeId: node?.id,
@@ -255,7 +268,7 @@ const AddNodeOnEdgeDrop = () => {
             currNodeBorderStyle: node?.style?.borderStyle || 'solid',
             currNodeTitleColor: node?.style?.color || '#000',
             currNodeFontSize: fontSize || 14,
-            currNodeFontWeight: node?.style?.fontWeight || 'Normal',
+            currNodeFontWeight: fontWeight || 'Normal',
             currNodeBorderColor: node?.style?.borderColor || '#000',
         }));
     };
