@@ -14,6 +14,7 @@ import ReactFlow, {
 } from 'reactflow';
 
 import ToolBar from './components/ToolBar';
+import Node from './components/Node';
 
 import 'reactflow/dist/style.css';
 
@@ -22,8 +23,8 @@ import './App.css';
 const initialNodes = [
     {
         id: '0',
-        type: 'input',
-        data: { label: 'Root' },
+        type: 'custom',
+        data: { label: 'Root', isRootNode: true },
         position: { x: 0, y: 50 },
         style : {
             backgroundColor: '#eee',
@@ -32,12 +33,18 @@ const initialNodes = [
             borderStyle: 'solid',
             color: '#000',
             fontWeight: 400,
+            borderWidth: '1px',
         },
+        position: { x: 0, y: 50 },
     },
 ];
 
 let id = 1;
 const getId = () => `${id++}`;
+
+const nodeTypes = {
+    custom: Node,
+};
 
 const AddNodeOnEdgeDrop = () => {
 
@@ -207,11 +214,12 @@ const AddNodeOnEdgeDrop = () => {
             const id = getId();
             const newNode = {
                 id,
+                type: 'custom',
                 position: screenToFlowPosition({
                     x: event.clientX,
                     y: event.clientY,
                 }),
-                data: { label: `Node ${id}` },
+                data: { label: `Node ${id}`, isRootNode: false },
                 origin: [0.5, 0.0],
                 style: {
                     backgroundColor: '#eee',
@@ -220,6 +228,7 @@ const AddNodeOnEdgeDrop = () => {
                     borderStyle: 'solid',
                     color: '#000',
                     fontWeight: 400,
+                    borderWidth: '1px',
                 }
             };
 
@@ -323,6 +332,7 @@ const AddNodeOnEdgeDrop = () => {
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
+                nodeTypes={nodeTypes}
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
