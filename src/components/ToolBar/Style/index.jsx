@@ -22,13 +22,14 @@ const Style = (props) => {
     });
 
     useEffect(() => {
+        console.log(currNodeTitleColor);
         setState(prev => ({
             ...prev,
             currBackground: currNodeBg,
             currBorderColor: currNodeBorderColor,
             currColor: currNodeTitleColor,
         }));
-    },[currNodeBg, currNodeBorderColor]);
+    },[currNodeBg, currNodeBorderColor, currNodeTitleColor]);
 
     const colorPickerRef = useRef(null);
 

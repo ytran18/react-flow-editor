@@ -233,10 +233,38 @@ const AddNodeOnEdgeDrop = () => {
                 }
             };
 
+            
             setNodes((nds) => nds.concat(newNode));
             setEdges((eds) =>
                 eds.concat({ id, source: connectingNodeId.current, target: id }),
             );
+
+            const fontSize = newNode?.style?.fontSize?.replace(/\D/g, '');
+
+            const fontWeight = {
+                100: 'Thin',
+                200: 'Extra Light',
+                300: 'Light',
+                400: 'Normal',
+                500: 'Medium',
+                600: 'Semi Bold',
+                700: 'Bold',
+                800: 'Extra Bold',
+                900: 'Black',
+            }[newNode?.style?.fontWeight];
+
+            setState(prev => ({
+                ...prev,
+                currNodeId: id,
+                currNodeTitle: newNode?.data?.label || 'Node',
+                isShowToolBar: true,
+                currNodeBg: newNode?.style?.backgroundColor || '#eee',
+                currNodeBorderStyle: newNode?.style?.borderStyle || 'solid',
+                currNodeTitleColor: newNode?.style?.color || '#000',
+                currNodeFontSize: fontSize || 14,
+                currNodeFontWeight: fontWeight || 'Normal',
+                currNodeBorderColor: newNode?.style?.borderColor || '#000',
+            }))
         }
     },[screenToFlowPosition]);
 
