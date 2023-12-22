@@ -15,6 +15,7 @@ import ReactFlow, {
 
 import ToolBar from './components/ToolBar';
 import Node from './components/Node';
+import Shape from './components/Shape';
 
 import 'reactflow/dist/style.css';
 
@@ -346,6 +347,7 @@ const AddNodeOnEdgeDrop = () => {
                 snapToGrid
                 fitViewOptions={{ padding: 2 }}
                 nodeOrigin={[0.5, 0]}
+                style={{background: 'rgb(226,232,240)'}}
             >
                 <Controls />
                 <Background />
@@ -364,6 +366,7 @@ const AddNodeOnEdgeDrop = () => {
                     handleShowToolBar={handleShowToolBar}
                     handleChangeInputPicker={handleChangeInputPicker}
                 />
+                <Shape />
             </ReactFlow>
         </div>
     );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Panel, useReactFlow } from 'reactflow';
+import { Panel } from 'reactflow';
 
 import Style from './Style/index';
 import Edges from './Edges/index';
@@ -14,8 +14,6 @@ const ToolBar = (props) => {
     const { currNodeTitle, handleChangeText, currNodeBg, handleChangeColor, currNodeBorderColor,
             handleShowToolBar, isShowToolBar, currNodeFontSize, handleChangeInputPicker, currNodeTitleColor,
             currNodeId, currNodeFontWeight, currNodeBorderStyle } = props;
-
-    const { getNodes } = useReactFlow();
 
     const [state, setState] = useState({
         tab: 0,
@@ -84,7 +82,7 @@ const ToolBar = (props) => {
             <div className={`${isShowToolBar ? 'hidden' : 'block'}`}>
                 <img 
                     src={IconMore}
-                    className="cursor-pointer"
+                    className="cursor-pointer select-none"
                     onClick={handleShowToolBar}
                 />
             </div>
