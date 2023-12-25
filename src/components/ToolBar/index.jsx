@@ -57,7 +57,7 @@ const ToolBar = (props) => {
                 <div className="relative p-2 h-9 mb-4 flex w-full items-center">
                     <img
                         src={IconDoubleRight}
-                        className="cursor-pointer transform scale-75"
+                        className="cursor-pointer select-none transform scale-75"
                         onClick={handleShowToolBar}
                     />
                     <div className="text-sm text-center w-full">Property Inspector</div>

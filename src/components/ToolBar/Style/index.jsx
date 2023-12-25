@@ -22,7 +22,6 @@ const Style = (props) => {
     });
 
     useEffect(() => {
-        console.log(currNodeTitleColor);
         setState(prev => ({
             ...prev,
             currBackground: currNodeBg,

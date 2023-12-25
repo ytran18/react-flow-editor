@@ -6,16 +6,17 @@ import ReactFlow, {
     useReactFlow,
     ReactFlowProvider,
     Background,
-    Controls,
     getIncomers,
     getOutgoers,
     getConnectedEdges,
     updateEdge,
 } from 'reactflow';
+import { animate } from 'popmotion';
 
 import ToolBar from './components/ToolBar';
 import Node from './components/Node';
 import Shape from './components/Shape';
+import Controls from './components/Controls';
 
 import 'reactflow/dist/style.css';
 
@@ -36,7 +37,6 @@ const initialNodes = [
             fontWeight: 400,
             borderWidth: '1px',
         },
-        position: { x: 0, y: 50 },
     },
 ];
 
@@ -71,7 +71,7 @@ const AddNodeOnEdgeDrop = () => {
         preventOnConnectEnd: false,
     });
 
-    const { screenToFlowPosition } = useReactFlow();
+    const { screenToFlowPosition, zoomIn, zoomOut, setViewport } = useReactFlow();
 
     //  Change node title
     useEffect(() => {
@@ -197,10 +197,10 @@ const AddNodeOnEdgeDrop = () => {
         );
     }, [state.currNodeFontWeight, setNodes]);
 
-    const onConnect = useCallback((params) => {
+    const onConnect = (params) => {
         connectingNodeId.current = null;
         setEdges((eds) => addEdge(params, eds))
-    },[]);
+    };
 
     const onConnectStart = useCallback((_, { nodeId }) => {
         connectingNodeId.current = nodeId;
@@ -257,7 +257,7 @@ const AddNodeOnEdgeDrop = () => {
                 ...prev,
                 currNodeId: id,
                 currNodeTitle: newNode?.data?.label || 'Node',
-                isShowToolBar: true,
+                // isShowToolBar: true,
                 currNodeBg: newNode?.style?.backgroundColor || '#eee',
                 currNodeBorderStyle: newNode?.style?.borderStyle || 'solid',
                 currNodeTitleColor: newNode?.style?.color || '#000',
