@@ -70,8 +70,10 @@ const AddNodeOnEdgeDrop = () => {
         targetEdgeId: '',
         preventOnConnectEnd: false,
     });
+    
+    const [reactFlowInstance, setReactFlowInstance] = useState(null);
 
-    const { screenToFlowPosition, zoomIn, zoomOut, setViewport } = useReactFlow();
+    const { screenToFlowPosition } = useReactFlow();
 
     //  Change node title
     useEffect(() => {
@@ -232,7 +234,6 @@ const AddNodeOnEdgeDrop = () => {
                     borderWidth: '1px',
                 }
             };
-
             
             setNodes((nds) => nds.concat(newNode));
             setEdges((eds) =>
@@ -355,48 +356,100 @@ const AddNodeOnEdgeDrop = () => {
     const onEdgeUpdate = useCallback((oldEdge, newConnection) => {
         setEdges((els) => updateEdge(oldEdge, newConnection, els));
     },[]);
+
+    const onLoad = (_reactFlowInstance) => {
+        setReactFlowInstance(_reactFlowInstance);
+    };
+
+    const onDragOver = (event) => {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'move';
+    };
+
+    const onDrop = useCallback((event) => {
+        event.preventDefault();
+    
+        const type = event.dataTransfer.getData('application/reactflow');
+    
+        // check if the dropped element is valid
+        if (typeof type === 'undefined' || !type) {
+            return;
+        }
+    
+        const position = reactFlowInstance.screenToFlowPosition({
+            x: event.clientX,
+            y: event.clientY,
+        });
+
+        const id = getId();
+
+        const newNode = {
+            id: id,
+            type,
+            position,
+            data: { label: `Node ${id}`, isRootNode: false },
+            origin: [0.5, 0.0],
+            style: {
+                backgroundColor: '#eee',
+                borderColor: '#000',
+                fontSize: '14px',
+                borderStyle: 'solid',
+                color: '#000',
+                fontWeight: 400,
+                borderWidth: '1px',
+            }
+        };
+    
+        setNodes((nds) => nds.concat(newNode));
+    },[reactFlowInstance]);
     
     return (
-        <div className="w-screen h-screen" ref={reactFlowWrapper}>
-            <ReactFlow
-                nodes={nodes}
-                edges={edges}
-                nodeTypes={nodeTypes}
-                onNodesChange={onNodesChange}
-                onEdgesChange={onEdgesChange}
-                onConnect={onConnect}
-                onConnectStart={onConnectStart}
-                onConnectEnd={onConnectEnd}
-                onNodesDelete={onNodesDelete}
-                onNodeClick={onNodeClick}
-                onEdgeClick={onEdgeClick}
-                onEdgeUpdate={onEdgeUpdate}
-                fitView
-                snapToGrid
-                fitViewOptions={{ padding: 2 }}
-                nodeOrigin={[0.5, 0]}
-                style={{background: 'rgb(226,232,240)'}}
-            >
-                <Controls />
-                <Background />
-                <ToolBar 
-                    isShowToolBar={state.isShowToolBar}
-                    currNodeTitle={state.currNodeTitle}
-                    currNodeBg={state.currNodeBg}
-                    currNodeBorderColor={state.currNodeBorderColor}
-                    currNodeFontSize={state.currNodeFontSize}
-                    currNodeTitleColor={state.currNodeTitleColor}
-                    currNodeId={state.currNodeId}
-                    currNodeFontWeight={state.currNodeFontWeight}
-                    currNodeBorderStyle={state.currNodeBorderStyle}
-                    handleChangeText={handleChangeText}
-                    handleChangeColor={handleChangeColor}
-                    handleShowToolBar={handleShowToolBar}
-                    handleChangeInputPicker={handleChangeInputPicker}
-                />
-                <Shape />
-            </ReactFlow>
-        </div>
+        <>
+            <div className="w-screen h-screen" ref={reactFlowWrapper}>
+                <ReactFlow
+                    nodes={nodes}
+                    edges={edges}
+                    nodeTypes={nodeTypes}
+                    onNodesChange={onNodesChange}
+                    onEdgesChange={onEdgesChange}
+                    onConnect={onConnect}
+                    onConnectStart={onConnectStart}
+                    onConnectEnd={onConnectEnd}
+                    onNodesDelete={onNodesDelete}
+                    onNodeClick={onNodeClick}
+                    onEdgeClick={onEdgeClick}
+                    onEdgeUpdate={onEdgeUpdate}
+                    onLoad={onLoad}
+                    onDragOver={onDragOver}
+                    onDrop={onDrop}
+                    onInit={setReactFlowInstance}
+                    fitView
+                    snapToGrid
+                    fitViewOptions={{ padding: 2 }}
+                    nodeOrigin={[0.5, 0]}
+                    style={{background: 'rgb(226,232,240)'}}
+                >
+                    <Controls />
+                    <Background />
+                    <ToolBar 
+                        isShowToolBar={state.isShowToolBar}
+                        currNodeTitle={state.currNodeTitle}
+                        currNodeBg={state.currNodeBg}
+                        currNodeBorderColor={state.currNodeBorderColor}
+                        currNodeFontSize={state.currNodeFontSize}
+                        currNodeTitleColor={state.currNodeTitleColor}
+                        currNodeId={state.currNodeId}
+                        currNodeFontWeight={state.currNodeFontWeight}
+                        currNodeBorderStyle={state.currNodeBorderStyle}
+                        handleChangeText={handleChangeText}
+                        handleChangeColor={handleChangeColor}
+                        handleShowToolBar={handleShowToolBar}
+                        handleChangeInputPicker={handleChangeInputPicker}
+                    />
+                </ReactFlow>
+            </div>
+            <Shape />
+        </>
     );
 };
 
