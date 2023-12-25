@@ -11,7 +11,6 @@ import ReactFlow, {
     getConnectedEdges,
     updateEdge,
 } from 'reactflow';
-import { animate } from 'popmotion';
 
 import ToolBar from './components/ToolBar';
 import Node from './components/Node';
@@ -26,7 +25,7 @@ const initialNodes = [
     {
         id: '0',
         type: 'custom',
-        data: { label: 'Root', isRootNode: true },
+        data: { label: 'Root', isRootNode: true, shape: 'default' },
         position: { x: 0, y: 50 },
         style : {
             backgroundColor: '#eee',
@@ -222,7 +221,7 @@ const AddNodeOnEdgeDrop = () => {
                     x: event.clientX,
                     y: event.clientY,
                 }),
-                data: { label: `Node ${id}`, isRootNode: false },
+                data: { label: `Node ${id}`, isRootNode: false, shape:'default' },
                 origin: [0.5, 0.0],
                 style: {
                     backgroundColor: '#eee',
@@ -383,11 +382,15 @@ const AddNodeOnEdgeDrop = () => {
 
         const id = getId();
 
+        const bgRadius = {
+            'circle': '9999px'
+        }[type];
+
         const newNode = {
             id: id,
-            type,
+            type: 'custom',
             position,
-            data: { label: `Node ${id}`, isRootNode: false },
+            data: { label: `Node ${id}`, isRootNode: false, shape: type },
             origin: [0.5, 0.0],
             style: {
                 backgroundColor: '#eee',
@@ -397,6 +400,7 @@ const AddNodeOnEdgeDrop = () => {
                 color: '#000',
                 fontWeight: 400,
                 borderWidth: '1px',
+                borderRadius: bgRadius,
             }
         };
     

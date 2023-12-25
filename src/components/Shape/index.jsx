@@ -19,7 +19,7 @@ const Shape = () => {
             <aside>
                 <div className="text-sm text-center mb-2 select-none">Drag shape to the canvas</div>
                 <div className="w-full grid grid-cols-4">
-                    <div onDragStart={(event) => onDragStart(event, 'custom')} draggable>
+                    <div onDragStart={(event) => onDragStart(event, 'circle')} draggable>
                         {circle}
                     </div>
                     {roundedRetangle}

@@ -4,17 +4,23 @@ import { Handle, Position } from 'reactflow';
 import './node.css';
 
 export default memo(({ data, isConnectable }) => {
+
+    const shapeStyle = {
+        'default': 'py-3 px-10 max-w-64 text-center',
+        'circle': 'w-20 h-20 flex items-center justify-center'
+    }[data?.shape];
+
     return (
         <>
             <div 
-                className={`!text-[${data?.style?.fontSize}] font-[${data?.style?.fontWeight}] py-3 px-10 max-w-64 text-center rounded-lg !text-[${data?.style?.color}]`}
+                className={`${shapeStyle} rounded-lg !text-[${data?.style?.color}]`}
             >
                 {data?.label}
             </div>
             <Handle
                 type="source"
                 position={Position.Bottom}
-                id="a"
+                id="source"
                 style={{background: '#555', bottom: -3}}
                 isConnectable={isConnectable}
             />
@@ -22,8 +28,26 @@ export default memo(({ data, isConnectable }) => {
                 <Handle
                     type="target"
                     position={Position.Top}
-                    id="a"
+                    id="target"
                     style={{background: '#555', top: -3}}
+                    isConnectable={isConnectable}
+                />
+            )}
+            {data?.shape === 'circle' && (
+                <Handle
+                    type="source"
+                    position={Position.Left}
+                    id="b"
+                    style={{background: '#555', top: '50%'}}
+                    isConnectable={isConnectable}
+                />
+            )}
+            {data?.shape === 'circle' && (
+                <Handle
+                    type="source"
+                    position={Position.Right}
+                    id="c"
+                    style={{background: '#555', top: '50%'}}
                     isConnectable={isConnectable}
                 />
             )}
