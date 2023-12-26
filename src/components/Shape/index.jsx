@@ -31,7 +31,9 @@ const Shape = () => {
                     <div onDragStart={(event) => onDragStart(event, 'hexagon')} draggable>
                         {hexagon}
                     </div>
-                    {diamond}
+                    <div onDragStart={(event) => onDragStart(event, 'diamond')} draggable>
+                        {diamond}
+                    </div>
                     {arrowRetangle}
                     {cylinder}
                     {triangle}

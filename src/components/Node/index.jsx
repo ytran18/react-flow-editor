@@ -10,7 +10,7 @@ export default memo(({ data, isConnectable }) => {
         'circle': 'w-20 h-20 flex items-center justify-center',
         'rounded-retangle': 'py-3 px-10 max-w-64 text-center',
         'retangle': 'py-3 px-10 max-w-64 text-center',
-        'hexagon': 'py-3 px-10 max-w-64 text-center',
+        'diamond': 'py-6 px-6 max-w-64 text-center',
     }[data?.shape];
 
     return (

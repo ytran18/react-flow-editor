@@ -17,6 +17,7 @@ import Node from './components/Node';
 import Shape from './components/Shape';
 import Controls from './components/Controls';
 import Hexagon from './components/Node/Hexagon';
+import Diamond from './components/Node/Diamond';
 
 import 'reactflow/dist/style.css';
 
@@ -28,6 +29,7 @@ const getId = () => `${id++}`;
 const nodeTypes = {
     custom: Node,
     hexagon: Hexagon,
+    diamond: Diamond,
 };
 
 const AddNodeOnEdgeDrop = () => {
@@ -371,24 +373,34 @@ const AddNodeOnEdgeDrop = () => {
             'custom': 'custom',
             'circle': 'custom',
             'rounded-retangle': 'custom',
-            'retangle': 'custom'
+            'retangle': 'custom',
+            'diamond': 'diamond'
         }[type] || 'custom';
 
         const bgRadius = {
             'circle': '9999px',
             'rounded-retangle': '10px',
             'retangle': '0px',
-            'hexagon': '0px'
+            'hexagon': '0px',
+            'diamond': '0px'
         }[type];
 
-        const style = {
-            backgroundColor: '#eee',
+        const background = {
+            'diamond': 'none'
+        }[type] || '#eee';
+
+        const borderWidth = {
+            'diamond': 'none',
+        }[type] || '1px';
+
+        let style = {
+            backgroundColor: background,
             borderColor: '#000',
-            fontSize: '14px',
+            fontSize: '12px',
             borderStyle: 'solid',
             color: '#000',
             fontWeight: 400,
-            borderWidth: '1px',
+            borderWidth: borderWidth,
             borderRadius: bgRadius,
         };
 
@@ -396,7 +408,7 @@ const AddNodeOnEdgeDrop = () => {
             id: id,
             type: customType,
             position,
-            data: { label: `Node ${id}`, isRootNode: false, shape: type, style: style },
+            data: { label: `Node ${id}`, isRootNode: false, shape: type },
             origin: [0.5, 0.0],
             style: style
         };
