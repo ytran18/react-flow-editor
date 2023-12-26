@@ -409,7 +409,7 @@ const AddNodeOnEdgeDrop = () => {
     
     return (
         <>
-            <div className="w-screen h-screen" ref={reactFlowWrapper}>
+            <div className="w-full h-full" ref={reactFlowWrapper}>
                 <ReactFlow
                     nodes={nodes}
                     edges={edges}
@@ -430,10 +430,9 @@ const AddNodeOnEdgeDrop = () => {
                     fitView
                     snapToGrid
                     fitViewOptions={{ padding: 2 }}
-                    nodeOrigin={[0.5, 0]}
                     style={{background: 'rgb(226,232,240)'}}
                 >
-                    <Controls />
+                    <Controls ref={reactFlowWrapper}/>
                     <Background />
                     <ToolBar 
                         isShowToolBar={state.isShowToolBar}
@@ -458,7 +457,9 @@ const AddNodeOnEdgeDrop = () => {
 };
 
 export default () => (
-    <ReactFlowProvider>
-        <AddNodeOnEdgeDrop />
-    </ReactFlowProvider>
+    <div className='w-screen h-screen'>
+        <ReactFlowProvider>
+            <AddNodeOnEdgeDrop />
+        </ReactFlowProvider>
+    </div>
 );
