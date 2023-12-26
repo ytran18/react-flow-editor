@@ -5,29 +5,10 @@ import { PlusOutlined, MinusOutlined, ExpandOutlined } from '@ant-design/icons';
 
 const Controls = React.forwardRef((props, ref) => {
 
-    const { zoomIn, zoomOut, setCenter } = useReactFlow();
+    const { zoomIn, zoomOut, setViewport } = useReactFlow();
 
     const handleTransform = () => {
-        if (ref && ref.current) {
-            ref.current.fitView();
-            // const windowWidth = window.innerWidth;
-            // const windowHeight = window.innerHeight;
-
-            
-            // const scaleX = windowWidth / ref.current.offsetWidth;
-            // const scaleY = windowHeight / ref.current.offsetHeight;
-            
-            // console.log(windowWidth / ref.current.offsetWidth);
-            // const scale = Math.min(scaleX, scaleY);
-    
-            // const x = windowWidth / 2 - (ref.current.offsetWidth * scale) / 2;
-            // const y = windowHeight / 2 - (ref.current.offsetHeight * scale) / 2;
-    
-            // setCenter(x, y, {
-            //     zoom: scale,
-            //     duration: 200,
-            // });
-        }
+        setViewport({ x: 0, y: 0, zoom: 1 }, { duration: 400 });
     };
 
     return (
