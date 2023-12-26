@@ -51,7 +51,7 @@ const AddNodeOnEdgeDrop = () => {
     const reactFlowWrapper = useRef(null);
     const connectingNodeId = useRef(null);
 
-    const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+    const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
     const [state, setState] = useState({
@@ -198,10 +198,10 @@ const AddNodeOnEdgeDrop = () => {
         );
     }, [state.currNodeFontWeight, setNodes]);
 
-    const onConnect = (params) => {
+    const onConnect = useCallback((params) => {
         connectingNodeId.current = null;
         setEdges((eds) => addEdge(params, eds))
-    };
+    },[]);
 
     const onConnectStart = useCallback((_, { nodeId }) => {
         connectingNodeId.current = nodeId;
@@ -360,10 +360,10 @@ const AddNodeOnEdgeDrop = () => {
         setReactFlowInstance(_reactFlowInstance);
     };
 
-    const onDragOver = (event) => {
+    const onDragOver = useCallback((event) => {
         event.preventDefault();
         event.dataTransfer.dropEffect = 'move';
-    };
+    },[]);
 
     const onDrop = useCallback((event) => {
         event.preventDefault();
@@ -373,7 +373,7 @@ const AddNodeOnEdgeDrop = () => {
         // check if the dropped element is valid
         if (typeof type === 'undefined' || !type) {
             return;
-        }
+        };
     
         const position = reactFlowInstance.screenToFlowPosition({
             x: event.clientX,
