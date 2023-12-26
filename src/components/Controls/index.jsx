@@ -1,15 +1,13 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { Panel, useReactFlow } from 'reactflow';
 
 import { PlusOutlined, MinusOutlined, ExpandOutlined } from '@ant-design/icons';
 
-const Controls = React.forwardRef((props, ref) => {
+const Controls = (props) => {
 
-    const { zoomIn, zoomOut, setViewport } = useReactFlow();
+    const { handleTransform } = props;
 
-    const handleTransform = () => {
-        setViewport({ x: 0, y: 0, zoom: 1 }, { duration: 400 });
-    };
+    const { zoomIn, zoomOut } = useReactFlow();
 
     return (
         <Panel position="bottom-left" className="flex flex-col border border-[rgb(214,220,227)] shadow-md">
@@ -27,6 +25,6 @@ const Controls = React.forwardRef((props, ref) => {
             />
         </Panel>
     );
-});
+};
 
 export default Controls;

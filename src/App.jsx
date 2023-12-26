@@ -21,24 +21,6 @@ import 'reactflow/dist/style.css';
 
 import './App.css';
 
-const initialNodes = [
-    {
-        id: '0',
-        type: 'custom',
-        data: { label: 'Root', isRootNode: true, shape: 'default' },
-        position: { x: 0, y: 50 },
-        style : {
-            backgroundColor: '#eee',
-            borderColor: '#000',
-            fontSize: '14px',
-            borderStyle: 'solid',
-            color: '#000',
-            fontWeight: 400,
-            borderWidth: '1px',
-        },
-    },
-];
-
 let id = 1;
 const getId = () => `${id++}`;
 
@@ -72,7 +54,7 @@ const AddNodeOnEdgeDrop = () => {
     
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
 
-    const { screenToFlowPosition } = useReactFlow();
+    const { screenToFlowPosition, setViewport } = useReactFlow();
 
     //  Change node title
     useEffect(() => {
@@ -406,7 +388,12 @@ const AddNodeOnEdgeDrop = () => {
     
         setNodes((nds) => nds.concat(newNode));
     },[reactFlowInstance]);
-    
+
+    const handleTransform = () => {
+        const newViewPort = reactFlowInstance.fitView();
+        setViewport(newViewPort);
+    };
+
     return (
         <>
             <div className="w-full h-full" ref={reactFlowWrapper}>
@@ -432,7 +419,7 @@ const AddNodeOnEdgeDrop = () => {
                     fitViewOptions={{ padding: 2 }}
                     style={{background: 'rgb(226,232,240)'}}
                 >
-                    <Controls ref={reactFlowWrapper}/>
+                    <Controls handleTransform={handleTransform}/>
                     <Background />
                     <ToolBar 
                         isShowToolBar={state.isShowToolBar}
