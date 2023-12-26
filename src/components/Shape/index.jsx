@@ -22,9 +22,15 @@ const Shape = () => {
                     <div onDragStart={(event) => onDragStart(event, 'circle')} draggable>
                         {circle}
                     </div>
-                    {roundedRetangle}
-                    {retangle}
-                    {hexagon}
+                    <div onDragStart={(event) => onDragStart(event, 'rounded-retangle')} draggable>
+                        {roundedRetangle}
+                    </div>
+                    <div onDragStart={(event) => onDragStart(event, 'retangle')} draggable>
+                        {retangle}
+                    </div>
+                    <div onDragStart={(event) => onDragStart(event, 'hexagon')} draggable>
+                        {hexagon}
+                    </div>
                     {diamond}
                     {arrowRetangle}
                     {cylinder}

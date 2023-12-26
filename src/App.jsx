@@ -16,6 +16,7 @@ import ToolBar from './components/ToolBar';
 import Node from './components/Node';
 import Shape from './components/Shape';
 import Controls from './components/Controls';
+import Hexagon from './components/Node/Hexagon';
 
 import 'reactflow/dist/style.css';
 
@@ -26,6 +27,7 @@ const getId = () => `${id++}`;
 
 const nodeTypes = {
     custom: Node,
+    hexagon: Hexagon,
 };
 
 const AddNodeOnEdgeDrop = () => {
@@ -364,26 +366,39 @@ const AddNodeOnEdgeDrop = () => {
 
         const id = getId();
 
+        const customType = {
+            'hexagon': 'hexagon',
+            'custom': 'custom',
+            'circle': 'custom',
+            'rounded-retangle': 'custom',
+            'retangle': 'custom'
+        }[type] || 'custom';
+
         const bgRadius = {
-            'circle': '9999px'
+            'circle': '9999px',
+            'rounded-retangle': '10px',
+            'retangle': '0px',
+            'hexagon': '0px'
         }[type];
+
+        const style = {
+            backgroundColor: '#eee',
+            borderColor: '#000',
+            fontSize: '14px',
+            borderStyle: 'solid',
+            color: '#000',
+            fontWeight: 400,
+            borderWidth: '1px',
+            borderRadius: bgRadius,
+        };
 
         const newNode = {
             id: id,
-            type: 'custom',
+            type: customType,
             position,
-            data: { label: `Node ${id}`, isRootNode: false, shape: type },
+            data: { label: `Node ${id}`, isRootNode: false, shape: type, style: style },
             origin: [0.5, 0.0],
-            style: {
-                backgroundColor: '#eee',
-                borderColor: '#000',
-                fontSize: '14px',
-                borderStyle: 'solid',
-                color: '#000',
-                fontWeight: 400,
-                borderWidth: '1px',
-                borderRadius: bgRadius,
-            }
+            style: style
         };
     
         setNodes((nds) => nds.concat(newNode));

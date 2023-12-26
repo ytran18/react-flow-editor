@@ -7,7 +7,10 @@ export default memo(({ data, isConnectable }) => {
 
     const shapeStyle = {
         'default': 'py-3 px-10 max-w-64 text-center',
-        'circle': 'w-20 h-20 flex items-center justify-center'
+        'circle': 'w-20 h-20 flex items-center justify-center',
+        'rounded-retangle': 'py-3 px-10 max-w-64 text-center',
+        'retangle': 'py-3 px-10 max-w-64 text-center',
+        'hexagon': 'py-3 px-10 max-w-64 text-center',
     }[data?.shape];
 
     return (
