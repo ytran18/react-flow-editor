@@ -86,8 +86,9 @@ const AddNodeOnEdgeDrop = () => {
                 if (node.id === state.currNodeId) {
                     node.style = {
                         ...node.style,
-                        backgroundColor: node.type === 'hexagon' ? 'none' : state.currNodeBg, 
+                        backgroundColor: (node.type === 'hexagon' || node.type === 'diamond') ? 'none' : state.currNodeBg, 
                         hexagonBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
+                        diamondBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                     };
                 }
         
@@ -302,7 +303,6 @@ const AddNodeOnEdgeDrop = () => {
             currNodeFontSize: fontSize || 14,
             currNodeFontWeight: fontWeight || 'Normal',
             currNodeBorderColor: node?.style?.borderColor || '#000',
-            currNodeHexagonBgColor: node?.style?.backgroundColor !== 'none' ? node?.style?.backgroundColor : '#eee',
         }));
     };
 
