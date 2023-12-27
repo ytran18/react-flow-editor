@@ -18,6 +18,7 @@ import Shape from './components/Shape';
 import Controls from './components/Controls';
 import Hexagon from './components/Node/Hexagon';
 import Diamond from './components/Node/Diamond';
+import ArrowRetangle from './components/Node/ArrowRetangle';
 
 import 'reactflow/dist/style.css';
 
@@ -30,6 +31,7 @@ const nodeTypes = {
     custom: Node,
     hexagon: Hexagon,
     diamond: Diamond,
+    arrowRetangle: ArrowRetangle,
 };
 
 const AddNodeOnEdgeDrop = () => {
@@ -51,6 +53,7 @@ const AddNodeOnEdgeDrop = () => {
         currNodeFontWeight: 'Normal',
         currNodeBorderStyle: 'solid',
         currNodeTitleColor: '#000',
+        currNodeHexagonBgColor: '#eee',
         isShowToolBar: false,
         targetEdgeId: '',
         preventOnConnectEnd: false,
@@ -83,7 +86,8 @@ const AddNodeOnEdgeDrop = () => {
                 if (node.id === state.currNodeId) {
                     node.style = {
                         ...node.style,
-                        backgroundColor: state.currNodeBg, 
+                        backgroundColor: node.type === 'hexagon' ? 'none' : state.currNodeBg, 
+                        hexagonBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                     };
                 }
         
@@ -298,6 +302,7 @@ const AddNodeOnEdgeDrop = () => {
             currNodeFontSize: fontSize || 14,
             currNodeFontWeight: fontWeight || 'Normal',
             currNodeBorderColor: node?.style?.borderColor || '#000',
+            currNodeHexagonBgColor: node?.style?.backgroundColor !== 'none' ? node?.style?.backgroundColor : '#eee',
         }));
     };
 
@@ -356,7 +361,6 @@ const AddNodeOnEdgeDrop = () => {
     
         const type = event.dataTransfer.getData('application/reactflow');
     
-        // check if the dropped element is valid
         if (typeof type === 'undefined' || !type) {
             return;
         };
@@ -370,27 +374,24 @@ const AddNodeOnEdgeDrop = () => {
 
         const customType = {
             'hexagon': 'hexagon',
-            'custom': 'custom',
-            'circle': 'custom',
-            'rounded-retangle': 'custom',
-            'retangle': 'custom',
-            'diamond': 'diamond'
+            'diamond': 'diamond',
+            'arrow-retangle': 'arrowRetangle',
         }[type] || 'custom';
 
         const bgRadius = {
             'circle': '9999px',
             'rounded-retangle': '10px',
-            'retangle': '0px',
-            'hexagon': '0px',
-            'diamond': '0px'
-        }[type];
+        }[type] || '0px';
 
         const background = {
-            'diamond': 'none'
+            'hexagon': 'none',
+            'diamond': 'none',
         }[type] || '#eee';
 
         const borderWidth = {
+            'hexagon': 'none',
             'diamond': 'none',
+            'arrow-retangle': 'none'
         }[type] || '1px';
 
         let style = {
@@ -408,7 +409,7 @@ const AddNodeOnEdgeDrop = () => {
             id: id,
             type: customType,
             position,
-            data: { label: `Node ${id}`, isRootNode: false, shape: type },
+            data: { label: `Node ${id}`, isRootNode: false, shape: type, id: id },
             origin: [0.5, 0.0],
             style: style
         };
