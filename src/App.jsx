@@ -19,6 +19,7 @@ import Controls from './components/Controls';
 import Hexagon from './components/Node/Hexagon';
 import Diamond from './components/Node/Diamond';
 import ArrowRetangle from './components/Node/ArrowRetangle';
+import Triangle from './components/Node/Triangle';
 
 import 'reactflow/dist/style.css';
 
@@ -32,6 +33,7 @@ const nodeTypes = {
     hexagon: Hexagon,
     diamond: Diamond,
     arrowRetangle: ArrowRetangle,
+    triangle: Triangle,
 };
 
 const AddNodeOnEdgeDrop = () => {
@@ -86,10 +88,11 @@ const AddNodeOnEdgeDrop = () => {
                 if (node.id === state.currNodeId) {
                     node.style = {
                         ...node.style,
-                        backgroundColor: (node.type === 'hexagon' || node.type === 'diamond' || node.type === 'arrowRetangle') ? 'none' : state.currNodeBg, 
+                        backgroundColor: (node.type === 'hexagon' || node.type === 'diamond' || node.type === 'arrowRetangle' || node.type === 'triangle') ? 'none' : state.currNodeBg, 
                         hexagonBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                         diamondBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                         arrowRectangleBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
+                        triangleBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                     };
                 }
         
@@ -377,6 +380,7 @@ const AddNodeOnEdgeDrop = () => {
             'hexagon': 'hexagon',
             'diamond': 'diamond',
             'arrow-retangle': 'arrowRetangle',
+            'triangle': 'triangle'
         }[type] || 'custom';
 
         const bgRadius = {
@@ -387,13 +391,15 @@ const AddNodeOnEdgeDrop = () => {
         const background = {
             'hexagon': 'none',
             'diamond': 'none',
-            'arrow-retangle': 'none'
+            'arrow-retangle': 'none',
+            'triangle': 'none'
         }[type] || '#eee';
 
         const borderWidth = {
             'hexagon': 'none',
             'diamond': 'none',
-            'arrow-retangle': 'none'
+            'arrow-retangle': 'none',
+            'triangle': 'none'
         }[type] || '1px';
 
         let style = {
@@ -406,8 +412,6 @@ const AddNodeOnEdgeDrop = () => {
             borderWidth: borderWidth,
             borderRadius: bgRadius,
         };
-
-        console.log(customType);
 
         const newNode = {
             id: id,

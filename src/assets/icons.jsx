@@ -55,7 +55,7 @@ const arrowRetangle = (
     </div>
 );
 
-const cylinder = (
+const triangle = (
     <div className="p-2 flex items-center justify-center hover:bg-[rgb(226,232,240)] cursor-pointer rounded">
         <svg width="28" height="28" className="stroke-black">
             <g transform="translate(1, 1)">
@@ -64,7 +64,7 @@ const cylinder = (
         </svg>
     </div>
 );
-const triangle = (
+const cylinder = (
     <div className="p-2 flex items-center justify-center hover:bg-[rgb(226,232,240)] cursor-pointer rounded">
         <svg width="28" height="28" className="stroke-black">
             <g transform="translate(1, 1)">

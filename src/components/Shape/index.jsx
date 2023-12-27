@@ -37,8 +37,12 @@ const Shape = () => {
                     <div onDragStart={(event) => onDragStart(event, 'arrow-retangle')} draggable>
                         {arrowRetangle}
                     </div>
-                    {cylinder}
-                    {triangle}
+                    <div onDragStart={(event) => onDragStart(event, 'triangle')} draggable>
+                        {triangle}
+                    </div>
+                    <div onDragStart={(event) => onDragStart(event, 'cylinder')} draggable>
+                        {cylinder}
+                    </div>
                     {parallelogram}
                     {plus}
                 </div>
