@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import { useStore } from 'reactflow';
+import { useStore, Handle, Position } from 'reactflow';
 
-const Hexagon = ({data}) => {
+const Hexagon = ({data, isConnectable}) => {
 
     const store = useStore();
 
@@ -25,6 +25,34 @@ const Hexagon = ({data}) => {
                 </g>
             </svg>
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">{data.label}</div>
+            <Handle
+                type="target"
+                position="top"
+                id="hexagon-top"
+                style={{ background: '#555', borderRadius: '50%', top: -1 }}
+                onConnect={(params) => console.log('handle onConnect', params)}
+            />
+            <Handle
+                type="source"
+                position="bottom"
+                id="hexagon-bottom"
+                style={{ background: '#555', borderRadius: '50%', bottom: -1 }}
+                onConnect={(params) => console.log('handle onConnect', params)}
+            />
+            <Handle
+                type="source"
+                position={Position.Left}
+                id="hexagon-left"
+                style={{background: '#555', top: '50%', left: -1}}
+                isConnectable={isConnectable}
+            />
+            <Handle
+                type="source"
+                position={Position.Right}
+                id="hexagon-right"
+                style={{background: '#555', top: '50%', right: -1}}
+                isConnectable={isConnectable}
+            />
         </>
     );
 };
