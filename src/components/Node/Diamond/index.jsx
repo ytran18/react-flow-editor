@@ -64,7 +64,7 @@ const Diamond = ({data, isConnectable}) => {
                 style={{background: '#555', top: '50%', right: -1}}
                 isConnectable={isConnectable}
             />
-    </div>
+        </div>
     );
 };
 

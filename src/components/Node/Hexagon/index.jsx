@@ -28,7 +28,7 @@ const Hexagon = ({data, isConnectable}) => {
         <>
             <svg width="120" height="60" className="relative">
                 <g transform="translate(2, 2)">
-                    <path d="M0,28 L11.600000000000001,0 L104.4,0 L116,28 L104.4,56 L11.600000000000001,56 Z" fill={state.styles?.hexagonBg || '#eee'} strokeWidth="2" strokeDasharray={strokeDasharray} stroke={stroke} fillOpacity="0.8"></path>
+                    <path d="M0,28 L11.600000000000001,0 L104.4,0 L116,28 L104.4,56 L11.600000000000001,56 Z" fill={state.styles?.hexagonBg || '#eee'} strokeWidth="1" strokeDasharray={strokeDasharray} stroke={stroke} fillOpacity="0.8"></path>
                 </g>
             </svg>
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">{data.label}</div>

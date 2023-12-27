@@ -86,9 +86,10 @@ const AddNodeOnEdgeDrop = () => {
                 if (node.id === state.currNodeId) {
                     node.style = {
                         ...node.style,
-                        backgroundColor: (node.type === 'hexagon' || node.type === 'diamond') ? 'none' : state.currNodeBg, 
+                        backgroundColor: (node.type === 'hexagon' || node.type === 'diamond' || node.type === 'arrowRetangle') ? 'none' : state.currNodeBg, 
                         hexagonBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                         diamondBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
+                        arrowRectangleBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                     };
                 }
         
@@ -386,6 +387,7 @@ const AddNodeOnEdgeDrop = () => {
         const background = {
             'hexagon': 'none',
             'diamond': 'none',
+            'arrow-retangle': 'none'
         }[type] || '#eee';
 
         const borderWidth = {
@@ -404,6 +406,8 @@ const AddNodeOnEdgeDrop = () => {
             borderWidth: borderWidth,
             borderRadius: bgRadius,
         };
+
+        console.log(customType);
 
         const newNode = {
             id: id,
