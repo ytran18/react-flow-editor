@@ -20,6 +20,7 @@ import Hexagon from './components/Node/Hexagon';
 import Diamond from './components/Node/Diamond';
 import ArrowRetangle from './components/Node/ArrowRetangle';
 import Triangle from './components/Node/Triangle';
+import Parallelogram from './components/Node/Parallelogram';
 
 import 'reactflow/dist/style.css';
 
@@ -34,6 +35,7 @@ const nodeTypes = {
     diamond: Diamond,
     arrowRetangle: ArrowRetangle,
     triangle: Triangle,
+    parallelogram: Parallelogram,
 };
 
 const AddNodeOnEdgeDrop = () => {
@@ -93,6 +95,7 @@ const AddNodeOnEdgeDrop = () => {
                         diamondBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                         arrowRectangleBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                         triangleBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
+                        parallelogramBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                     };
                 }
         
@@ -380,7 +383,8 @@ const AddNodeOnEdgeDrop = () => {
             'hexagon': 'hexagon',
             'diamond': 'diamond',
             'arrow-retangle': 'arrowRetangle',
-            'triangle': 'triangle'
+            'triangle': 'triangle',
+            'parallelogram': 'parallelogram'
         }[type] || 'custom';
 
         const bgRadius = {
@@ -392,14 +396,16 @@ const AddNodeOnEdgeDrop = () => {
             'hexagon': 'none',
             'diamond': 'none',
             'arrow-retangle': 'none',
-            'triangle': 'none'
+            'triangle': 'none',
+            'parallelogram': 'none'
         }[type] || '#eee';
 
         const borderWidth = {
             'hexagon': 'none',
             'diamond': 'none',
             'arrow-retangle': 'none',
-            'triangle': 'none'
+            'triangle': 'none',
+            'parallelogram': 'none'
         }[type] || '1px';
 
         let style = {
