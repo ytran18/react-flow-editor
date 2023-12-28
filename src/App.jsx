@@ -22,6 +22,7 @@ import ArrowRetangle from './components/Node/ArrowRetangle';
 import Triangle from './components/Node/Triangle';
 import Parallelogram from './components/Node/Parallelogram';
 import Cylinder from './components/Node/Cylinder';
+import Plus from './components/Node/Plus';
 
 import 'reactflow/dist/style.css';
 
@@ -38,6 +39,7 @@ const nodeTypes = {
     triangle: Triangle,
     parallelogram: Parallelogram,
     cylinder: Cylinder,
+    plus: Plus,
 };
 
 const AddNodeOnEdgeDrop = () => {
@@ -99,6 +101,7 @@ const AddNodeOnEdgeDrop = () => {
                         triangleBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                         parallelogramBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                         cylinderBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
+                        plusBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                     };
                 }
         
@@ -389,6 +392,7 @@ const AddNodeOnEdgeDrop = () => {
             'triangle': 'triangle',
             'parallelogram': 'parallelogram',
             'cylinder': 'cylinder',
+            'plus': 'plus',
         }[type] || 'custom';
 
         const bgRadius = {
@@ -403,6 +407,7 @@ const AddNodeOnEdgeDrop = () => {
             'triangle': 'none',
             'parallelogram': 'none',
             'cylinder': 'none',
+            'plus': 'none',
         }[type] || '#eee';
 
         const borderWidth = {
@@ -412,6 +417,7 @@ const AddNodeOnEdgeDrop = () => {
             'triangle': 'none',
             'parallelogram': 'none',
             'cylinder': 'none',
+            'plus': 'none',
         }[type] || '1px';
 
         let style = {

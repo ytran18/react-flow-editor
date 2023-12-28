@@ -46,7 +46,9 @@ const Shape = () => {
                     <div onDragStart={(event) => onDragStart(event, 'parallelogram')} draggable>
                         {parallelogram}
                     </div>
-                    {plus}
+                    <div onDragStart={(event) => onDragStart(event, 'plus')} draggable>
+                        {plus}
+                    </div>
                 </div>
             </aside>
         </Panel>
