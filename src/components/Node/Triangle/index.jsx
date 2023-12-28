@@ -35,28 +35,28 @@ const Triangle = ({data, isConnectable}) => {
             <Handle
                 type="target"
                 position="top"
-                id="hexagon-top"
+                id="triangle-top"
                 style={{ background: '#555', borderRadius: '50%', top: -1 }}
                 onConnect={(params) => console.log('handle onConnect', params)}
             />
             <Handle
                 type="source"
                 position="bottom"
-                id="hexagon-bottom"
+                id="triangle-bottom"
                 style={{ background: '#555', borderRadius: '50%', bottom: -1 }}
                 onConnect={(params) => console.log('handle onConnect', params)}
             />
             <Handle
                 type="source"
                 position={Position.Left}
-                id="hexagon-left"
+                id="triangle-left"
                 style={{background: '#555', top: '50%', left: -1}}
                 isConnectable={isConnectable}
             />
             <Handle
                 type="source"
                 position={Position.Right}
-                id="hexagon-right"
+                id="triangle-right"
                 style={{background: '#555', top: '50%', right: -1}}
                 isConnectable={isConnectable}
             />

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { Handle, Position, useStore } from 'reactflow';
 
-const Parallelogram = ({ data, isConnectable }) => {
+const Cylinder = ({ data, isConnectable }) => {
     const store = useStore();
 
     const [state, setState] = useState({
@@ -27,35 +27,35 @@ const Parallelogram = ({ data, isConnectable }) => {
         <>
             <svg width="100" height="100">
                 <g transform="translate(2, 2)">
-                    <path d="M0,96 L24,0 L96,0 L72,96 Z" fill={state.styles?.parallelogramBg || '#eee'} strokeDasharray={strokeDasharray} strokeWidth="1" stroke={stroke} fillOpacity="0.8"></path>
+                    <path d="M0,12  L 0,84 A 48 12 0 1 0 96 84 L 96,12 A 48 12 0 1 1 0 12 A 48 12 0 1 1 96 12 A 48 12 0 1 1 0 12 z" fill={state.styles?.cylinderBg || '#eee'} strokeDasharray={strokeDasharray} stroke-width="1" stroke={stroke} fillOpacity="0.8"></path>
                 </g>
             </svg>
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">{data.label}</div>
             <Handle
                 type="target"
                 position="top"
-                id="parallelogram-top"
+                id="cylinder-top"
                 style={{ background: '#555', borderRadius: '50%', top: -1 }}
                 onConnect={(params) => console.log('handle onConnect', params)}
             />
             <Handle
                 type="source"
                 position="bottom"
-                id="parallelogram-bottom"
+                id="cylinder-bottom"
                 style={{ background: '#555', borderRadius: '50%', bottom: -1 }}
                 onConnect={(params) => console.log('handle onConnect', params)}
             />
             <Handle
                 type="source"
                 position={Position.Left}
-                id="parallelogram-left"
+                id="cylinder-left"
                 style={{background: '#555', top: '50%', left: -1}}
                 isConnectable={isConnectable}
             />
             <Handle
                 type="source"
                 position={Position.Right}
-                id="parallelogram-right"
+                id="cylinder-right"
                 style={{background: '#555', top: '50%', right: -1}}
                 isConnectable={isConnectable}
             />
@@ -63,4 +63,4 @@ const Parallelogram = ({ data, isConnectable }) => {
     );
 }
 
-export default Parallelogram;
+export default Cylinder;
