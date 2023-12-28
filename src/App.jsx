@@ -92,9 +92,10 @@ const AddNodeOnEdgeDrop = () => {
         setNodes((nds) =>
             nds.map((node) => {
                 if (node.id === state.currNodeId) {
+                    const condition = node.type === 'hexagon' || node.type === 'diamond' || node.type === 'arrowRetangle' || node.type === 'triangle' || node.type === 'parallelogram' || node.type === 'cylinder' || node.type === 'plus';
                     node.style = {
                         ...node.style,
-                        backgroundColor: (node.type === 'hexagon' || node.type === 'diamond' || node.type === 'arrowRetangle' || node.type === 'triangle') ? 'none' : state.currNodeBg, 
+                        backgroundColor: condition ? 'none' : state.currNodeBg, 
                         hexagonBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                         diamondBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                         arrowRectangleBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
