@@ -33,6 +33,7 @@ const Plus = ({ data, isConnectable }) => {
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">{data.label}</div>
             <Handle
                 type="target"
+                className={`${data?.isSelected ? 'block' : 'hidden'}`}
                 position="top"
                 id="plus-top"
                 style={{ background: '#555', borderRadius: '50%', top: -1 }}
@@ -40,6 +41,7 @@ const Plus = ({ data, isConnectable }) => {
             />
             <Handle
                 type="source"
+                className={`${data?.isSelected ? 'block' : 'hidden'}`}
                 position="bottom"
                 id="plus-bottom"
                 style={{ background: '#555', borderRadius: '50%', bottom: -1 }}
@@ -47,6 +49,7 @@ const Plus = ({ data, isConnectable }) => {
             />
             <Handle
                 type="source"
+                className={`${data?.isSelected ? 'block' : 'hidden'}`}
                 position={Position.Left}
                 id="plus-left"
                 style={{background: '#555', top: '50%', left: -1}}
@@ -54,6 +57,7 @@ const Plus = ({ data, isConnectable }) => {
             />
             <Handle
                 type="source"
+                className={`${data?.isSelected ? 'block' : 'hidden'}`}
                 position={Position.Right}
                 id="plus-right"
                 style={{background: '#555', top: '50%', right: -1}}

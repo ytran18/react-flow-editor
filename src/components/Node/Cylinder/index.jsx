@@ -34,27 +34,31 @@ const Cylinder = ({ data, isConnectable }) => {
             <Handle
                 type="target"
                 position="top"
+                className={`${data?.isSelected ? 'block' : 'hidden'}`}
                 id="cylinder-top"
                 style={{ background: '#555', borderRadius: '50%', top: -1 }}
                 onConnect={(params) => console.log('handle onConnect', params)}
-            />
+                />
             <Handle
                 type="source"
                 position="bottom"
+                className={`${data?.isSelected ? 'block' : 'hidden'}`}
                 id="cylinder-bottom"
                 style={{ background: '#555', borderRadius: '50%', bottom: -1 }}
                 onConnect={(params) => console.log('handle onConnect', params)}
-            />
+                />
             <Handle
                 type="source"
                 position={Position.Left}
+                className={`${data?.isSelected ? 'block' : 'hidden'}`}
                 id="cylinder-left"
                 style={{background: '#555', top: '50%', left: -1}}
                 isConnectable={isConnectable}
-            />
+                />
             <Handle
                 type="source"
                 position={Position.Right}
+                className={`${data?.isSelected ? 'block' : 'hidden'}`}
                 id="cylinder-right"
                 style={{background: '#555', top: '50%', right: -1}}
                 isConnectable={isConnectable}

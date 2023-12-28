@@ -23,6 +23,7 @@ export default memo(({ data, isConnectable }) => {
             <Handle
                 type="source"
                 position={Position.Bottom}
+                className={`${data?.isSelected ? 'block' : 'hidden'}`}
                 id="source"
                 style={{background: '#555', bottom: -3}}
                 isConnectable={isConnectable}
@@ -31,6 +32,7 @@ export default memo(({ data, isConnectable }) => {
                 <Handle
                     type="target"
                     position={Position.Top}
+                    className={`${data?.isSelected ? 'block' : 'hidden'}`}
                     id="target"
                     style={{background: '#555', top: -3}}
                     isConnectable={isConnectable}
@@ -40,6 +42,7 @@ export default memo(({ data, isConnectable }) => {
                 <Handle
                     type="source"
                     position={Position.Left}
+                    className={`${data?.isSelected ? 'block' : 'hidden'}`}
                     id="b"
                     style={{background: '#555', top: '50%'}}
                     isConnectable={isConnectable}
@@ -49,6 +52,7 @@ export default memo(({ data, isConnectable }) => {
                 <Handle
                     type="source"
                     position={Position.Right}
+                    className={`${data?.isSelected ? 'block' : 'hidden'}`}
                     id="c"
                     style={{background: '#555', top: '50%'}}
                     isConnectable={isConnectable}

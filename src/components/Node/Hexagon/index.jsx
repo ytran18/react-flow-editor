@@ -36,26 +36,30 @@ const Hexagon = ({data, isConnectable}) => {
                 type="target"
                 position="top"
                 id="hexagon-top"
+                className={`${data?.isSelected ? 'block' : 'hidden'}`}
                 style={{ background: '#555', borderRadius: '50%', top: -1 }}
                 onConnect={(params) => console.log('handle onConnect', params)}
-            />
+                />
             <Handle
                 type="source"
                 position="bottom"
+                className={`${data?.isSelected ? 'block' : 'hidden'}`}
                 id="hexagon-bottom"
                 style={{ background: '#555', borderRadius: '50%', bottom: -1 }}
                 onConnect={(params) => console.log('handle onConnect', params)}
-            />
+                />
             <Handle
                 type="source"
                 position={Position.Left}
+                className={`${data?.isSelected ? 'block' : 'hidden'}`}
                 id="hexagon-left"
                 style={{background: '#555', top: '50%', left: -1}}
                 isConnectable={isConnectable}
-            />
+                />
             <Handle
                 type="source"
                 position={Position.Right}
+                className={`${data?.isSelected ? 'block' : 'hidden'}`}
                 id="hexagon-right"
                 style={{background: '#555', top: '50%', right: -1}}
                 isConnectable={isConnectable}

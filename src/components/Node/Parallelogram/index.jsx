@@ -34,6 +34,7 @@ const Parallelogram = ({ data, isConnectable }) => {
             <Handle
                 type="target"
                 position="top"
+                className={`${data?.isSelected ? 'block' : 'hidden'}`}
                 id="parallelogram-top"
                 style={{ background: '#555', borderRadius: '50%', top: -1 }}
                 onConnect={(params) => console.log('handle onConnect', params)}
@@ -41,6 +42,7 @@ const Parallelogram = ({ data, isConnectable }) => {
             <Handle
                 type="source"
                 position="bottom"
+                className={`${data?.isSelected ? 'block' : 'hidden'}`}
                 id="parallelogram-bottom"
                 style={{ background: '#555', borderRadius: '50%', bottom: -1 }}
                 onConnect={(params) => console.log('handle onConnect', params)}
@@ -48,6 +50,7 @@ const Parallelogram = ({ data, isConnectable }) => {
             <Handle
                 type="source"
                 position={Position.Left}
+                className={`${data?.isSelected ? 'block' : 'hidden'}`}
                 id="parallelogram-left"
                 style={{background: '#555', top: '50%', left: -1}}
                 isConnectable={isConnectable}
@@ -55,6 +58,7 @@ const Parallelogram = ({ data, isConnectable }) => {
             <Handle
                 type="source"
                 position={Position.Right}
+                className={`${data?.isSelected ? 'block' : 'hidden'}`}
                 id="parallelogram-right"
                 style={{background: '#555', top: '50%', right: -1}}
                 isConnectable={isConnectable}

@@ -306,6 +306,28 @@ const AddNodeOnEdgeDrop = () => {
             900: 'Black',
         }[node?.style?.fontWeight];
 
+        const updatedNodes = nodes.map(nds => {
+            if (nds.id === node.id) {
+                return {
+                    ...nds,
+                    data: {
+                        ...nds.data,
+                        isSelected: true
+                    }
+                };
+            } else {
+                return {
+                    ...nds,
+                    data: {
+                        ...nds.data,
+                        isSelected: false
+                    }
+                };
+            }
+        });          
+
+        setNodes(updatedNodes);
+
         setState(prev => ({
             ...prev,
             currNodeId: node?.id,
@@ -436,7 +458,7 @@ const AddNodeOnEdgeDrop = () => {
             id: id,
             type: customType,
             position,
-            data: { label: `Node ${id}`, isRootNode: false, shape: type, id: id },
+            data: { label: `Node ${id}`, isRootNode: false, shape: type, id: id, isSelected: true },
             origin: [0.5, 0.0],
             style: style
         };
