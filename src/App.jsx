@@ -23,6 +23,9 @@ import Triangle from './components/Node/Triangle';
 import Parallelogram from './components/Node/Parallelogram';
 import Cylinder from './components/Node/Cylinder';
 import Plus from './components/Node/Plus';
+import Circle from './components/Node/Circle';
+import RoundedRectangle from './components/Node/RoundedRectangle';
+import Rectangle from './components/Node/Rectangle';
 
 import 'reactflow/dist/style.css';
 
@@ -40,6 +43,9 @@ const nodeTypes = {
     parallelogram: Parallelogram,
     cylinder: Cylinder,
     plus: Plus,
+    circle: Circle,
+    roundedRectangle: RoundedRectangle,
+    rectangle: Rectangle,
 };
 
 const AddNodeOnEdgeDrop = () => {
@@ -103,6 +109,9 @@ const AddNodeOnEdgeDrop = () => {
                         parallelogramBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                         cylinderBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                         plusBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
+                        circleBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
+                        roundedRectangleBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
+                        rectangleBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                     };
                 }
         
@@ -418,12 +427,10 @@ const AddNodeOnEdgeDrop = () => {
             'parallelogram': 'parallelogram',
             'cylinder': 'cylinder',
             'plus': 'plus',
-        }[type] || 'custom';
-
-        const bgRadius = {
-            'circle': '9999px',
-            'rounded-retangle': '10px',
-        }[type] || '0px';
+            'circle': 'circle',
+            'rounded-retangle': 'roundedRectangle',
+            'rectangle': 'rectangle',
+        }[type];
 
         const background = {
             'hexagon': 'none',
@@ -433,6 +440,9 @@ const AddNodeOnEdgeDrop = () => {
             'parallelogram': 'none',
             'cylinder': 'none',
             'plus': 'none',
+            'circle': 'none',
+            'rounded-retangle': 'none',
+            'rectangle': 'none',
         }[type] || '#eee';
 
         const borderWidth = {
@@ -443,6 +453,9 @@ const AddNodeOnEdgeDrop = () => {
             'parallelogram': 'none',
             'cylinder': 'none',
             'plus': 'none',
+            'circle': 'none',
+            'rounded-retangle': 'none',
+            'rectangle': 'none',
         }[type] || '1px';
 
         let style = {
@@ -453,7 +466,6 @@ const AddNodeOnEdgeDrop = () => {
             color: '#000',
             fontWeight: 400,
             borderWidth: borderWidth,
-            borderRadius: bgRadius,
         };
 
         const newNode = {

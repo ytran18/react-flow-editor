@@ -38,26 +38,6 @@ export default memo(({ data, isConnectable }) => {
                     isConnectable={isConnectable}
                 />
             )}
-            {data?.shape === 'circle' && (
-                <Handle
-                    type="source"
-                    position={Position.Left}
-                    className={`${data?.isSelected ? 'block' : 'hidden'}`}
-                    id="b"
-                    style={{background: '#555', top: '50%'}}
-                    isConnectable={isConnectable}
-                />
-            )}
-            {data?.shape === 'circle' && (
-                <Handle
-                    type="source"
-                    position={Position.Right}
-                    className={`${data?.isSelected ? 'block' : 'hidden'}`}
-                    id="c"
-                    style={{background: '#555', top: '50%'}}
-                    isConnectable={isConnectable}
-                />
-            )}
         </>
     );
 });
