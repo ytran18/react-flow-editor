@@ -502,6 +502,10 @@ const AddNodeOnEdgeDrop = () => {
         setViewport(newViewPort);
     };
 
+    const onPaneClick = () => {
+        setState(prev => ({...prev, isShowToolBar: false}));
+    };
+
     return (
         <>
             <div className="w-full h-full" ref={reactFlowWrapper}>
@@ -518,6 +522,7 @@ const AddNodeOnEdgeDrop = () => {
                     onNodeClick={onNodeClick}
                     onEdgeClick={onEdgeClick}
                     onEdgeUpdate={onEdgeUpdate}
+                    onPaneClick={onPaneClick}
                     onLoad={onLoad}
                     onDragOver={onDragOver}
                     onDrop={onDrop}
