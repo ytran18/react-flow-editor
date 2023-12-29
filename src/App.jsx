@@ -56,7 +56,7 @@ const AddNodeOnEdgeDrop = () => {
         currNodeBg: '#eee',
         currNodeBorderColor: '#000',
         currNodeShadowColor: '',
-        currNodeFontSize: 14,
+        currNodeFontSize: 8,
         currNodeFont: '',
         currNodeFontWeight: 'Normal',
         currNodeBorderStyle: 'solid',
@@ -231,7 +231,7 @@ const AddNodeOnEdgeDrop = () => {
                 style: {
                     backgroundColor: '#eee',
                     borderColor: '#000',
-                    fontSize: '14px',
+                    fontSize: '8px',
                     borderStyle: 'solid',
                     color: '#000',
                     fontWeight: 400,
@@ -258,6 +258,7 @@ const AddNodeOnEdgeDrop = () => {
                 900: 'Black',
             }[newNode?.style?.fontWeight];
 
+            state.currNodeId = id;
             setState(prev => ({
                 ...prev,
                 currNodeId: id,
@@ -266,7 +267,7 @@ const AddNodeOnEdgeDrop = () => {
                 currNodeBg: newNode?.style?.backgroundColor || '#eee',
                 currNodeBorderStyle: newNode?.style?.borderStyle || 'solid',
                 currNodeTitleColor: newNode?.style?.color || '#000',
-                currNodeFontSize: fontSize || 14,
+                currNodeFontSize: fontSize || 8,
                 currNodeFontWeight: fontWeight || 'Normal',
                 currNodeBorderColor: newNode?.style?.borderColor || '#000',
             }))
@@ -328,6 +329,7 @@ const AddNodeOnEdgeDrop = () => {
 
         setNodes(updatedNodes);
 
+        state.currNodeId = node?.id;
         setState(prev => ({
             ...prev,
             currNodeId: node?.id,
@@ -336,7 +338,7 @@ const AddNodeOnEdgeDrop = () => {
             currNodeBg: node?.style?.backgroundColor || '#eee',
             currNodeBorderStyle: node?.style?.borderStyle || 'solid',
             currNodeTitleColor: node?.style?.color || '#000',
-            currNodeFontSize: fontSize || 14,
+            currNodeFontSize: fontSize || 8,
             currNodeFontWeight: fontWeight || 'Normal',
             currNodeBorderColor: node?.style?.borderColor || '#000',
         }));
@@ -446,7 +448,7 @@ const AddNodeOnEdgeDrop = () => {
         let style = {
             backgroundColor: background,
             borderColor: '#000',
-            fontSize: '12px',
+            fontSize: '8px',
             borderStyle: 'solid',
             color: '#000',
             fontWeight: 400,
@@ -464,7 +466,36 @@ const AddNodeOnEdgeDrop = () => {
         };
     
         setNodes((nds) => nds.concat(newNode));
+
+        state.currNodeId = id;
+        setState(prev => ({...prev, currNodeId: id}));
     },[reactFlowInstance]);
+
+    useEffect(() => {
+        if (state.currNodeId) {
+            const updatedNodes = nodes.map(nds => {
+                if (nds.id === state.currNodeId) {
+                    return {
+                        ...nds,
+                        data: {
+                            ...nds.data,
+                            isSelected: true
+                        }
+                    };
+                } else {
+                    return {
+                        ...nds,
+                        data: {
+                            ...nds.data,
+                            isSelected: false
+                        }
+                    };
+                }
+            });          
+    
+            setNodes(updatedNodes);
+        };
+    },[state.currNodeId]);
 
     const handleTransform = () => {
         const newViewPort = reactFlowInstance.fitView();
