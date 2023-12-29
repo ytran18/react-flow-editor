@@ -31,7 +31,7 @@ const Triangle = ({data, isConnectable}) => {
                     <path d="M0,76 L48,0 L96,76 Z" fill={state.styles?.triangleBg || '#eee'} strokeWidth="1" stroke={stroke} strokeDasharray={strokeDasharray} fillOpacity="0.8"></path>
                 </g>
             </svg>
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">{data.label}</div>
+            <div className="absolute left-1/2 top-1/2 text-center -translate-x-1/2 -translate-y-1/2 transform">{data.label}</div>
             <Handle
                 type="target"
                 position="top"

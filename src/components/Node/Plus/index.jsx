@@ -30,7 +30,7 @@ const Plus = ({ data, isConnectable }) => {
                     <path d="M32,0 L64,0 L64,32 L96,32 L96,64 L96,64 L64,64 L64,96 L64,96 L32,96 L32,64 L0,64 L0,32 L32,32 Z" fill={state.styles?.plusBg || '#eee'} strokeWidth="1" strokeDasharray={strokeDasharray} stroke={stroke} fillOpacity="0.8"></path>
                 </g>
             </svg>
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">{data.label}</div>
+            <div className="absolute left-1/2 top-1/2 text-center -translate-x-1/2 -translate-y-1/2 transform">{data.label}</div>
             <Handle
                 type="target"
                 className={`${data?.isSelected ? 'block' : 'hidden'}`}

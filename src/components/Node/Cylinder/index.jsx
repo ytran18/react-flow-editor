@@ -30,7 +30,7 @@ const Cylinder = ({ data, isConnectable }) => {
                     <path d="M0,12  L 0,84 A 48 12 0 1 0 96 84 L 96,12 A 48 12 0 1 1 0 12 A 48 12 0 1 1 96 12 A 48 12 0 1 1 0 12 z" fill={state.styles?.cylinderBg || '#eee'} strokeDasharray={strokeDasharray} strokeWidth="1" stroke={stroke} fillOpacity="0.8"></path>
                 </g>
             </svg>
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">{data.label}</div>
+            <div className="absolute left-1/2 top-1/2 text-center -translate-x-1/2 -translate-y-1/2 transform">{data.label}</div>
             <Handle
                 type="target"
                 position="top"

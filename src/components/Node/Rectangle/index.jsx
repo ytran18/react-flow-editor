@@ -30,7 +30,7 @@ const Rectangle = ({ data, isConnectable }) => {
                     <rect x="0" y="0" width="96" height="96" fill={state.styles?.rectangleBg || '#eee'} strokeDasharray={strokeDasharray} strokeWidth="1" stroke={stroke} fillOpacity="0.8"></rect>
                 </g>
             </svg>
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">{data.label}</div>
+            <div className="absolute left-1/2 top-1/2 text-center -translate-x-1/2 -translate-y-1/2 transform">{data.label}</div>
             <Handle
                 type="target"
                 position="top"

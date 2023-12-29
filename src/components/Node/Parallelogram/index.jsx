@@ -30,7 +30,7 @@ const Parallelogram = ({ data, isConnectable }) => {
                     <path d="M0,96 L24,0 L96,0 L72,96 Z" fill={state.styles?.parallelogramBg || '#eee'} strokeDasharray={strokeDasharray} strokeWidth="1" stroke={stroke} fillOpacity="0.8"></path>
                 </g>
             </svg>
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">{data.label}</div>
+            <div className="absolute left-1/2 top-1/2 text-center -translate-x-1/2 -translate-y-1/2 transform">{data.label}</div>
             <Handle
                 type="target"
                 position="top"

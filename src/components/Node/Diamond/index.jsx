@@ -33,7 +33,7 @@ const Diamond = ({data, isConnectable}) => {
                 </g>
             </svg>
 
-            <div className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
+            <div className="absolute top-1/2 left-1/2 text-center transform -translate-y-1/2 -translate-x-1/2">
                 <p>{data.label}</p>
             </div>
             <Handle
