@@ -226,7 +226,7 @@ const AddNodeOnEdgeDrop = () => {
                     x: event.clientX,
                     y: event.clientY,
                 }),
-                data: { label: `Node ${id}`, isRootNode: false, shape:'default' },
+                data: { label: `Node ${id}`, isRootNode: false, shape:'default', isSelected: true },
                 origin: [0.5, 0.0],
                 style: {
                     backgroundColor: '#eee',
