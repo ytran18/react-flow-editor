@@ -526,14 +526,13 @@ const AddNodeOnEdgeDrop = () => {
     useEffect(() => {
         if (state.currNodeType) {
             const updatedNodes = nodes.map(nds => {
-                console.log(state.currNodeType === 'custom' ? nds?.style?.circleBg : 'none');
-                let style = nds?.style;
-                style.backgroundColor = state.currNodeType === 'custom' ? nds?.style?.circleBg : 'none';
-                style.borderWidth = state.currNodeType === 'custom' ? '1px' : 'none';
-
-                console.log(style);
-
+                
                 if (nds.id === state.currNodeId) {
+                    let style = nds?.style;
+                    const bg = nds?.style?.circleBg || '#eee'
+                    style.backgroundColor = state.currNodeType === 'custom' ? bg : 'none';
+                    style.borderWidth = state.currNodeType === 'custom' ? '1px' : 'none';
+    
                     return {
                         ...nds,
                         type: state.currNodeType,
