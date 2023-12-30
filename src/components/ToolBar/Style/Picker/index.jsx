@@ -52,17 +52,17 @@ const Picker = (props) => {
             { label: 'hidden', key: '9' },
         ],
         'shape': [
-            { label: 'circle', key: '0' },
-            { label: 'rounded-rectangle', key: '1' },
-            { label: 'rectangle', key: '2' },
-            { label: 'hexagon', key: '3' },
-            { label: 'diamond', key: '4' },
-            { label: 'arrow-rectangle', key: '5' },
-            { label: 'cylinder', key: '6' },
-            { label: 'triangle', key: '7' },
-            { label: 'parallelogram', key: '8' },
-            { label: 'plus', key: '9' },
-            { label: 'custom', key: '10' },
+            { label: 'Circle', key: '0', value: 'circle' },
+            { label: 'Rounded Rectangle', key: '1', value: 'roundedRectangle' },
+            { label: 'Rectangle', key: '2', value: 'rectangle' },
+            { label: 'Hexagon', key: '3', value: 'hexagon' },
+            { label: 'Diamond', key: '4', value: 'diamond' },
+            { label: 'Arrow Rectangle', key: '5', value: 'arrowRetangle' },
+            { label: 'Cylinder', key: '6', value: 'cylinder' },
+            { label: 'Triangle', key: '7', value: 'triangle' },
+            { label: 'Parallelogram', key: '8', value: 'parallelogram' },
+            { label: 'Plus', key: '9', value: 'plus' },
+            { label: 'Custom', key: '10', value: 'custom' },
         ],
     }[type];
 
@@ -71,7 +71,14 @@ const Picker = (props) => {
     };
 
     const onClick = (e) => {
-        const value = items.find(ele => ele.key === e.key)?.label;
+        const value = {
+            'font': items.find(ele => ele.key === e.key)?.label,
+            'font-size': items.find(ele => ele.key === e.key)?.label,
+            'font-weight': items.find(ele => ele.key === e.key)?.label,
+            'border-style': items.find(ele => ele.key === e.key)?.label,
+            'shape': items.find(ele => ele.key === e.key)?.value,
+        }[type];
+
         handleChangeInputPicker(value, type);
     };
 
@@ -83,6 +90,8 @@ const Picker = (props) => {
         'shape': currNodeTypeNode || 'custom',
     }[type];
 
+    const disable = type === 'shape';
+
     return (
         <div className="w-full p-2 flex items-center">
             <div className="w-[30%] text-xs mr-2 text-right">{item.label}</div>
@@ -91,6 +100,7 @@ const Picker = (props) => {
                     <input
                         type={item?.inputType}
                         value={inputValue}
+                        disabled={disable}
                         onChange={(e) => handleChangeInput(e, type)}
                         className="w-full h-full outline-none text-xs py-1 px-2"
                     />
