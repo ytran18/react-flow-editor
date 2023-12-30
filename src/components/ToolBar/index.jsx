@@ -13,17 +13,13 @@ const ToolBar = (props) => {
 
     const { currNodeTitle, handleChangeText, currNodeBg, handleChangeColor, currNodeBorderColor,
             handleShowToolBar, isShowToolBar, currNodeFontSize, handleChangeInputPicker, currNodeTitleColor,
-            currNodeId, currNodeFontWeight, currNodeBorderStyle } = props;
+            currNodeId, currNodeFontWeight, currNodeBorderStyle, currNodeType } = props;
 
     const [state, setState] = useState({
         tab: 0,
     });
 
     const tabTitle = ['Node', 'Edges', 'Download'];
-
-    function filter (node) {
-        return (node.tagName !== 'i');
-    };
 
     const handleChangeTab = (tab) => {
         setState(prev => ({...prev, tab: tab}));
@@ -42,6 +38,7 @@ const ToolBar = (props) => {
                 handleChangeText={handleChangeText}
                 handleChangeColor={handleChangeColor}
                 handleChangeInputPicker={handleChangeInputPicker}
+                currNodeType={currNodeType}
             />,
         1: <Edges />,
         2: <Download />

@@ -8,13 +8,14 @@ const Style = (props) => {
 
     const { currNodeTitle, handleChangeText, currNodeBg, handleChangeColor, currNodeBorderColor,
             currNodeFontSize, handleChangeInputPicker, currNodeTitleColor, currNodeId, currNodeFontWeight,
-            currNodeBorderStyle } = props;
+            currNodeBorderStyle, currNodeType } = props;
 
     const [state, setState] = useState({
         currColor: '',
         currBackground: '',
         currBorderColor: '#000000',
         currShadowColor: '#000000',
+        currNodeTypeNode: '',
         isDisplayColorPickerColor: false,
         isDisplayColorPickerBackground: false,
         isDisplayColorPickerBorderColor: false,
@@ -27,8 +28,9 @@ const Style = (props) => {
             currBackground: currNodeBg,
             currBorderColor: currNodeBorderColor,
             currColor: currNodeTitleColor,
+            currNodeTypeNode: currNodeType,
         }));
-    },[currNodeBg, currNodeBorderColor, currNodeTitleColor]);
+    },[currNodeBg, currNodeBorderColor, currNodeTitleColor, currNodeType]);
 
     const colorPickerRef = useRef(null);
 
@@ -42,6 +44,7 @@ const Style = (props) => {
         { label: 'Background', type: 'color', state: 'isDisplayColorPickerBackground', curr: 'currBackground' },
         { label: 'Border Color', type: 'color', state: 'isDisplayColorPickerBorderColor', curr: 'currBorderColor' },
         { label: 'Border Style', type: 'picker', pickerType: 'border-style', inputType: 'text', defaultValue: 'solid' },
+        { label: 'Shape', type: 'picker', pickerType: 'shape', inputType: 'text', defaultValue: currNodeType || 'custom' },
     ];
 
     useEffect(() => {
@@ -151,6 +154,7 @@ const Style = (props) => {
                                     currNodeFontSize={currNodeFontSize}
                                     currNodeFontWeight={currNodeFontWeight}
                                     currNodeBorderStyle={currNodeBorderStyle}
+                                    currNodeTypeNode={currNodeType}
                                     handleChangeInputPicker={handleChangeInputPicker}
                                 />
                             </div>                        

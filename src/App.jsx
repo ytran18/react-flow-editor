@@ -71,6 +71,7 @@ const AddNodeOnEdgeDrop = () => {
         isShowToolBar: false,
         targetEdgeId: '',
         preventOnConnectEnd: false,
+        currNodeType: '',
     });
     
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
@@ -350,6 +351,7 @@ const AddNodeOnEdgeDrop = () => {
             currNodeFontSize: fontSize || 8,
             currNodeFontWeight: fontWeight || 'Normal',
             currNodeBorderColor: node?.style?.borderColor || '#000',
+            currNodeType: node?.type,
         }));
     };
 
@@ -377,7 +379,8 @@ const AddNodeOnEdgeDrop = () => {
             'font': 'currNodeFont',
             'font-size': 'currNodeFontSize',
             'font-weight': 'currNodeFontWeight',
-            'border-style': 'currNodeBorderStyle'
+            'border-style': 'currNodeBorderStyle',
+            'shape': 'currNodeType',
         }[type];
         setState(prev => ({...prev, [typeChange]: value}));
     };
@@ -518,6 +521,24 @@ const AddNodeOnEdgeDrop = () => {
         setState(prev => ({...prev, isShowToolBar: false}));
     };
 
+    // change curr node type
+    useEffect(() => {
+        if (state.currNodeType) {
+            const updatedNodes = nodes.map(nds => {
+                if (nds.id === state.currNodeId) {
+                    return {
+                        ...nds,
+                        type: state.currNodeType
+                    };
+                } else {
+                    return nds;
+                }
+            });
+
+            setNodes(updatedNodes);
+        }
+    },[state.currNodeType]);
+
     return (
         <>
             <div className="w-full h-full" ref={reactFlowWrapper}>
@@ -556,6 +577,7 @@ const AddNodeOnEdgeDrop = () => {
                         currNodeId={state.currNodeId}
                         currNodeFontWeight={state.currNodeFontWeight}
                         currNodeBorderStyle={state.currNodeBorderStyle}
+                        currNodeType={state.currNodeType}
                         handleChangeText={handleChangeText}
                         handleChangeColor={handleChangeColor}
                         handleShowToolBar={handleShowToolBar}

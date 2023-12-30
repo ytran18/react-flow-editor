@@ -5,7 +5,7 @@ import { DownOutlined } from '@ant-design/icons';
 
 const Picker = (props) => {
 
-    const { item, type, currNodeFontSize, handleChangeInputPicker, currNodeFontWeight, currNodeBorderStyle } = props;
+    const { item, type, currNodeFontSize, handleChangeInputPicker, currNodeFontWeight, currNodeBorderStyle, currNodeTypeNode } = props;
 
     const items = {
         'font': [
@@ -50,7 +50,20 @@ const Picker = (props) => {
             { label: 'outset', key: '7' },
             { label: 'none', key: '8' },
             { label: 'hidden', key: '9' },
-        ]
+        ],
+        'shape': [
+            { label: 'circle', key: '0' },
+            { label: 'rounded-rectangle', key: '1' },
+            { label: 'rectangle', key: '2' },
+            { label: 'hexagon', key: '3' },
+            { label: 'diamond', key: '4' },
+            { label: 'arrow-rectangle', key: '5' },
+            { label: 'cylinder', key: '6' },
+            { label: 'triangle', key: '7' },
+            { label: 'parallelogram', key: '8' },
+            { label: 'plus', key: '9' },
+            { label: 'custom', key: '10' },
+        ],
     }[type];
 
     const handleChangeInput = (e, type) => {
@@ -67,6 +80,7 @@ const Picker = (props) => {
         'font-size': currNodeFontSize || 14,
         'font-weight': currNodeFontWeight || 'Normal',
         'border-style': currNodeBorderStyle || 'solid',
+        'shape': currNodeTypeNode || 'custom',
     }[type];
 
     return (
