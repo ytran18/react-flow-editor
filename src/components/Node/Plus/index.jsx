@@ -10,6 +10,10 @@ const Plus = ({ data, isConnectable }) => {
     });
 
     useEffect(() => {
+        console.log(data);
+    },[]);
+
+    useEffect(() => {
         const node = store.getNodes();
         const styles = node.filter(node => node.id === data.id);
 

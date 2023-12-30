@@ -236,7 +236,7 @@ const AddNodeOnEdgeDrop = () => {
                     x: event.clientX,
                     y: event.clientY,
                 }),
-                data: { label: `Node ${id}`, isRootNode: false, shape:'default', isSelected: true },
+                data: { label: `Node ${id}`, isRootNode: false, shape:'default', isSelected: true, id: id },
                 origin: [0.5, 0.0],
                 style: {
                     backgroundColor: '#eee',
@@ -507,7 +507,9 @@ const AddNodeOnEdgeDrop = () => {
                         }
                     };
                 }
-            });          
+            });    
+            
+            console.log(updatedNodes);
     
             setNodes(updatedNodes);
         };
@@ -529,7 +531,7 @@ const AddNodeOnEdgeDrop = () => {
                 
                 if (nds.id === state.currNodeId) {
                     let style = nds?.style;
-                    const bg = nds?.style?.circleBg || '#eee'
+                    const bg = nds?.style?.circleBg || '#eee';
                     style.backgroundColor = state.currNodeType === 'custom' ? bg : 'none';
                     style.borderWidth = state.currNodeType === 'custom' ? '1px' : 'none';
     
