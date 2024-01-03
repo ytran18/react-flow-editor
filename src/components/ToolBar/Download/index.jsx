@@ -1,7 +1,7 @@
 import React from "react";
 
 import { toPng, toSvg } from 'html-to-image';
-import { getRectOfNodes, useReactFlow, getTransformForBounds } from 'reactflow';
+import { useReactFlow, getNodesBounds, getViewportForBounds } from 'reactflow';
 
 import { DownloadOutlined } from '@ant-design/icons';
 
@@ -35,8 +35,9 @@ const Download = () => {
 
     const handleDownload = (type) => {
         if (type === 'png') {
-            const nodesBounds = getRectOfNodes(getNodes());
-            const transform = getTransformForBounds(nodesBounds, imageWidth, imageHeight, 0.5, 2);
+            // const nodesBounds = getRectOfNodes(getNodes());
+            const nodesBounds = getNodesBounds(getNodes());
+            const transform = getViewportForBounds(nodesBounds, imageWidth, imageHeight, 0.5, 2);
         
             toPng(document.querySelector('.react-flow__viewport'), {
                 backgroundColor: '#1a365d',
