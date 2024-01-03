@@ -27,7 +27,7 @@ import Circle from './components/Node/Circle';
 import RoundedRectangle from './components/Node/RoundedRectangle';
 import Rectangle from './components/Node/Rectangle';
 
-import { getFontWeigth, getNodeBackgroundColor, getNodeBorderWidth, getNodeType } from './functions';
+import { getColorPickerState, getFontWeigth, getInputPickerState, getNodeBackgroundColor, getNodeBorderWidth, getNodeType } from './functions';
 
 import 'reactflow/dist/style.css';
 
@@ -332,24 +332,13 @@ const AddNodeOnEdgeDrop = () => {
 
     // handle change curr node color (bg, border, ...)
     const handleChangeColor = (color, type) => {
-        const typeChange = {
-            'currColor': 'currNodeTitleColor',
-            'currBackground': 'currNodeBg',
-            'currBorderColor': 'currNodeBorderColor',
-            'currShadowColor': 'currNodeShadowColor',
-        }[type];
+        const typeChange = getColorPickerState(type);
         setState(prev => ({...prev, [typeChange]: color}));
     };
 
     // handle change curr node font size
     const handleChangeInputPicker = (value, type) => {
-        const typeChange = {
-            'font': 'currNodeFont',
-            'font-size': 'currNodeFontSize',
-            'font-weight': 'currNodeFontWeight',
-            'border-style': 'currNodeBorderStyle',
-            'shape': 'currNodeType',
-        }[type];
+        const typeChange = getInputPickerState(type);
         setState(prev => ({...prev, [typeChange]: value}));
     };
 

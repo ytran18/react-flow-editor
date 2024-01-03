@@ -82,3 +82,26 @@ export const getFontWeigth = (value, type) => {
 
     return fontWeigth;
 };
+
+export const getColorPickerState = (type) => {
+    const typeChange = {
+        'currColor': 'currNodeTitleColor',
+        'currBackground': 'currNodeBg',
+        'currBorderColor': 'currNodeBorderColor',
+        'currShadowColor': 'currNodeShadowColor',
+    }[type];
+
+    return typeChange;
+};
+
+export const getInputPickerState = (type) => {
+    const typeChange = {
+        'font': 'currNodeFont',
+        'font-size': 'currNodeFontSize',
+        'font-weight': 'currNodeFontWeight',
+        'border-style': 'currNodeBorderStyle',
+        'shape': 'currNodeType',
+    }[type];
+
+    return typeChange;
+};
