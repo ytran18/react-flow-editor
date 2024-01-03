@@ -269,6 +269,8 @@ const AddNodeOnEdgeDrop = () => {
             }[newNode?.style?.fontWeight];
 
             state.currNodeId = id;
+            state.preventOnConnectEnd = true;
+
             setState(prev => ({
                 ...prev,
                 currNodeId: id,
@@ -280,6 +282,7 @@ const AddNodeOnEdgeDrop = () => {
                 currNodeFontSize: fontSize || 8,
                 currNodeFontWeight: fontWeight || 'Normal',
                 currNodeBorderColor: newNode?.style?.borderColor || '#000',
+                preventOnConnectEnd: true,
             }))
         }
     },[screenToFlowPosition]);
@@ -509,8 +512,6 @@ const AddNodeOnEdgeDrop = () => {
                 }
             });    
             
-            console.log(updatedNodes);
-    
             setNodes(updatedNodes);
         };
     },[state.currNodeId]);
@@ -521,6 +522,23 @@ const AddNodeOnEdgeDrop = () => {
     };
 
     const onPaneClick = () => {
+        if (state.preventOnConnectEnd) {
+            state.preventOnConnectEnd = false;
+            setState(prev => ({...prev, preventOnConnectEnd: false}));
+            return;
+        };
+
+        const updatedNodes = nodes.map(nds => {
+            return {
+                ...nds,
+                data: {
+                    ...nds.data,
+                    isSelected: false
+                }
+            };
+        });
+
+        setNodes(updatedNodes);
         setState(prev => ({...prev, isShowToolBar: false}));
     };
 
