@@ -27,7 +27,7 @@ const Circle = ({ data, isConnectable }) => {
         <>
             <svg width="100" height="100">
                 <g transform="translate(2, 2)">
-                    <ellipse cx="48" cy="48" rx="48" ry="48" fill={state.styles?.circlerBg || '#eee'} strokeWidth="1" stroke={stroke} strokeDasharray={strokeDasharray} fillOpacity="0.8"></ellipse>
+                    <ellipse cx="48" cy="48" rx="48" ry="48" fill={state.styles?.circleBg || '#eee'} strokeWidth="1" stroke={stroke} strokeDasharray={strokeDasharray} fillOpacity="0.8"></ellipse>
                 </g>
             </svg>
             <div className="absolute left-1/2 top-1/2 text-center -translate-x-1/2 -translate-y-1/2 transform">{data.label}</div>

@@ -27,6 +27,8 @@ import Circle from './components/Node/Circle';
 import RoundedRectangle from './components/Node/RoundedRectangle';
 import Rectangle from './components/Node/Rectangle';
 
+import { getFontWeigth, getNodeBackgroundColor, getNodeBorderWidth, getNodeType } from './functions';
+
 import 'reactflow/dist/style.css';
 
 import './App.css';
@@ -99,20 +101,13 @@ const AddNodeOnEdgeDrop = () => {
         setNodes((nds) =>
             nds.map((node) => {
                 if (node.id === state.currNodeId) {
-                    const condition = node.type === 'hexagon' || node.type === 'diamond' || node.type === 'arrowRetangle' || node.type === 'triangle' || node.type === 'parallelogram' || node.type === 'cylinder' || node.type === 'plus';
+                    const condition = ['hexagon', 'diamond', 'arrowRetangle', 'triangle', 'parallelogram', 'cylinder', 'plus'].includes(node.type);
+                    const backgroundColor = condition ? 'none' : state.currNodeBg;
+
                     node.style = {
                         ...node.style,
-                        backgroundColor: condition ? 'none' : state.currNodeBg, 
-                        hexagonBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
-                        diamondBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
-                        arrowRectangleBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
-                        triangleBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
-                        parallelogramBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
-                        cylinderBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
-                        plusBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
-                        circleBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
-                        roundedRectangleBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
-                        rectangleBg: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
+                        backgroundColor: backgroundColor,
+                        [`${node.type}Bg`]: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
                     };
                 }
         
@@ -187,17 +182,7 @@ const AddNodeOnEdgeDrop = () => {
 
     // Change node font style
     useEffect(() => {
-        const value = {
-            'Thin': 100,
-            'Extra Light':200,
-            'Light': 300,
-            'Normal': 400,
-            'Medium': 500,
-            'Semi Bold': 600,
-            'Bold': 700,
-            'Extra Bold': 800,
-            'Black': 900,
-        }[state.currNodeFontWeight];
+        const value = getFontWeigth(state.currNodeFontWeight, 'number');
 
         setNodes((nds) =>
             nds.map((node) => {
@@ -256,17 +241,7 @@ const AddNodeOnEdgeDrop = () => {
 
             const fontSize = newNode?.style?.fontSize?.replace(/\D/g, '');
 
-            const fontWeight = {
-                100: 'Thin',
-                200: 'Extra Light',
-                300: 'Light',
-                400: 'Normal',
-                500: 'Medium',
-                600: 'Semi Bold',
-                700: 'Bold',
-                800: 'Extra Bold',
-                900: 'Black',
-            }[newNode?.style?.fontWeight];
+            const fontWeight = getFontWeigth(newNode?.style?.fontWeight, 'label');
 
             state.currNodeId = id;
             state.preventOnConnectEnd = true;
@@ -425,45 +400,9 @@ const AddNodeOnEdgeDrop = () => {
 
         const id = getId();
 
-        const customType = {
-            'hexagon': 'hexagon',
-            'diamond': 'diamond',
-            'arrow-retangle': 'arrowRetangle',
-            'triangle': 'triangle',
-            'parallelogram': 'parallelogram',
-            'cylinder': 'cylinder',
-            'plus': 'plus',
-            'circle': 'circle',
-            'rounded-retangle': 'roundedRectangle',
-            'rectangle': 'rectangle',
-            'custom': 'custom',
-        }[type];
-
-        const background = {
-            'hexagon': 'none',
-            'diamond': 'none',
-            'arrow-retangle': 'none',
-            'triangle': 'none',
-            'parallelogram': 'none',
-            'cylinder': 'none',
-            'plus': 'none',
-            'circle': 'none',
-            'rounded-retangle': 'none',
-            'rectangle': 'none',
-        }[type] || '#eee';
-
-        const borderWidth = {
-            'hexagon': 'none',
-            'diamond': 'none',
-            'arrow-retangle': 'none',
-            'triangle': 'none',
-            'parallelogram': 'none',
-            'cylinder': 'none',
-            'plus': 'none',
-            'circle': 'none',
-            'rounded-retangle': 'none',
-            'rectangle': 'none',
-        }[type] || '1px';
+        const customType = getNodeType(type);
+        const background = getNodeBackgroundColor(type);
+        const borderWidth = getNodeBorderWidth(type);
 
         let style = {
             backgroundColor: background,
@@ -549,9 +488,10 @@ const AddNodeOnEdgeDrop = () => {
                 
                 if (nds.id === state.currNodeId) {
                     let style = nds?.style;
-                    const bg = nds?.style?.circleBg || '#eee';
+                    const bg = state.currNodeBg || '#eee';
                     style.backgroundColor = state.currNodeType === 'custom' ? bg : 'none';
                     style.borderWidth = state.currNodeType === 'custom' ? '1px' : 'none';
+                    if (state.currNodeType !== 'custom') style[`${state.currNodeType}Bg`] = state.currNodeBg !== 'none' ? state.currNodeBg : '#eee';
     
                     return {
                         ...nds,
