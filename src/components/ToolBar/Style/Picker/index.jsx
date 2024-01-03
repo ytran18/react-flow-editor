@@ -57,7 +57,7 @@ const Picker = (props) => {
             { label: 'Rectangle', key: '2', value: 'rectangle' },
             { label: 'Hexagon', key: '3', value: 'hexagon' },
             { label: 'Diamond', key: '4', value: 'diamond' },
-            { label: 'Arrow Rectangle', key: '5', value: 'arrowRetangle' },
+            { label: 'Arrow Rectangle', key: '5', value: 'arrowRectangle' },
             { label: 'Cylinder', key: '6', value: 'cylinder' },
             { label: 'Triangle', key: '7', value: 'triangle' },
             { label: 'Parallelogram', key: '8', value: 'parallelogram' },

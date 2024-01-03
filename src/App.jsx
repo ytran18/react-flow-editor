@@ -18,7 +18,7 @@ import Shape from './components/Shape';
 import Controls from './components/Controls';
 import Hexagon from './components/Node/Hexagon';
 import Diamond from './components/Node/Diamond';
-import ArrowRetangle from './components/Node/ArrowRetangle';
+import ArrowRectangle from './components/Node/ArrowRectangle';
 import Triangle from './components/Node/Triangle';
 import Parallelogram from './components/Node/Parallelogram';
 import Cylinder from './components/Node/Cylinder';
@@ -40,7 +40,7 @@ const nodeTypes = {
     custom: Node,
     hexagon: Hexagon,
     diamond: Diamond,
-    arrowRetangle: ArrowRetangle,
+    arrowRectangle: ArrowRectangle,
     triangle: Triangle,
     parallelogram: Parallelogram,
     cylinder: Cylinder,
@@ -101,7 +101,7 @@ const AddNodeOnEdgeDrop = () => {
         setNodes((nds) =>
             nds.map((node) => {
                 if (node.id === state.currNodeId) {
-                    const condition = ['hexagon', 'diamond', 'arrowRetangle', 'triangle', 'parallelogram', 'cylinder', 'plus'].includes(node.type);
+                    const condition = ['hexagon', 'diamond', 'arrowRectangle', 'triangle', 'parallelogram', 'cylinder', 'plus'].includes(node.type);
                     const backgroundColor = condition ? 'none' : state.currNodeBg;
 
                     node.style = {
@@ -283,17 +283,7 @@ const AddNodeOnEdgeDrop = () => {
     const onNodeClick = (event, node) => {
         const fontSize = node?.style?.fontSize?.replace(/\D/g, '');
 
-        const fontWeight = {
-            100: 'Thin',
-            200: 'Extra Light',
-            300: 'Light',
-            400: 'Normal',
-            500: 'Medium',
-            600: 'Semi Bold',
-            700: 'Bold',
-            800: 'Extra Bold',
-            900: 'Black',
-        }[node?.style?.fontWeight];
+        const fontWeight = getFontWeigth(node?.style?.fontWeight, 'label');
 
         const updatedNodes = nodes.map(nds => {
             if (nds.id === node.id) {
@@ -323,7 +313,7 @@ const AddNodeOnEdgeDrop = () => {
             currNodeId: node?.id,
             currNodeTitle: node?.data?.label || 'Node',
             isShowToolBar: true,
-            currNodeBg: node?.style?.backgroundColor || '#eee',
+            currNodeBg: node?.style[`${node?.type}Bg`] || '#eee',
             currNodeBorderStyle: node?.style?.borderStyle || 'solid',
             currNodeTitleColor: node?.style?.color || '#000',
             currNodeFontSize: fontSize || 8,
