@@ -2,7 +2,7 @@ export const getNodeType = (type) => {
     const customType = {
         'hexagon': 'hexagon',
         'diamond': 'diamond',
-        'arrow-retangle': 'arrowRectangle',
+        'arrow-rectangle': 'arrowRectangle',
         'triangle': 'triangle',
         'parallelogram': 'parallelogram',
         'cylinder': 'cylinder',
@@ -20,7 +20,7 @@ export const getNodeBackgroundColor = (type) => {
     const background = {
         'hexagon': 'none',
         'diamond': 'none',
-        'arrow-retangle': 'none',
+        'arrow-rectangle': 'none',
         'triangle': 'none',
         'parallelogram': 'none',
         'cylinder': 'none',
@@ -37,7 +37,7 @@ export const getNodeBorderWidth = (type) => {
     const borderWidth = {
         'hexagon': 'none',
         'diamond': 'none',
-        'arrow-retangle': 'none',
+        'arrow-rectangle': 'none',
         'triangle': 'none',
         'parallelogram': 'none',
         'cylinder': 'none',
