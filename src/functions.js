@@ -101,6 +101,9 @@ export const getInputPickerState = (type) => {
         'font-weight': 'currNodeFontWeight',
         'border-style': 'currNodeBorderStyle',
         'shape': 'currNodeType',
+        'edges-size': 'currEdgeSize',
+        'edges-marker': 'currEdgeMarker',
+        'edges-type': 'currEdgeType',
     }[type];
 
     return typeChange;

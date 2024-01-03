@@ -74,6 +74,13 @@ const AddNodeOnEdgeDrop = () => {
         targetEdgeId: '',
         preventOnConnectEnd: false,
         currNodeType: '',
+        currEdgeId: '',
+        currEdgeLabel: '',
+        currEdgeColor: '',
+        currEdgeSize: '',
+        currEdgeMarker: '',
+        currEdgeType: '',
+        currEdgeIsAnimated: false,
     });
     
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
@@ -325,9 +332,13 @@ const AddNodeOnEdgeDrop = () => {
 
     // handle change curr node title
     const handleChangeText = (e, textType) => {
-        if (textType === 'title') {
-            setState(prev => ({...prev, currNodeTitle: e?.target?.value}));
-        };
+
+        const value = {
+            'title': 'currNodeTitle',
+            'edges-label': 'currEdgeLabel',
+        }[textType];
+
+        setState(prev => ({...prev, [value]: e?.target?.value}));
     };
 
     // handle change curr node color (bg, border, ...)
@@ -346,8 +357,18 @@ const AddNodeOnEdgeDrop = () => {
         setState(prev => ({...prev, isShowToolBar: !prev.isShowToolBar}));
     };
 
-    const onEdgeClick = (event, node) => {
+    const onEdgeClick = (event, edge) => {
 
+        setEdges((value) =>
+            value.map((element) => {
+                if (element.id === edge.id) {
+                    element.type = 'smoothstep';
+                    element.animated = true;
+                };
+
+                return element;
+            })
+        );
     };
 
     const onEdgeUpdate = useCallback((oldEdge, newConnection) => {
@@ -486,6 +507,10 @@ const AddNodeOnEdgeDrop = () => {
         }
     },[state.currNodeType]);
 
+    const handleChangeCheckbox = (event) => {
+        setState(prev => ({...prev, currEdgeIsAnimated: event?.target?.checked}));
+    };
+
     return (
         <>
             <div className="w-full h-full" ref={reactFlowWrapper}>
@@ -525,10 +550,18 @@ const AddNodeOnEdgeDrop = () => {
                         currNodeFontWeight={state.currNodeFontWeight}
                         currNodeBorderStyle={state.currNodeBorderStyle}
                         currNodeType={state.currNodeType}
+                        currEdgeId={state.currEdgeId}
+                        currEdgeLabel={state.currEdgeLabel}
+                        currEdgeColor={state.currEdgeColor}
+                        currEdgeSize={state.currEdgeSize}
+                        currEdgeMarker={state.currEdgeMarker}
+                        currEdgeType={state.currEdgeType}
+                        currEdgeIsAnimated={state.currEdgeIsAnimated}
                         handleChangeText={handleChangeText}
                         handleChangeColor={handleChangeColor}
                         handleShowToolBar={handleShowToolBar}
                         handleChangeInputPicker={handleChangeInputPicker}
+                        handleChangeCheckbox={handleChangeCheckbox}
                     />
                 </ReactFlow>
             </div>

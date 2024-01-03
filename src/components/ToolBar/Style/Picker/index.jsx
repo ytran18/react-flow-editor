@@ -5,7 +5,8 @@ import { DownOutlined } from '@ant-design/icons';
 
 const Picker = (props) => {
 
-    const { item, type, currNodeFontSize, handleChangeInputPicker, currNodeFontWeight, currNodeBorderStyle, currNodeTypeNode } = props;
+    const { item, type, currNodeFontSize, handleChangeInputPicker, currNodeFontWeight, currNodeBorderStyle,
+            currNodeTypeNode, currEdgeSize, currEdgeMarker, currEdgeType } = props;
 
     const items = {
         'font': [
@@ -64,6 +65,25 @@ const Picker = (props) => {
             { label: 'Plus', key: '9', value: 'plus' },
             { label: 'Custom', key: '10', value: 'custom' },
         ],
+        'edges-size': [
+            { label: '1', key: '0' },
+            { label: '2', key: '1' },
+            { label: '3', key: '2' },
+            { label: '4', key: '3' },
+            { label: '5', key: '4' },
+            { label: '6', key: '5' },
+        ],
+        'edges-marker': [
+            { label: 'Arrow', key: '0', value: 'arrow' },
+            { label: 'Closed Arrow', key: '1', value: 'closedArrow' },
+            { label: 'Start-End', key: '2', value: 'startEnd' },
+        ],
+        'edges-type': [
+            { label: 'Default', key: '0', value: 'default' },
+            { label: 'Straight', key: '1', value: 'straight' },
+            { label: 'Step', key: '2', value: 'step' },
+            { label: 'Smooth', key: '3', value: 'smoothstep' },
+        ],
     }[type];
 
     const handleChangeInput = (e, type) => {
@@ -77,6 +97,9 @@ const Picker = (props) => {
             'font-weight': items.find(ele => ele.key === e.key)?.label,
             'border-style': items.find(ele => ele.key === e.key)?.label,
             'shape': items.find(ele => ele.key === e.key)?.value,
+            'edges-size': items.find(ele => ele.key === e.key)?.label,
+            'edges-marker': items.find(ele => ele.key === e.key)?.value,
+            'edges-type': items.find(ele => ele.key === e.key)?.value,
         }[type];
 
         handleChangeInputPicker(value, type);
@@ -88,6 +111,9 @@ const Picker = (props) => {
         'font-weight': currNodeFontWeight || 'Normal',
         'border-style': currNodeBorderStyle || 'solid',
         'shape': currNodeTypeNode || 'custom',
+        'edges-size': currEdgeSize || 1,
+        'edges-marker': currEdgeMarker || 'arrow',
+        'edges-type': currEdgeType || 'default',
     }[type];
 
     const disable = type === 'shape';

@@ -13,7 +13,8 @@ const ToolBar = (props) => {
 
     const { currNodeTitle, handleChangeText, currNodeBg, handleChangeColor, currNodeBorderColor,
             handleShowToolBar, isShowToolBar, currNodeFontSize, handleChangeInputPicker, currNodeTitleColor,
-            currNodeId, currNodeFontWeight, currNodeBorderStyle, currNodeType } = props;
+            currNodeId, currNodeFontWeight, currNodeBorderStyle, currNodeType, currEdgeId, currEdgeLabel,
+            currEdgeColor, currEdgeSize, currEdgeMarker, currEdgeType, currEdgeIsAnimated, handleChangeCheckbox } = props;
 
     const [state, setState] = useState({
         tab: 0,
@@ -26,7 +27,7 @@ const ToolBar = (props) => {
     };
 
     const renderTab = {
-        0: <Style 
+        0:  <Style 
                 currNodeTitle={currNodeTitle}
                 currNodeBg={currNodeBg}
                 currNodeBorderColor={currNodeBorderColor}
@@ -40,7 +41,19 @@ const ToolBar = (props) => {
                 handleChangeInputPicker={handleChangeInputPicker}
                 currNodeType={currNodeType}
             />,
-        1: <Edges />,
+        1:  <Edges 
+                currEdgeId={currEdgeId}
+                currEdgeLabel={currEdgeLabel}
+                currEdgeColor={currEdgeColor}
+                currEdgeSize={currEdgeSize}
+                currEdgeMarker={currEdgeMarker}
+                currEdgeType={currEdgeType}
+                currEdgeIsAnimated={currEdgeIsAnimated}
+                handleChangeColor={handleChangeColor}
+                handleChangeText={handleChangeText}
+                handleChangeCheckbox={handleChangeCheckbox}
+                handleChangeInputPicker={handleChangeInputPicker}
+            />,
         2: <Download />
     }[state.tab] || 0;
 
