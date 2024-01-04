@@ -77,6 +77,7 @@ const Picker = (props) => {
             { label: 'Arrow', key: '0', value: 'arrow' },
             { label: 'Closed Arrow', key: '1', value: 'closedArrow' },
             { label: 'Start-End', key: '2', value: 'startEnd' },
+            { label: 'Default', key: '3', value: 'default' },
         ],
         'edges-type': [
             { label: 'Default', key: '0', value: 'default' },
@@ -112,7 +113,7 @@ const Picker = (props) => {
         'border-style': currNodeBorderStyle || 'solid',
         'shape': currNodeTypeNode || 'custom',
         'edges-size': currEdgeSize || 1,
-        'edges-marker': currEdgeMarker || 'arrow',
+        'edges-marker': currEdgeMarker || 'default',
         'edges-type': currEdgeType || 'default',
     }[type];
 

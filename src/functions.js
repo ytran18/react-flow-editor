@@ -1,3 +1,5 @@
+import { MarkerType } from 'reactflow';
+
 export const getNodeType = (type) => {
     const customType = {
         'hexagon': 'hexagon',
@@ -108,4 +110,15 @@ export const getInputPickerState = (type) => {
     }[type];
 
     return typeChange;
+};
+
+export const getEdgeTypeMarker = (type) => {
+    const marker = {
+        'closedArrow': MarkerType.ArrowClosed,
+        'startEnd': MarkerType.ArrowClosed,
+        'arrow': MarkerType.Arrow,
+        'default': 'default',
+    }[type];
+
+    return marker;
 };

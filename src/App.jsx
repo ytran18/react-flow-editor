@@ -10,6 +10,7 @@ import ReactFlow, {
     getOutgoers,
     getConnectedEdges,
     updateEdge,
+    MarkerType
 } from 'reactflow';
 
 import ToolBar from './components/ToolBar';
@@ -27,7 +28,7 @@ import Circle from './components/Node/Circle';
 import RoundedRectangle from './components/Node/RoundedRectangle';
 import Rectangle from './components/Node/Rectangle';
 
-import { getColorPickerState, getFontWeigth, getInputPickerState, getNodeBackgroundColor, getNodeBorderWidth, getNodeType } from './functions';
+import { getColorPickerState, getEdgeTypeMarker, getFontWeigth, getInputPickerState, getNodeBackgroundColor, getNodeBorderWidth, getNodeType } from './functions';
 
 import 'reactflow/dist/style.css';
 
@@ -250,12 +251,58 @@ const AddNodeOnEdgeDrop = () => {
         setEdges((edge) =>
             edge.map((e) => {
                 if (e.id === state.currEdgeId) {
+                    e.style = {
+                        ...e.style,
+                        strokeWidth: state.currEdgeSize,
+                    }
+                }
+                return e;
+            })
+        );
+    }, [state.currEdgeSize, setEdges]);
+
+    //  Change edge size
+    useEffect(() => {
+        setEdges((edge) =>
+            edge.map((e) => {
+                if (e.id === state.currEdgeId) {
                     e.type = state.currEdgeType;
                 }
                 return e;
             })
         );
     }, [state.currEdgeType, setEdges]);
+
+    //  Change edge marker
+    useEffect(() => {
+        const type = getEdgeTypeMarker(state.currEdgeMarker);
+
+        setEdges((edge) =>
+            edge.map((e) => {
+                if (e.id === state.currEdgeId) {
+                    if (type !== 'default') {
+                        e.markerEnd = {
+                            type: type,
+                            color: state.currEdgeColor,
+                        };
+                        if (state.currEdgeMarker !== 'startEnd') {
+                            e.markerStart = {};
+                        } else {
+                            e.markerStart = {
+                                type: MarkerType.ArrowClosed,
+                                orient: 'auto-start-reverse',
+                                color: state.currEdgeColor,
+                            };
+                        }
+                    } else {
+                        e.markerStart = {};
+                        e.markerEnd = {};
+                    };
+                }
+                return e;
+            })
+        );
+    }, [state.currEdgeMarker, setEdges, state.currEdgeColor]);
 
     const onConnect = useCallback((params) => {
         connectingNodeId.current = null;
