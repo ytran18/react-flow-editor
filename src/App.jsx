@@ -474,6 +474,8 @@ const AddNodeOnEdgeDrop = () => {
         const animated = edge.animated === undefined ? false : edge.animated;
         let marker = getDefaultMarker(edge);
 
+        console.log(marker);
+
         setState(prev => ({
             ...prev,
             currEdgeId: edge.id,

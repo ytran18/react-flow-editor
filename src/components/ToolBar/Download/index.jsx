@@ -40,7 +40,7 @@ const Download = () => {
             const transform = getViewportForBounds(nodesBounds, imageWidth, imageHeight, 0.5, 2);
         
             toPng(document.querySelector('.react-flow__viewport'), {
-                backgroundColor: '#1a365d',
+                background: 'transparent',
                 width: imageWidth,
                 height: imageHeight,
                 style: {

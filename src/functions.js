@@ -134,5 +134,5 @@ export const getDefaultMarker = (edge) => {
         return 'arrow';
     }
 
-    return markerStart && markerEnd ? 'startEnd' : 'default';
+    return markerStart?.type && markerEnd?.type ? 'startEnd' : 'default';
 };
