@@ -10,7 +10,7 @@ import ReactFlow, {
     getOutgoers,
     getConnectedEdges,
     updateEdge,
-    MarkerType
+    MarkerType,
 } from 'reactflow';
 
 import ToolBar from './components/ToolBar';
@@ -473,8 +473,6 @@ const AddNodeOnEdgeDrop = () => {
 
         const animated = edge.animated === undefined ? false : edge.animated;
         let marker = getDefaultMarker(edge);
-
-        console.log(marker);
 
         setState(prev => ({
             ...prev,
