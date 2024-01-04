@@ -18,6 +18,8 @@ const Edges = (props) => {
         currMarker: ''
     });
 
+    console.log(currEdgeIsAnimated);
+
     const colorPickerEdgesRef = useRef(null);
 
     useEffect(() => {
@@ -79,7 +81,7 @@ const Edges = (props) => {
                                 <div className="w-[30%] text-xs mr-2 text-right">{item.label}</div>
                                 <div className="w-[70%] border border-[rgb(219,219,219)]">
                                     <input
-                                        disabled={item?.textType === 'id'}
+                                        disabled={item?.textType === 'edges-id'}
                                         value={item?.textType === 'edges-label' ? currEdgeLabel : currEdgeId}
                                         onChange={(e) => handleChangeText(e, item?.textType)}
                                         className="w-full h-full outline-none text-xs py-1 px-2"
@@ -136,9 +138,8 @@ const Edges = (props) => {
                                 <div className="w-[70%] flex items-center">
                                     <input
                                         type="checkbox"
-                                        value={currEdgeIsAnimated}
+                                        checked={currEdgeIsAnimated}
                                         onChange={(e) => handleChangeCheckbox(e)}
-                                        // className="w-full h-full outline-none text-xs py-1 px-2"
                                     />
                                 </div>
                             </div>

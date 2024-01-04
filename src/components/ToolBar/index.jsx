@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { Panel } from 'reactflow';
 
@@ -14,17 +14,10 @@ const ToolBar = (props) => {
     const { currNodeTitle, handleChangeText, currNodeBg, handleChangeColor, currNodeBorderColor,
             handleShowToolBar, isShowToolBar, currNodeFontSize, handleChangeInputPicker, currNodeTitleColor,
             currNodeId, currNodeFontWeight, currNodeBorderStyle, currNodeType, currEdgeId, currEdgeLabel,
-            currEdgeColor, currEdgeSize, currEdgeMarker, currEdgeType, currEdgeIsAnimated, handleChangeCheckbox } = props;
-
-    const [state, setState] = useState({
-        tab: 0,
-    });
+            currEdgeColor, currEdgeSize, currEdgeMarker, currEdgeType, currEdgeIsAnimated, handleChangeCheckbox,
+            handleChangeTab, toolbarTab } = props;
 
     const tabTitle = ['Node', 'Edges', 'Download'];
-
-    const handleChangeTab = (tab) => {
-        setState(prev => ({...prev, tab: tab}));
-    };
 
     const renderTab = {
         0:  <Style 
@@ -55,7 +48,7 @@ const ToolBar = (props) => {
                 handleChangeInputPicker={handleChangeInputPicker}
             />,
         2: <Download />
-    }[state.tab] || 0;
+    }[toolbarTab] || 0;
 
     return (
         <Panel
@@ -78,7 +71,7 @@ const ToolBar = (props) => {
                             <div
                                 onClick={() => handleChangeTab(index)}
                                 key={`toolbar-tab-${index}`}
-                                className={`flex items-center ${state.tab === index ? 'text-[#3498db]' : 'text-black'} transition-all duration-200 justify-center cursor-default font-medium hover:text-[#3498db]`}
+                                className={`flex items-center ${toolbarTab === index ? 'text-[#3498db]' : 'text-black'} transition-all duration-200 justify-center cursor-default font-medium hover:text-[#3498db]`}
                             >
                                 {item}
                             </div>

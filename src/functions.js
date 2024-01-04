@@ -89,6 +89,7 @@ export const getColorPickerState = (type) => {
         'currBackground': 'currNodeBg',
         'currBorderColor': 'currNodeBorderColor',
         'currShadowColor': 'currNodeShadowColor',
+        'currEdgeColor': 'currEdgeColor',
     }[type];
 
     return typeChange;

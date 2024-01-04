@@ -76,11 +76,12 @@ const AddNodeOnEdgeDrop = () => {
         currNodeType: '',
         currEdgeId: '',
         currEdgeLabel: '',
-        currEdgeColor: '',
+        currEdgeColor: '#333',
         currEdgeSize: '',
         currEdgeMarker: '',
         currEdgeType: '',
         currEdgeIsAnimated: false,
+        toolbarTab: 0,
     });
     
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
@@ -205,6 +206,45 @@ const AddNodeOnEdgeDrop = () => {
         );
     }, [state.currNodeFontWeight, setNodes]);
 
+    //  Change edge label
+    useEffect(() => {
+        setEdges((edge) =>
+            edge.map((e) => {
+                if (e.id === state.currEdgeId) {
+                    e.label = state.currEdgeLabel;
+                }
+                return e;
+            })
+        );
+    }, [state.currEdgeLabel, setEdges]);
+
+    //  Change edge stroke color
+    useEffect(() => {
+        setEdges((edge) =>
+            edge.map((e) => {
+                if (e.id === state.currEdgeId) {
+                    e.style = {
+                        ...e.style,
+                        stroke: state.currEdgeColor,
+                    }
+                }
+                return e;
+            })
+        );
+    }, [state.currEdgeColor, setEdges]);
+
+    //  Change edge animated
+    useEffect(() => {
+        setEdges((edge) =>
+            edge.map((e) => {
+                if (e.id === state.currEdgeId) {
+                    e.animated = state.currEdgeIsAnimated;
+                }
+                return e;
+            })
+        );
+    }, [state.currEdgeIsAnimated, setEdges]);
+
     const onConnect = useCallback((params) => {
         connectingNodeId.current = null;
         setEdges((eds) => addEdge(params, eds))
@@ -327,6 +367,7 @@ const AddNodeOnEdgeDrop = () => {
             currNodeFontWeight: fontWeight || 'Normal',
             currNodeBorderColor: node?.style?.borderColor || '#000',
             currNodeType: node?.type,
+            toolbarTab: 0,
         }));
     };
 
@@ -358,17 +399,29 @@ const AddNodeOnEdgeDrop = () => {
     };
 
     const onEdgeClick = (event, edge) => {
+        const updatedNodes = nodes.map(nds => {
+            return {
+                ...nds,
+                data: {
+                    ...nds.data,
+                    isSelected: false
+                }
+            };
+        });
 
-        setEdges((value) =>
-            value.map((element) => {
-                if (element.id === edge.id) {
-                    element.type = 'smoothstep';
-                    element.animated = true;
-                };
+        setNodes(updatedNodes);
 
-                return element;
-            })
-        );
+        const animated = edge.animated === undefined ? false : edge.animated;
+
+        setState(prev => ({
+            ...prev,
+            currEdgeId: edge.id,
+            currEdgeLabel: edge.label || '',
+            currEdgeColor: edge.style?.stroke || '#333',
+            currEdgeIsAnimated: animated,
+            isShowToolBar: true,
+            toolbarTab: 1,
+        }));
     };
 
     const onEdgeUpdate = useCallback((oldEdge, newConnection) => {
@@ -511,6 +564,10 @@ const AddNodeOnEdgeDrop = () => {
         setState(prev => ({...prev, currEdgeIsAnimated: event?.target?.checked}));
     };
 
+    const handleChangeTab = (tab) => {
+        setState(prev => ({...prev, toolbarTab: tab}));
+    };
+
     return (
         <>
             <div className="w-full h-full" ref={reactFlowWrapper}>
@@ -557,11 +614,13 @@ const AddNodeOnEdgeDrop = () => {
                         currEdgeMarker={state.currEdgeMarker}
                         currEdgeType={state.currEdgeType}
                         currEdgeIsAnimated={state.currEdgeIsAnimated}
+                        toolbarTab={state.toolbarTab}
                         handleChangeText={handleChangeText}
                         handleChangeColor={handleChangeColor}
                         handleShowToolBar={handleShowToolBar}
                         handleChangeInputPicker={handleChangeInputPicker}
                         handleChangeCheckbox={handleChangeCheckbox}
+                        handleChangeTab={handleChangeTab}
                     />
                 </ReactFlow>
             </div>
