@@ -122,3 +122,17 @@ export const getEdgeTypeMarker = (type) => {
 
     return marker;
 };
+
+export const getDefaultMarker = (edge) => {
+    const { markerEnd, markerStart } = edge || {};
+    
+    if (markerEnd?.type === 'arrowClosed' && !markerStart) {
+        return 'closedArrow';
+    }
+
+    if (markerEnd?.type === 'arrow' && !markerStart) {
+        return 'arrow';
+    }
+
+    return markerStart && markerEnd ? 'startEnd' : 'default';
+};

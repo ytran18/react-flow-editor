@@ -28,7 +28,8 @@ import Circle from './components/Node/Circle';
 import RoundedRectangle from './components/Node/RoundedRectangle';
 import Rectangle from './components/Node/Rectangle';
 
-import { getColorPickerState, getEdgeTypeMarker, getFontWeigth, getInputPickerState, getNodeBackgroundColor, getNodeBorderWidth, getNodeType } from './functions';
+import { getColorPickerState, getDefaultMarker, getEdgeTypeMarker, getFontWeigth, getInputPickerState,
+         getNodeBackgroundColor, getNodeBorderWidth, getNodeType } from './functions';
 
 import 'reactflow/dist/style.css';
 
@@ -471,6 +472,7 @@ const AddNodeOnEdgeDrop = () => {
         setNodes(updatedNodes);
 
         const animated = edge.animated === undefined ? false : edge.animated;
+        let marker = getDefaultMarker(edge);
 
         setState(prev => ({
             ...prev,
@@ -479,6 +481,8 @@ const AddNodeOnEdgeDrop = () => {
             currEdgeColor: edge.style?.stroke || '#333',
             currEdgeIsAnimated: animated,
             currEdgeType: edge.type || 'default',
+            currEdgeSize: edge.style?.strokeWidth || 1,
+            currEdgeMarker: marker,
             isShowToolBar: true,
             toolbarTab: 1,
         }));
