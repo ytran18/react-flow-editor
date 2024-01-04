@@ -245,6 +245,18 @@ const AddNodeOnEdgeDrop = () => {
         );
     }, [state.currEdgeIsAnimated, setEdges]);
 
+    //  Change edge type
+    useEffect(() => {
+        setEdges((edge) =>
+            edge.map((e) => {
+                if (e.id === state.currEdgeId) {
+                    e.type = state.currEdgeType;
+                }
+                return e;
+            })
+        );
+    }, [state.currEdgeType, setEdges]);
+
     const onConnect = useCallback((params) => {
         connectingNodeId.current = null;
         setEdges((eds) => addEdge(params, eds))
@@ -419,6 +431,7 @@ const AddNodeOnEdgeDrop = () => {
             currEdgeLabel: edge.label || '',
             currEdgeColor: edge.style?.stroke || '#333',
             currEdgeIsAnimated: animated,
+            currEdgeType: edge.type || 'default',
             isShowToolBar: true,
             toolbarTab: 1,
         }));

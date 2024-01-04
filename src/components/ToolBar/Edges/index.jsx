@@ -18,8 +18,6 @@ const Edges = (props) => {
         currMarker: ''
     });
 
-    console.log(currEdgeIsAnimated);
-
     const colorPickerEdgesRef = useRef(null);
 
     useEffect(() => {
