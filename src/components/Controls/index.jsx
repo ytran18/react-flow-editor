@@ -17,7 +17,7 @@ const Controls = (props) => {
 
     return (
         <Panel position="bottom-left" className="flex items-center justify-between controls">
-            <div className="flex flex-col border border-[rgb(214,220,227)] shadow-md">
+            <div className="flex flex-col bg-[rgb(226,232,240)] border border-[rgb(214,220,227)] shadow-md">
                 <PlusOutlined
                     className="cursor-pointer p-2 hover:bg-white"
                     onClick={() => zoomIn({ duration: 200 })}
