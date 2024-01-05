@@ -13,6 +13,10 @@ import ReactFlow, {
     MarkerType,
 } from 'reactflow';
 
+import { useDispatch } from 'react-redux';
+import { updateNodes } from './redux/actions';
+import { useFlowPackageHook } from './redux/hooks';
+
 import ToolBar from './components/ToolBar';
 import Node from './components/Node';
 import Shape from './components/Shape';
@@ -57,6 +61,10 @@ const AddNodeOnEdgeDrop = () => {
     const reactFlowWrapper = useRef(null);
     const connectingNodeId = useRef(null);
 
+    const dispatch = useDispatch();
+
+    const flowState = useFlowPackageHook();
+
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
@@ -71,9 +79,7 @@ const AddNodeOnEdgeDrop = () => {
         currNodeFontWeight: 'Normal',
         currNodeBorderStyle: 'solid',
         currNodeTitleColor: '#000',
-        currNodeHexagonBgColor: '#eee',
         isShowToolBar: false,
-        targetEdgeId: '',
         preventOnConnectEnd: false,
         currNodeType: '',
         currEdgeId: '',
@@ -632,6 +638,18 @@ const AddNodeOnEdgeDrop = () => {
         setState(prev => ({...prev, toolbarTab: tab}));
     };
 
+    const handleUndo = () => {
+        console.log(flowState);
+    };
+
+    useEffect(() => {
+        if (nodes) {
+            const existingNodes = flowState?.nodes;
+            const combinedNodes = Array.from(new Set([...existingNodes, ...nodes]));
+            dispatch(updateNodes(combinedNodes));
+        };
+    },[nodes.length]);
+
     return (
         <>
             <div className="w-full h-full" ref={reactFlowWrapper}>
@@ -688,7 +706,9 @@ const AddNodeOnEdgeDrop = () => {
                     />
                 </ReactFlow>
             </div>
-            <Shape />
+            <Shape 
+                handleUndo={handleUndo}
+            />
         </>
     );
 };

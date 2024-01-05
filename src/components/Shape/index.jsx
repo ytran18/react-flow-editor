@@ -1,17 +1,25 @@
 import React from "react";
 
-import { Panel } from 'reactflow';
+import { Panel, useStore } from 'reactflow';
 
 import { circle, roundedRetangle,retangle, hexagon, arrowRetangle, diamond, cylinder, triangle, parallelogram, plus } from '../../assets/icons';
 
 import IconNext from '../../assets/next.svg';
 import IconBack from '../../assets/back.svg';
 
-const Shape = () => {
+const Shape = (props) => {
+
+    const { handleUndo } = props;
+
+    const store = useStore();
 
     const onDragStart = (event, nodeType) => {
         event.dataTransfer.setData('application/reactflow', nodeType);
         event.dataTransfer.effectAllowed = 'move';
+    };
+
+    const handleRedo = () => {
+
     };
 
     return (
@@ -56,8 +64,16 @@ const Shape = () => {
                 </aside>
             </div>
             <div className="bg-white p-1 h-fit flex items-center rounded-lg shadow-md">
-                <img src={IconBack} className="mx-1 p-1 hover:bg-[rgb(226,232,240)] rounded-md cursor-pointer"/>
-                <img src={IconNext} className="mx-1 p-1 hover:bg-[rgb(226,232,240)] rounded-md cursor-pointer"/>
+                <img
+                    src={IconBack}
+                    className="mx-1 p-1 hover:bg-[rgb(226,232,240)] rounded-md cursor-pointer"
+                    onClick={handleUndo}
+                />
+                <img
+                    src={IconNext}
+                    className="mx-1 p-1 hover:bg-[rgb(226,232,240)] rounded-md cursor-pointer"
+                    onClick={handleRedo}
+                />
             </div>
         </Panel>
     );
