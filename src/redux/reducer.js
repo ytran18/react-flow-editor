@@ -14,10 +14,12 @@ export const flowReducer = (state = flowState, action) =>
     {
         case UPDATE_NODE: {
             const updatedNodes = action.payload;
-            const mergedNodes = [...state.flow.nodes, ...updatedNodes];
+            const flowNodes = state.flow.nodes;
+            flowNodes.push(updatedNodes);
+            
             const updatedFlow = {
                 ...state.flow,
-                nodes: mergedNodes,
+                nodes: flowNodes,
             };
         
             return {

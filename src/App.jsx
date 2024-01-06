@@ -14,7 +14,7 @@ import ReactFlow, {
 } from 'reactflow';
 
 import { useDispatch } from 'react-redux';
-import { updateNodes } from './redux/actions';
+import { updateNodes, clear } from './redux/actions';
 import { useFlowPackageHook } from './redux/hooks';
 
 import ToolBar from './components/ToolBar';
@@ -640,15 +640,17 @@ const AddNodeOnEdgeDrop = () => {
 
     const handleUndo = () => {
         console.log(flowState);
+        // dispatch(clear());
     };
 
     useEffect(() => {
         if (nodes) {
-            const existingNodes = flowState?.nodes;
-            const combinedNodes = Array.from(new Set([...existingNodes, ...nodes]));
-            dispatch(updateNodes(combinedNodes));
+            const old = flowState?.nodes[flowState?.nodes?.length - 1];
+            console.log(JSON.stringify(old) === JSON.stringify(nodes));
+            // console.log(typeof flowState?.nodes[flowState?.nodes?.length - 1]);
+            dispatch(updateNodes(nodes));
         };
-    },[nodes.length]);
+    },[nodes]);
 
     return (
         <>
