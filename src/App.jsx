@@ -98,6 +98,18 @@ const AddNodeOnEdgeDrop = () => {
 
     const { screenToFlowPosition, setViewport } = useReactFlow();
 
+    useEffect(() => {
+        const handleBeforeUnload = () => {
+            dispatch(clear());
+        };
+    
+        window.addEventListener('beforeunload', handleBeforeUnload);
+    
+        return () => {
+          window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+
     //  Change node title
     useEffect(() => {
         setNodes((nds) =>
@@ -660,7 +672,6 @@ const AddNodeOnEdgeDrop = () => {
             state.isUndo = true;
             setState(prev => ({...prev, isUndo: true}));
         };
-        // dispatch(clear());
     };
 
     const handleRedo = () => {
