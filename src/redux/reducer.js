@@ -5,7 +5,7 @@ const flowState = {
         nodes: [],
         edges: [],
     },
-    step: -1,
+    step: 0,
 };
 
 export const flowReducer = (state = flowState, action) =>
@@ -16,7 +16,7 @@ export const flowReducer = (state = flowState, action) =>
             const updatedNodes = action.payload;
             const flowNodes = state.flow.nodes;
             flowNodes.push(updatedNodes);
-            
+
             const updatedFlow = {
                 ...state.flow,
                 nodes: flowNodes,

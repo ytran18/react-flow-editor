@@ -3,5 +3,5 @@ export const selectFlowReducer = (state) => {
 };
 
 export const flowPackageSelector = (state) => {
-    return selectFlowReducer(state).flow;
+    return selectFlowReducer(state);
 };

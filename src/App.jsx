@@ -14,7 +14,7 @@ import ReactFlow, {
 } from 'reactflow';
 
 import { useDispatch } from 'react-redux';
-import { updateNodes, clear } from './redux/actions';
+import { updateNodes, clear, updateStep, updateEdges } from './redux/actions';
 import { useFlowPackageHook } from './redux/hooks';
 
 import ToolBar from './components/ToolBar';
@@ -90,6 +90,8 @@ const AddNodeOnEdgeDrop = () => {
         currEdgeType: '',
         currEdgeIsAnimated: false,
         toolbarTab: 0,
+        isUndo: false,
+        isRedo: false,
     });
     
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
@@ -639,18 +641,69 @@ const AddNodeOnEdgeDrop = () => {
     };
 
     const handleUndo = () => {
-        console.log(flowState);
+        const step = flowState?.step - 1;
+        const nodesUndo = step !== 0 ? flowState?.flow?.nodes[step] : [];
+        let element = document.getElementById('icon-back');
+        let nextElemnt = document.getElementById('icon-next');
+
+        if (step !== 0) {
+            nextElemnt.style.opacity = '1';
+            element.style.opacity = '1';
+            if (step < 0) return;
+        } else {
+            element.style.opacity = '0.5';
+        };
+
+        if (nodesUndo) {
+            setNodes(nodesUndo);
+            dispatch(updateStep(step));
+            state.isUndo = true;
+            setState(prev => ({...prev, isUndo: true}));
+        };
         // dispatch(clear());
     };
 
-    useEffect(() => {
-        if (nodes) {
-            const old = flowState?.nodes[flowState?.nodes?.length - 1];
-            console.log(JSON.stringify(old) === JSON.stringify(nodes));
-            // console.log(typeof flowState?.nodes[flowState?.nodes?.length - 1]);
-            dispatch(updateNodes(nodes));
+    const handleRedo = () => {
+        const maxStep = flowState?.flow?.nodes?.length - 1;
+        const step = flowState?.step + 1;
+        let element = document.getElementById('icon-next');
+        let backElemnt = document.getElementById('icon-back');
+
+        if (step !== maxStep) {
+            backElemnt.style.opacity = '1';
+            element.style.opacity = '1';
+            if (step > maxStep) return;
+        } else {
+            element.style.opacity = '0.5';
         };
-    },[nodes]);
+
+        const nodesRedo = flowState?.flow?.nodes[step];
+        if (nodesRedo) {
+            setNodes(nodesRedo);
+            dispatch(updateStep(step));
+            state.isRedo = true;
+            setState(prev => ({...prev, isRedo: true}));
+        };
+    };
+
+    useEffect(() => {
+        if (state.isUndo || state.isRedo) {
+            state.isUndo = false;
+            state.isRedo = false;
+            setState(prev => ({...prev, isUndo: false, isRedo: false}));
+            return;
+        };
+
+        if (nodes && !state.isUndo) {
+            const old = flowState?.flow?.nodes[flowState?.flow?.nodes?.length - 1];
+            const step = flowState?.flow?.nodes?.length;
+            const compare = JSON.stringify(old) === JSON.stringify(nodes);
+            if (!compare) {
+                dispatch(updateNodes(nodes));
+                dispatch(updateStep(step))
+            }
+        };
+    },[nodes.length, state.currNodeTitle]);
 
     return (
         <>
@@ -710,6 +763,7 @@ const AddNodeOnEdgeDrop = () => {
             </div>
             <Shape 
                 handleUndo={handleUndo}
+                handleRedo={handleRedo}
             />
         </>
     );

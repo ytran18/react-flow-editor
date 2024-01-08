@@ -9,17 +9,13 @@ import IconBack from '../../assets/back.svg';
 
 const Shape = (props) => {
 
-    const { handleUndo } = props;
+    const { handleUndo, handleRedo } = props;
 
     const store = useStore();
 
     const onDragStart = (event, nodeType) => {
         event.dataTransfer.setData('application/reactflow', nodeType);
         event.dataTransfer.effectAllowed = 'move';
-    };
-
-    const handleRedo = () => {
-
     };
 
     return (
@@ -66,11 +62,13 @@ const Shape = (props) => {
             <div className="bg-white p-1 h-fit flex items-center rounded-lg shadow-md">
                 <img
                     src={IconBack}
+                    id="icon-back"
                     className="mx-1 p-1 hover:bg-[rgb(226,232,240)] rounded-md cursor-pointer"
                     onClick={handleUndo}
                 />
                 <img
                     src={IconNext}
+                    id="icon-next"
                     className="mx-1 p-1 hover:bg-[rgb(226,232,240)] rounded-md cursor-pointer"
                     onClick={handleRedo}
                 />
