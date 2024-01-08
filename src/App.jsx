@@ -646,12 +646,12 @@ const AddNodeOnEdgeDrop = () => {
         let element = document.getElementById('icon-back');
         let nextElemnt = document.getElementById('icon-next');
 
-        if (step !== 0) {
+        if (step > 0) {
             nextElemnt.style.opacity = '1';
             element.style.opacity = '1';
-            if (step < 0) return;
         } else {
             element.style.opacity = '0.5';
+            if (step < 0) return;
         };
 
         if (nodesUndo) {
@@ -669,12 +669,12 @@ const AddNodeOnEdgeDrop = () => {
         let element = document.getElementById('icon-next');
         let backElemnt = document.getElementById('icon-back');
 
-        if (step !== maxStep) {
+        if (step < maxStep) {
             backElemnt.style.opacity = '1';
             element.style.opacity = '1';
-            if (step > maxStep) return;
         } else {
             element.style.opacity = '0.5';
+            if (step > maxStep) return;
         };
 
         const nodesRedo = flowState?.flow?.nodes[step];
