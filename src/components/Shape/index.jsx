@@ -65,12 +65,14 @@ const Shape = (props) => {
                     id="icon-back"
                     className="mx-1 p-1 hover:bg-[rgb(226,232,240)] rounded-md cursor-pointer"
                     onClick={handleUndo}
-                />
+                    style={{opacity: '0.5'}}
+                    />
                 <img
                     src={IconNext}
                     id="icon-next"
                     className="mx-1 p-1 hover:bg-[rgb(226,232,240)] rounded-md cursor-pointer"
                     onClick={handleRedo}
+                    style={{opacity: '0.5'}}
                 />
             </div>
         </Panel>

@@ -100,6 +100,10 @@ const AddNodeOnEdgeDrop = () => {
 
     useEffect(() => {
         const handleBeforeUnload = () => {
+            let element = document.getElementById('icon-next');
+            let backElemnt = document.getElementById('icon-back');
+            element.style.opacity = '0.5';
+            backElemnt.style.opacity = '0.5';
             dispatch(clear());
         };
     
@@ -706,12 +710,14 @@ const AddNodeOnEdgeDrop = () => {
         };
 
         if (nodes && !state.isUndo) {
+            let element = document.getElementById('icon-back');
             const old = flowState?.flow?.nodes[flowState?.flow?.nodes?.length - 1];
             const step = flowState?.flow?.nodes?.length;
             const compare = JSON.stringify(old) === JSON.stringify(nodes);
             if (!compare) {
                 dispatch(updateNodes(nodes));
                 dispatch(updateStep(step))
+                if (nodes.length > 0) element.style.opacity = '1';
             }
         };
     },[nodes.length, state.currNodeTitle]);
