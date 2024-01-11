@@ -29,11 +29,19 @@ export const flowReducer = (state = flowState, action) =>
         }
         
         case UPDATE_EDGE:{
-            const updateFlow = {
+            const updatedEdges = action.payload;
+            const flowEdges = state.flow.edges;
+            flowEdges.push(updatedEdges);
+
+            const updatedFlow = {
                 ...state.flow,
-                edges: action.payload,
+                edges: flowEdges,
             };
-            return { ...state, flow: updateFlow };
+        
+            return {
+                ...state,
+                flow: updatedFlow,
+            };
         }
         case UPDATE_STEP:{
             return { ...state, step: action.payload };
@@ -44,7 +52,7 @@ export const flowReducer = (state = flowState, action) =>
                     nodes: [],
                     edges: [],
                 },
-                step: -1,
+                step: 0,
             };
         }
         default:

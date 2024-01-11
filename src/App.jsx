@@ -659,6 +659,7 @@ const AddNodeOnEdgeDrop = () => {
     const handleUndo = () => {
         const step = flowState?.step - 1;
         const nodesUndo = step !== 0 ? flowState?.flow?.nodes[step] : [];
+        const edgesUndo = step !== 0 ? flowState?.flow?.edges[step] : [];
         let element = document.getElementById('icon-back');
         let nextElemnt = document.getElementById('icon-next');
 
@@ -670,8 +671,9 @@ const AddNodeOnEdgeDrop = () => {
             if (step < 0) return;
         };
 
-        if (nodesUndo) {
+        if (nodesUndo && edgesUndo) {
             setNodes(nodesUndo);
+            setEdges(edgesUndo)
             dispatch(updateStep(step));
             state.isUndo = true;
             setState(prev => ({...prev, isUndo: true}));
@@ -679,6 +681,7 @@ const AddNodeOnEdgeDrop = () => {
     };
 
     const handleRedo = () => {
+        console.log(flowState?.flow);
         const maxStep = flowState?.flow?.nodes?.length - 1;
         const step = flowState?.step + 1;
         let element = document.getElementById('icon-next');
@@ -693,8 +696,10 @@ const AddNodeOnEdgeDrop = () => {
         };
 
         const nodesRedo = flowState?.flow?.nodes[step];
-        if (nodesRedo) {
+        const edgesRedo = flowState?.flow?.edges[step];
+        if (nodesRedo && edgesRedo) {
             setNodes(nodesRedo);
+            setEdges(edgesRedo);
             dispatch(updateStep(step));
             state.isRedo = true;
             setState(prev => ({...prev, isRedo: true}));
@@ -709,18 +714,21 @@ const AddNodeOnEdgeDrop = () => {
             return;
         };
 
-        if (nodes && !state.isUndo) {
+        if ((nodes || edges) && !state.isUndo) {
             let element = document.getElementById('icon-back');
             const old = flowState?.flow?.nodes[flowState?.flow?.nodes?.length - 1];
+            const oldEdge = flowState?.flow?.edges[flowState?.flow?.edges?.length - 1];
             const step = flowState?.flow?.nodes?.length;
             const compare = JSON.stringify(old) === JSON.stringify(nodes);
-            if (!compare) {
+            const compareEdge = JSON.stringify(oldEdge) === JSON.stringify(edges);
+            if (!compare || !compareEdge) {
                 dispatch(updateNodes(nodes));
+                dispatch(updateEdges(edges));
                 dispatch(updateStep(step))
                 if (nodes.length > 0) element.style.opacity = '1';
             }
         };
-    },[nodes.length, state.currNodeTitle]);
+    },[nodes.length, state.currNodeTitle, edges]);
 
     return (
         <>
