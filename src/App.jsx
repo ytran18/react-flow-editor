@@ -681,7 +681,6 @@ const AddNodeOnEdgeDrop = () => {
     };
 
     const handleRedo = () => {
-        console.log(flowState?.flow);
         const maxStep = flowState?.flow?.nodes?.length - 1;
         const step = flowState?.step + 1;
         let element = document.getElementById('icon-next');
@@ -730,6 +729,28 @@ const AddNodeOnEdgeDrop = () => {
         };
     },[nodes.length, state.currNodeTitle, edges]);
 
+    const onNodeDragStop = (event, node) => {
+        if (node) {
+            const updatedNodes = nodes.map(nds => {
+                if (nds.id === node.id) {
+                    return {
+                        ...nds,
+                        position: {
+                            x: node.position.x,
+                            y: node.position.y
+                        }
+                    };
+                } else {
+                    return nds;
+                }
+            });
+            console.log(updatedNodes);
+            dispatch(updateNodes(updatedNodes));
+            dispatch(updateEdges(edges));
+            dispatch(updateStep(flowState?.flow?.nodes?.length));
+        };
+    };
+
     return (
         <>
             <div className="w-full h-full" ref={reactFlowWrapper}>
@@ -747,6 +768,7 @@ const AddNodeOnEdgeDrop = () => {
                     onEdgeClick={onEdgeClick}
                     onEdgeUpdate={onEdgeUpdate}
                     onPaneClick={onPaneClick}
+                    onNodeDragStop={onNodeDragStop}
                     onLoad={onLoad}
                     onDragOver={onDragOver}
                     onDrop={onDrop}
