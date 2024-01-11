@@ -26,7 +26,7 @@ const Shape = (props) => {
                 <aside>
                     <div className="text-sm text-center mb-2 select-none">Drag shape to the canvas</div>
                     <div className="w-full grid grid-cols-4">
-                        <div onDragStart={(event) => onDragStart(event, 'circle')} draggable>
+                        <div onTouchStart={(event) => onDragStart(event, 'circle')} onDragStart={(event) => onDragStart(event, 'circle')} draggable>
                             {circle}
                         </div>
                         <div onDragStart={(event) => onDragStart(event, 'rounded-rectangle')} draggable>
