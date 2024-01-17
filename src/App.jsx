@@ -93,6 +93,7 @@ const AddNodeOnEdgeDrop = () => {
         toolbarTab: 0,
         isUndo: false,
         isRedo: false,
+        isDispatch: false,
     });
     
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
@@ -116,6 +117,8 @@ const AddNodeOnEdgeDrop = () => {
     }, []);
 
     useEffect(() => {
+        let timeout = null;
+
         setNodes((nds) => {
             return nds.map((node) => {
                 if (node.id === state.currNodeId) {
@@ -147,8 +150,41 @@ const AddNodeOnEdgeDrop = () => {
                 return node;
             });
         });
+
+        const delayed = () => {
+            if (timeout) {
+                state.isDispatch = false;
+                setState(prev => ({...prev, isDispatch: false}));
+                clearTimeout(timeout)
+            } 
+    
+            timeout = setTimeout(() => {
+                state.isDispatch = true;
+                setState(prev => ({...prev, isDispatch: true}));
+            }, 2000);
+        };
+        
+        delayed();
+        
+        return () => {
+            if (timeout) {
+                state.isDispatch = false;
+                setState(prev => ({...prev, isDispatch: false}));
+                clearTimeout(timeout)
+            }
+        };
+
     }, [state.currNodeTitle, state.currNodeBg, state.currNodeBorderColor, state.currNodeFontSize,
-        state.currNodeTitleColor, state.currNodeBorderStyle, state.currNodeFontWeight, setNodes]);    
+        state.currNodeTitleColor, state.currNodeBorderStyle, state.currNodeFontWeight, setNodes]);
+        
+    useEffect(() => {
+        if (state.isDispatch) {
+            const step = flowState?.flow?.nodes?.length;
+            dispatch(updateNodes(nodes));
+            dispatch(updateEdges(edges));
+            dispatch(updateStep(step));
+        };
+    },[state.isDispatch]);
 
     useEffect(() => {
         setEdges((edge) => {
