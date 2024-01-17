@@ -136,3 +136,35 @@ export const getDefaultMarker = (edge) => {
 
     return markerStart?.type && markerEnd?.type ? 'startEnd' : 'default';
 };
+
+export const getMarkerStartAndEnd = (typeMarker, edgeColor, currEdgeMarker) => {
+    let markerEnd = null;
+    let markerStart = null;
+
+    if (typeMarker !== 'default') {
+        markerEnd = {
+            type: typeMarker,
+            color: edgeColor,
+        };
+
+        if (currEdgeMarker !== 'startEnd') {
+            markerStart = {};
+        } else {
+            markerStart = {
+                type: MarkerType.ArrowClosed,
+                orient: 'auto-start-reverse',
+                color: edgeColor,
+            };
+        };
+
+    } else {
+        markerStart = {};
+        markerEnd = {};
+    };
+
+    return { markerEnd, markerStart }
+};
+
+export const isShapeNode = (type) => {
+    return ['hexagon', 'diamond', 'arrowRectangle', 'triangle', 'parallelogram', 'cylinder', 'plus', 'rectangle', 'roundedRectangle'].includes(type);
+};

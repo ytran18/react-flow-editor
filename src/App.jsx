@@ -33,7 +33,8 @@ import RoundedRectangle from './components/Node/RoundedRectangle';
 import Rectangle from './components/Node/Rectangle';
 
 import { getColorPickerState, getDefaultMarker, getEdgeTypeMarker, getFontWeigth, getInputPickerState,
-         getNodeBackgroundColor, getNodeBorderWidth, getNodeType } from './functions';
+         getMarkerStartAndEnd,
+         getNodeBackgroundColor, getNodeBorderWidth, getNodeType, isShapeNode } from './functions';
 
 import 'reactflow/dist/style.css';
 
@@ -123,11 +124,9 @@ const AddNodeOnEdgeDrop = () => {
                         label: state.currNodeTitle,
                     };
     
-                    const condition = ['hexagon', 'diamond', 'arrowRectangle', 'triangle', 'parallelogram', 'cylinder', 'plus', 'rectangle', 'roundedRectangle'].includes(node.type);
+                    const condition = isShapeNode(node.type);
                     const backgroundColor = condition ? 'none' : state.currNodeBg;
-                    
                     const value = getFontWeigth(state.currNodeFontWeight, 'number');
-    
                     const updatedStyle = {
                         ...node.style,
                         backgroundColor: backgroundColor,
@@ -166,27 +165,7 @@ const AddNodeOnEdgeDrop = () => {
                         stroke: state.currEdgeColor,
                     };
 
-                    let markerEnd = null;
-                    let markerStart = null;
-
-                    if (typeMarker !== 'default') {
-                        markerEnd = {
-                            type: typeMarker,
-                            color: state.currEdgeColor,
-                        };
-                        if (state.currEdgeMarker !== 'startEnd') {
-                            markerStart = {};
-                        } else {
-                            markerStart = {
-                                type: MarkerType.ArrowClosed,
-                                orient: 'auto-start-reverse',
-                                color: state.currEdgeColor,
-                            };
-                        }
-                    } else {
-                        markerStart = {};
-                        markerEnd = {};
-                    };
+                    const getMarker = getMarkerStartAndEnd(typeMarker, state.currEdgeColor, state.currEdgeMarker);
 
                     return {
                         ...e,
@@ -194,8 +173,8 @@ const AddNodeOnEdgeDrop = () => {
                         style: style,
                         animated: animated,
                         type: type,
-                        markerEnd: markerEnd,
-                        markerStart: markerStart,
+                        markerEnd: getMarker.markerEnd,
+                        markerStart: getMarker.markerStart,
                     }
                 };
 
