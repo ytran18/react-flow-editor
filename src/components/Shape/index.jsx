@@ -1,22 +1,45 @@
 import React from "react";
 
-import { Panel, useStore } from 'reactflow';
+import { Panel } from 'reactflow';
 
 import { circle, roundedRetangle,retangle, hexagon, arrowRetangle, diamond, cylinder, triangle, parallelogram, plus } from '../../assets/icons';
 
 import IconNext from '../../assets/next.svg';
 import IconBack from '../../assets/back.svg';
+import IconDelete from '../../assets/delete.svg';
+import IconCopy from '../../assets/copy.svg';
+import IconSave from '../../assets/save.svg';
+import IconDown from '../../assets/arrowdown.svg';
 
 const Shape = (props) => {
 
     const { handleUndo, handleRedo } = props;
 
-    const store = useStore();
-
     const onDragStart = (event, nodeType) => {
         event.dataTransfer.setData('application/reactflow', nodeType);
         event.dataTransfer.effectAllowed = 'move';
     };
+
+    const shape = [
+        {type: 'circle', icon: circle, id: 'circle'},
+        {type: 'rounded-rectangle', icon: roundedRetangle, id: 'rounded-rectangle'},
+        {type: 'rectangle', icon: retangle, id: 'rectangle'},
+        {type: 'hexagon', icon: hexagon, id: 'hexagon'},
+        {type: 'diamond', icon: diamond, id: 'diamond'},
+        {type: 'arrow-rectangle', icon: arrowRetangle, id: 'arrow-rectangle'},
+        {type: 'triangle', icon: triangle, id: 'triangle'},
+        {type: 'cylinder', icon: cylinder, id: 'cylinder'},
+        {type: 'parallelogram', icon: parallelogram, id: 'parallelogram'},
+        {type: 'plus', icon: plus, id: 'plus'},
+    ];
+
+    const icon = [
+        {type: 'back', icon: IconBack, function: handleUndo, id: 'icon-back'},
+        {type: 'next', icon: IconNext, function: handleRedo, id: 'icon-next'},
+        {type: 'delete', icon: IconDelete, id: 'icon-delete'},
+        {type: 'copy', icon: IconCopy, id: 'icon-copy'},
+        {type: 'save', icon: IconSave, id: 'icon-save'},
+    ];
 
     return (
         <Panel position="top-left" className="flex">
@@ -26,54 +49,34 @@ const Shape = (props) => {
                 <aside>
                     <div className="text-sm text-center mb-2 select-none">Drag shape to the canvas</div>
                     <div className="w-full grid grid-cols-4">
-                        <div onTouchStart={(event) => onDragStart(event, 'circle')} onDragStart={(event) => onDragStart(event, 'circle')} draggable>
-                            {circle}
-                        </div>
-                        <div onDragStart={(event) => onDragStart(event, 'rounded-rectangle')} draggable>
-                            {roundedRetangle}
-                        </div>
-                        <div onDragStart={(event) => onDragStart(event, 'rectangle')} draggable>
-                            {retangle}
-                        </div>
-                        <div onDragStart={(event) => onDragStart(event, 'hexagon')} draggable>
-                            {hexagon}
-                        </div>
-                        <div onDragStart={(event) => onDragStart(event, 'diamond')} draggable>
-                            {diamond}
-                        </div>
-                        <div onDragStart={(event) => onDragStart(event, 'arrow-rectangle')} draggable>
-                            {arrowRetangle}
-                        </div>
-                        <div onDragStart={(event) => onDragStart(event, 'triangle')} draggable>
-                            {triangle}
-                        </div>
-                        <div onDragStart={(event) => onDragStart(event, 'cylinder')} draggable>
-                            {cylinder}
-                        </div>
-                        <div onDragStart={(event) => onDragStart(event, 'parallelogram')} draggable>
-                            {parallelogram}
-                        </div>
-                        <div onDragStart={(event) => onDragStart(event, 'plus')} draggable>
-                            {plus}
-                        </div>
+                        {shape.map((item, index) => {
+                            return (
+                                <div key={`shape-${index}`} onDragStart={(event) => onDragStart(event, item.id)} draggable>
+                                    {item.icon}
+                                </div>
+                            )
+                        })}
                     </div>
                 </aside>
             </div>
-            <div className="bg-white p-1 h-fit flex items-center rounded-lg shadow-md">
-                <img
-                    src={IconBack}
-                    id="icon-back"
-                    className="mx-1 p-1 hover:bg-[rgb(226,232,240)] rounded-md cursor-pointer"
-                    onClick={handleUndo}
-                    style={{opacity: '0.5'}}
-                    />
-                <img
-                    src={IconNext}
-                    id="icon-next"
-                    className="mx-1 p-1 hover:bg-[rgb(226,232,240)] rounded-md cursor-pointer"
-                    onClick={handleRedo}
-                    style={{opacity: '0.5'}}
-                />
+            <div className="bg-white p-1 h-[38px] flex items-center rounded-lg shadow-md mr-2">
+                {icon.map((item, index) => {
+                    return (
+                        <div key={`icon-${index}`}>
+                            <img 
+                                src={item.icon}
+                                id={item.id}
+                                className="mx-1 p-1 hover:bg-[rgb(226,232,240)] rounded-md cursor-pointer"
+                                onClick={item?.function}
+                                style={{opacity: '0.5'}}
+                            />
+                        </div>
+                    )
+                })}
+            </div>
+            <div className="bg-white cursor-pointer w-40 py-1 px-4 h-[38px] flex justify-between items-center rounded-lg shadow-md hover:bg-[rgb(241,243,247)] transition-all duration-200">
+                <div className="text-sm">Page 1</div>
+                <img src={IconDown}/>
             </div>
         </Panel>
     );
