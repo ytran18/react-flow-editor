@@ -114,220 +114,95 @@ const AddNodeOnEdgeDrop = () => {
         };
     }, []);
 
-    //  Change node title
     useEffect(() => {
-        setNodes((nds) =>
-            nds.map((node) => {
+        setNodes((nds) => {
+            return nds.map((node) => {
                 if (node.id === state.currNodeId) {
-                    node.data = {
+                    const updatedData = {
                         ...node.data,
                         label: state.currNodeTitle,
                     };
-                }
-        
-                return node;
-            })
-        );
-    }, [state.currNodeTitle, setNodes]);
-
-    // Change node background
-    useEffect(() => {
-        setNodes((nds) =>
-            nds.map((node) => {
-                if (node.id === state.currNodeId) {
+    
                     const condition = ['hexagon', 'diamond', 'arrowRectangle', 'triangle', 'parallelogram', 'cylinder', 'plus', 'rectangle', 'roundedRectangle'].includes(node.type);
                     const backgroundColor = condition ? 'none' : state.currNodeBg;
-
-                    node.style = {
+                    
+                    const value = getFontWeigth(state.currNodeFontWeight, 'number');
+    
+                    const updatedStyle = {
                         ...node.style,
                         backgroundColor: backgroundColor,
                         [`${node.type}Bg`]: state.currNodeBg !== 'none' ? state.currNodeBg : '#eee',
-                    };
-                }
-        
-                return node;
-            })
-        );
-    }, [state.currNodeBg, setNodes]);
-
-    // Change node border color
-    useEffect(() => {
-        setNodes((nds) =>
-            nds.map((node) => {
-                if (node.id === state.currNodeId) {
-                    node.style = {
-                        ...node.style,
-                        borderColor: state.currNodeBorderColor, 
-                    };
-                }
-        
-                return node;
-            })
-        );
-    }, [state.currNodeBorderColor, setNodes]);
-
-    // Change node font size
-    useEffect(() => {
-        setNodes((nds) =>
-            nds.map((node) => {
-                if (node.id === state.currNodeId) {
-                    node.style = {
-                        ...node.style,
+                        borderColor: state.currNodeBorderColor,
                         fontSize: `${state.currNodeFontSize}px`, 
+                        color: state.currNodeTitleColor,
+                        borderStyle: state.currNodeBorderStyle,
+                        fontWeight: value,
+                    };
+    
+                    return {
+                        ...node,
+                        data: updatedData,
+                        style: updatedStyle,
                     };
                 }
-        
                 return node;
-            })
-        );
-    }, [state.currNodeFontSize, setNodes]);
+            });
+        });
+    }, [state.currNodeTitle, state.currNodeBg, state.currNodeBorderColor, state.currNodeFontSize,
+        state.currNodeTitleColor, state.currNodeBorderStyle, state.currNodeFontWeight, setNodes]);    
 
-    // Change node text color
     useEffect(() => {
-        setNodes((nds) =>
-            nds.map((node) => {
-                if (node.id === state.currNodeId) {
-                    node.style = {
-                        ...node.style,
-                        color: state.currNodeTitleColor, 
-                    };
-                }
-        
-                return node;
-            })
-        );
-    }, [state.currNodeTitleColor, setNodes]);
-
-    // Change node border style
-    useEffect(() => {
-        setNodes((nds) =>
-            nds.map((node) => {
-                if (node.id === state.currNodeId) {
-                    node.style = {
-                        ...node.style,
-                        borderStyle: state.currNodeBorderStyle, 
-                    };
-                }
-        
-                return node;
-            })
-        );
-    }, [state.currNodeBorderStyle, setNodes]);
-
-    // Change node font style
-    useEffect(() => {
-        const value = getFontWeigth(state.currNodeFontWeight, 'number');
-
-        setNodes((nds) =>
-            nds.map((node) => {
-                if (node.id === state.currNodeId) {
-                    node.style = {
-                        ...node.style,
-                        fontWeight: value, 
-                    };
-                }
-        
-                return node;
-            })
-        );
-    }, [state.currNodeFontWeight, setNodes]);
-
-    //  Change edge label
-    useEffect(() => {
-        setEdges((edge) =>
-            edge.map((e) => {
+        setEdges((edge) => {
+            return edge.map((e) => {
                 if (e.id === state.currEdgeId) {
-                    e.label = state.currEdgeLabel;
-                }
-                return e;
-            })
-        );
-    }, [state.currEdgeLabel, setEdges]);
 
-    //  Change edge stroke color
-    useEffect(() => {
-        setEdges((edge) =>
-            edge.map((e) => {
-                if (e.id === state.currEdgeId) {
-                    e.style = {
-                        ...e.style,
-                        stroke: state.currEdgeColor,
-                    }
-                }
-                return e;
-            })
-        );
-    }, [state.currEdgeColor, setEdges]);
-
-    //  Change edge animated
-    useEffect(() => {
-        setEdges((edge) =>
-            edge.map((e) => {
-                if (e.id === state.currEdgeId) {
-                    e.animated = state.currEdgeIsAnimated;
-                }
-                return e;
-            })
-        );
-    }, [state.currEdgeIsAnimated, setEdges]);
-
-    //  Change edge type
-    useEffect(() => {
-        setEdges((edge) =>
-            edge.map((e) => {
-                if (e.id === state.currEdgeId) {
-                    e.style = {
+                    const label = state.currEdgeLabel;
+                    const animated = state.currEdgeIsAnimated;
+                    const type = state.currEdgeType;
+                    const typeMarker = getEdgeTypeMarker(state.currEdgeMarker);
+                    const style = {
                         ...e.style,
                         strokeWidth: state.currEdgeSize,
-                    }
-                }
-                return e;
-            })
-        );
-    }, [state.currEdgeSize, setEdges]);
+                        stroke: state.currEdgeColor,
+                    };
 
-    //  Change edge size
-    useEffect(() => {
-        setEdges((edge) =>
-            edge.map((e) => {
-                if (e.id === state.currEdgeId) {
-                    e.type = state.currEdgeType;
-                }
-                return e;
-            })
-        );
-    }, [state.currEdgeType, setEdges]);
+                    let markerEnd = null;
+                    let markerStart = null;
 
-    //  Change edge marker
-    useEffect(() => {
-        const type = getEdgeTypeMarker(state.currEdgeMarker);
-
-        setEdges((edge) =>
-            edge.map((e) => {
-                if (e.id === state.currEdgeId) {
-                    if (type !== 'default') {
-                        e.markerEnd = {
-                            type: type,
+                    if (typeMarker !== 'default') {
+                        markerEnd = {
+                            type: typeMarker,
                             color: state.currEdgeColor,
                         };
                         if (state.currEdgeMarker !== 'startEnd') {
-                            e.markerStart = {};
+                            markerStart = {};
                         } else {
-                            e.markerStart = {
+                            markerStart = {
                                 type: MarkerType.ArrowClosed,
                                 orient: 'auto-start-reverse',
                                 color: state.currEdgeColor,
                             };
                         }
                     } else {
-                        e.markerStart = {};
-                        e.markerEnd = {};
+                        markerStart = {};
+                        markerEnd = {};
                     };
-                }
+
+                    return {
+                        ...e,
+                        label: label,
+                        style: style,
+                        animated: animated,
+                        type: type,
+                        markerEnd: markerEnd,
+                        markerStart: markerStart,
+                    }
+                };
+
                 return e;
-            })
-        );
-    }, [state.currEdgeMarker, setEdges, state.currEdgeColor]);
+            });
+        });
+    }, [state.currEdgeLabel, state.currEdgeColor, state.currEdgeIsAnimated, state.currEdgeSize, state.currEdgeType, state.currEdgeMarker, setEdges]);    
 
     const onConnect = useCallback((params) => {
         connectingNodeId.current = null;
@@ -534,7 +409,6 @@ const AddNodeOnEdgeDrop = () => {
             return;
         };
     
-        console.log(reactFlowInstance);
         const position = reactFlowInstance.screenToFlowPosition({
             x: event.clientX,
             y: event.clientY,
