@@ -517,7 +517,7 @@ const AddNodeOnEdgeDrop = () => {
     },[]);
 
     const onLoad = (_reactFlowInstance) => {
-        setReactFlowInstance(_reactFlowInstance);
+        // setReactFlowInstance(_reactFlowInstance);
     };
 
     const onDragOver = useCallback((event) => {
@@ -534,6 +534,7 @@ const AddNodeOnEdgeDrop = () => {
             return;
         };
     
+        console.log(reactFlowInstance);
         const position = reactFlowInstance.screenToFlowPosition({
             x: event.clientX,
             y: event.clientY,
@@ -744,7 +745,6 @@ const AddNodeOnEdgeDrop = () => {
                     return nds;
                 }
             });
-            console.log(updatedNodes);
             dispatch(updateNodes(updatedNodes));
             dispatch(updateEdges(edges));
             dispatch(updateStep(flowState?.flow?.nodes?.length));
