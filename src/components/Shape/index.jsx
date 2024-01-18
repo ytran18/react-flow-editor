@@ -61,8 +61,8 @@ const Shape = (props) => {
                     </div>
                 </aside>
             </div>
-            <div className="bg-white mr-2 cursor-pointer w-40 py-1 px-4 h-[38px] rounded-lg shadow-md hover:bg-[rgb(241,243,247)] transition-all duration-200 relative select-none">
-                <div id="page-panel" className="w-full h-full flex justify-between items-center" onClick={() => handleDisplayPopUpPage('panel')}>
+            <div className="bg-white mr-2 cursor-pointer w-40 py-1 h-[38px] rounded-lg shadow-md hover:bg-[rgb(241,243,247)] transition-all duration-200 relative select-none">
+                <div id="page-panel" className="w-full h-full px-4 flex justify-between items-center" onClick={() => handleDisplayPopUpPage('panel')}>
                     <div className="text-xs">Page 1</div>
                     <img src={IconDown}/>
                 </div>
