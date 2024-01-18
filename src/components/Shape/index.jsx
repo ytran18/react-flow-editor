@@ -2,6 +2,8 @@ import React from "react";
 
 import { Panel } from 'reactflow';
 
+import PopUpPage from "./PopUpPage";
+
 import { circle, roundedRetangle,retangle, hexagon, arrowRetangle, diamond, cylinder, triangle, parallelogram, plus } from '../../assets/icons';
 
 import IconNext from '../../assets/next.svg';
@@ -13,7 +15,7 @@ import IconDown from '../../assets/arrowdown.svg';
 
 const Shape = (props) => {
 
-    const { handleUndo, handleRedo } = props;
+    const { handleUndo, handleRedo, isDisplayPopUpPage, handleDisplayPopUpPage } = props;
 
     const onDragStart = (event, nodeType) => {
         event.dataTransfer.setData('application/reactflow', nodeType);
@@ -74,9 +76,16 @@ const Shape = (props) => {
                     )
                 })}
             </div>
-            <div className="bg-white cursor-pointer w-40 py-1 px-4 h-[38px] flex justify-between items-center rounded-lg shadow-md hover:bg-[rgb(241,243,247)] transition-all duration-200">
-                <div className="text-sm">Page 1</div>
-                <img src={IconDown}/>
+            <div className="bg-white cursor-pointer w-40 py-1 px-4 h-[38px] rounded-lg shadow-md hover:bg-[rgb(241,243,247)] transition-all duration-200 relative select-none">
+                <div id="page-panel" className="w-full h-full flex justify-between items-center" onClick={() => handleDisplayPopUpPage('panel')}>
+                    <div className="text-sm">Page 1</div>
+                    <img src={IconDown}/>
+                </div>
+                {isDisplayPopUpPage && (
+                    <div className="absolute left-0 top-[115%]">
+                        <PopUpPage handleDisplayPopUpPage={handleDisplayPopUpPage}/>
+                    </div>
+                )}
             </div>
         </Panel>
     );

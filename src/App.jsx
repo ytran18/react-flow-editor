@@ -94,6 +94,7 @@ const AddNodeOnEdgeDrop = () => {
         isUndo: false,
         isRedo: false,
         isDispatch: false,
+        isDisplayPopUpPage: false,
     });
     
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
@@ -492,6 +493,11 @@ const AddNodeOnEdgeDrop = () => {
     };
 
     const onPaneClick = () => {
+        if (state.isDisplayPopUpPage) {
+            setState(prev => ({...prev, isDisplayPopUpPage: false}));
+            return;
+        };
+
         if (state.preventOnConnectEnd) {
             state.preventOnConnectEnd = false;
             setState(prev => ({...prev, preventOnConnectEnd: false}));
@@ -640,6 +646,11 @@ const AddNodeOnEdgeDrop = () => {
         };
     };
 
+    const handleDisplayPopUpPage = (location) => {
+        const status = state.isDisplayPopUpPage ? false: true;
+        setState(prev => ({...prev, isDisplayPopUpPage: status}));
+    };
+
     return (
         <>
             <div className="w-full h-full" ref={reactFlowWrapper}>
@@ -697,9 +708,11 @@ const AddNodeOnEdgeDrop = () => {
                     />
                 </ReactFlow>
             </div>
-            <Shape 
+            <Shape
+                isDisplayPopUpPage={state.isDisplayPopUpPage}
                 handleUndo={handleUndo}
                 handleRedo={handleRedo}
+                handleDisplayPopUpPage={handleDisplayPopUpPage}
             />
         </>
     );
