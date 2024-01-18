@@ -61,7 +61,18 @@ const Shape = (props) => {
                     </div>
                 </aside>
             </div>
-            <div className="bg-white p-1 h-[38px] flex items-center rounded-lg shadow-md mr-2">
+            <div className="bg-white mr-2 cursor-pointer w-40 py-1 px-4 h-[38px] rounded-lg shadow-md hover:bg-[rgb(241,243,247)] transition-all duration-200 relative select-none">
+                <div id="page-panel" className="w-full h-full flex justify-between items-center" onClick={() => handleDisplayPopUpPage('panel')}>
+                    <div className="text-xs">Page 1</div>
+                    <img src={IconDown}/>
+                </div>
+                {isDisplayPopUpPage && (
+                    <div className="absolute left-0 top-[115%]">
+                        <PopUpPage handleDisplayPopUpPage={handleDisplayPopUpPage}/>
+                    </div>
+                )}
+            </div>
+            <div className="bg-white p-1 h-[38px] flex items-center rounded-lg shadow-md">
                 {icon.map((item, index) => {
                     return (
                         <div key={`icon-${index}`}>
@@ -75,17 +86,6 @@ const Shape = (props) => {
                         </div>
                     )
                 })}
-            </div>
-            <div className="bg-white cursor-pointer w-40 py-1 px-4 h-[38px] rounded-lg shadow-md hover:bg-[rgb(241,243,247)] transition-all duration-200 relative select-none">
-                <div id="page-panel" className="w-full h-full flex justify-between items-center" onClick={() => handleDisplayPopUpPage('panel')}>
-                    <div className="text-sm">Page 1</div>
-                    <img src={IconDown}/>
-                </div>
-                {isDisplayPopUpPage && (
-                    <div className="absolute left-0 top-[115%]">
-                        <PopUpPage handleDisplayPopUpPage={handleDisplayPopUpPage}/>
-                    </div>
-                )}
             </div>
         </Panel>
     );
